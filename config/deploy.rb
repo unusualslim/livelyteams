@@ -2,17 +2,17 @@
 
 set :application,	'livelyteams'
 set :repo_url,		'https://github.com/unusualslim/livelyteams'
-#set :puma_threads,	[4,16]
-#set :puma_workers, 	0
+set :puma_threads,	[4,16]
+set :puma_workers, 	0
 #set :rbenv_ruby, 	'2.6.5'
 set :rbenv_type, :user
 
 set :rails_env,         'production'
 set :migration_role, :app
-#set :puma_init_active_record, true
+set :puma_init_active_record, true
 
-set :passenger_environment_variables, { :path => '/usr/bin:$PATH' }
-set :passenger_restart_command, '/usr/bin/passenger-config restart-app'
+#set :passenger_environment_variables, { :path => '/usr/bin:$PATH' }
+#set :passenger_restart_command, '/usr/bin/passenger-config restart-app'
 #append :rbenv_map_bins, %w{rake gem bundle ruby rails puma pumactl}
 
 #append :linked_files, 'config/master.key'

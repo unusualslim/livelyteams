@@ -15,7 +15,7 @@ require "capistrano/deploy"
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
 
-require "capistrano/passenger"
+#require "capistrano/passenger"
  
 # Include tasks from other gems included in your Gemfile
 #
@@ -36,6 +36,10 @@ require "capistrano/rails/assets"
 require "capistrano/rails/migrations"
 #require "capistrano/passenger"
 # require 'capistrano/puma'
+require 'capistrano/puma'
+install_plugin Capistrano::Puma
+install_plugin Capistrano::Puma::Systemd
+
 
 # install_plugin Capistrano::Puma, load_hooks: false  # Default puma tasks
 #    install_plugin Capistrano::Puma::Workers  # if you want to control the workers (in cluster mode)

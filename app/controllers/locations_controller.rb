@@ -5,7 +5,7 @@ class LocationsController < ApplicationController
  
   def show
     @location = Location.find(params[:id])
-    @location_cases = Case.where(location_id: @location.id)
+    @location_cases = Case.where(location_id: @location.id).order( created_at: :desc)
   end
  
   def new
