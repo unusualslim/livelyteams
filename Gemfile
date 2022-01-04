@@ -11,7 +11,7 @@ gem 'rails', '~> 6.0.3.1'
 gem 'pg', '~> 0.18'
 #gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
 #gem 'puma', '~> 3.7'
-gem 'puma', '~> 4.3', '>= 4.3.1'
+gem 'puma', '~> 4.3'
 gem 'bootsnap', '~> 1.3', '>= 1.3.1'
 gem 'bootstrap', '~> 4.5.2'
 # gem 'sass-rails', '>= 3.2'
