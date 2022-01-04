@@ -1,5 +1,6 @@
 <%= link_to '+', new_note_path, :class => "btn btn-primary" %>
-
+<input id="gfg" type="text" 
+                 placeholder="Search here">
 <table class="table table-hover">
   <thead>
     <tr>
@@ -7,7 +8,7 @@
       <td scope="col">Updated</td>
       <td scope="col" colspan="1"></td>
     </thead>
-    <tbody>
+    <tbody id="geeks">
       <% @notes.each do |note| %>
       <tr>
         <td><%= link_to note.title, edit_note_path(note) %></td>
@@ -18,3 +19,15 @@
     </tbody>
   </thead>
 </table>
+
+<script>
+            $(document).ready(function() {
+                $("#gfg").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#geeks tr").filter(function() {
+                        $(this).toggle($(this).text()
+                        .toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+        </script>
