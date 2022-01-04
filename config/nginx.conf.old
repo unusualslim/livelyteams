@@ -1,0 +1,22 @@
+server {
+  listen 80;
+  server_name www.livelyteams.com;
+}
+
+server {
+  listen 80;
+  server_name livelyteams.com;
+}
+
+server {
+  server_name www.livelyteams.com;
+
+  root /var/www/livelyteams/current/public;
+  
+  client_max_body_size 5M;
+  keepalive_timeout 10;
+
+  # Turn on Passenger
+  #  passenger_enabled on;
+  rails_env production;
+}
