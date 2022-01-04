@@ -1,11 +1,12 @@
 class LocationsController < ApplicationController
   def index
-    @locations = Location.order(:short_name).all
+    @locations = Location.order(:name).all
   end
  
   def show
     @location = Location.find(params[:id])
-    @location_cases = Case.where(location_id: @location.id).order( created_at: :desc)
+    @location_cases = Case.where(location_id: @location.id)
+#    @location_cases = Case.where(:location => @location.id)
   end
  
   def new
