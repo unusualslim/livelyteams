@@ -9,7 +9,7 @@ ruby '2.6.5'
 
 gem 'rails', '~> 6.0.3.1'
 gem 'pg', '~> 0.18'
-gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
+#gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
 #gem 'puma', '~> 3.7'
 gem 'puma', '~> 4.3', '>= 4.3.1'
 gem 'bootsnap', '~> 1.3', '>= 1.3.1'
@@ -44,7 +44,7 @@ group :development do
   gem 'capistrano-rbenv',        require: false
   gem 'capistrano-rails',        require: false
   gem 'capistrano-bundler',      require: false
-#  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
+  gem 'capistrano3-puma', github: "seuros/capistrano-puma"
 #  gem 'highline'
   gem 'capistrano-passenger', '>= 0.1.1'
 
