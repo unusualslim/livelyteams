@@ -24,7 +24,7 @@ gem 'devise'
 gem 'tinymce-rails'
 gem 'font-awesome-rails'
 # gem 'mini_magick'
-gem "image_processing", "~> 1.2"
+gem "image_processing", "~> 1.12"
 gem 'mini_racer'
 gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
 gem 'webpacker'
