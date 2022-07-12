@@ -3,14 +3,16 @@ Rails.application.routes.draw do
 
   root :to => "cases#index"
 
-  devise_for :users
 
   get "pages/:page" => "pages#show"   
 
-  devise_scope :user do 
-    match '/sessions/user', to: 'devise/sessions#create', via: :post
+  devise_for :users
+
+#  devise_scope :user do 
+#    get "users", to: "devise/sessions#new"
+#    match '/sessions/user', to: 'devise/sessions#create', via: :post
 #    root :to => "cases#index"
-  end
+#  end
 
   resources :admin, only: [:index] 
   resources :assets, only: [:index, :show]

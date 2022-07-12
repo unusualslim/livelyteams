@@ -7,21 +7,42 @@ end
 
 ruby '3.1.1'
 
-gem 'rails', '~> 6.0.3.1'
+#gem 'rails', '~> 6.0.3.1'
+#gem 'rails', '~> 6.1', '>= 6.1.6'
+gem 'rails', '~> 7.0', '>= 7.0.3'
 gem 'pg', '~> 1.3', '>= 1.3.5'
+
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem "sprockets-rails"
+
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "jsbundling-rails"
+
+# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
+gem "turbo-rails"
+
+# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
+gem "stimulus-rails"
+
+# Bundle and process CSS [https://github.com/rails/cssbundling-rails]
+gem "cssbundling-rails"
+
+# Build JSON APIs with ease [https://github.com/rails/jbuilder]
+gem "jbuilder"
+
 #gem 'pg', '~> 0.18'
 #gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
 #gem 'puma', '~> 3.7'
 #gem 'puma', '~> 4.3', '>= 4.3.1'
 gem 'puma', '~> 5.6', '>= 5.6.4'
 gem 'bootsnap', '~> 1.3', '>= 1.3.1'
-gem 'bootstrap', '~> 4.5.2'
+#gem 'bootstrap', '~> 4.5.2'
 # gem 'sass-rails', '>= 3.2'
-gem 'jquery-rails'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 5.0'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.5'
+#gem 'jquery-rails'
+#gem 'uglifier', '>= 1.3.0'
+#gem 'coffee-rails', '~> 5.0'
+#gem 'turbolinks', '~> 5'
+#gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'tinymce-rails'
 gem 'font-awesome-rails'
@@ -34,6 +55,7 @@ gem 'poppler', '~> 3.5', '>= 3.5.1'
 # gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
 # gem 'webpacker'
 #gem 'poppler', '~> 3.0', '>= 3.0.7'
+#gem 'net-smtp', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -55,10 +77,11 @@ group :development do
 
 
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'webrick', '~> 1.7'
+#  gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+#  gem 'spring'
+#  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
