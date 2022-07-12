@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get "pages/:page" => "pages#show"
 
-#  devise_for :users
+  devise_for :users
   devise_scope :user do
     # Redirests signing out users back to sign-in
     get "users", to: "devise/sessions#new"
