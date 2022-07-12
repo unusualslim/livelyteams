@@ -7,15 +7,15 @@ Rails.application.routes.draw do
   get "pages/:page" => "pages#show"
 
   devise_for :users
-  devise_scope :user do
+  #devise_scope :user do
     # Redirests signing out users back to sign-in
+  #  get "users", to: "devise/sessions#new"
+  #end
+  devise_scope :user do
     get "users", to: "devise/sessions#new"
+    match '/sessions/user', to: 'devise/sessions#create', via: :post
+    root :to => "cases#index"
   end
-#  devise_scope :user do
-#    get "users", to: "devise/sessions#new"
-#    match '/sessions/user', to: 'devise/sessions#create', via: :post
-#    root :to => "cases#index"
-#  end
 
   resources :admin, only: [:index]
   resources :assets, only: [:index, :show]
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
 #  resources :teams do
 #    resources :team_members
 #  end
-  resources :user
+  #resources :user
   resources :things
   resources :notes
   resources :severities
