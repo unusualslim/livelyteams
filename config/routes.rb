@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "users", to: "devise/sessions#new"
     match '/sessions/user', to: 'devise/sessions#create', via: :post
-    root :to => "cases#index"
+#    root :to => "cases#index"
   end
 
   resources :admin, only: [:index]
