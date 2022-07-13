@@ -2,7 +2,7 @@
 <h1 style="display: inline;"><%= @location.short_name %> <small><%= @location.name %> </small></h1><%= link_to 'edit', edit_location_path(@location.id) %>
 <p><%= @location.address1 %> <%= @location.address2 %>
   <%= @location.city %>, <%= @location.state %> <%= @location.zip %>
-   <br> <%= link_to @location.phone, "tel:#{@location.phone}" %> 
+   <br> <%= link_to @location.phone, "tel:#{@location.phone}" %>
 </p>
 <h2>Notes</h2>
 <%= @location.note.html_safe unless @location.note.blank?  %>
@@ -22,7 +22,7 @@
   </thead>
 
   <tbody>
-  <% @location.case_locations.each do |task| %>
+  <% @location.case_locations.order(updated_at: :desc).each do |task| %>
     <tr scope="row">
       <td><%= link_to task.case.id, case_path(task.case) %></td>
       <td><%= task.case.subject %></td>
@@ -61,7 +61,3 @@
     <%= form.submit %>
   </p>
 <% end %>
-
-
-
-
