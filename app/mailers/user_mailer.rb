@@ -1,9 +1,9 @@
 class UserMailer < ApplicationMailer
-  default from: 'notifications@printerdown.com'
+  default from: 'no-reply@livelyteams.com'
 
   def welcome_email(user)
     @user = user
-    @url = 'http://printrdwn.com:3000/login'
-    mail(to: @user.email, subject: 'Welcome to printrdwn.com')
+    @url = '#{ENV("HOSTNAME")}/login'
+    mail(to: @user.email, subject: 'Welcome to #{ENV("HOSTNAME")}')
   end
 end

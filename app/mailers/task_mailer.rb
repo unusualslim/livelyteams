@@ -1,8 +1,8 @@
 class TaskMailer < ApplicationMailer
-  default from: 'notifcations@livelyteams.com'
+  default from: 'no-reply@livelyteams.com'
 
   def new_task_email(task)
-    @task = task   
+    @task = task
     mail(to: [@task.requested_by.email, @task.assigned_to.email],  subject: 'You have created a new task')
   end
 

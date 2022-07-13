@@ -1,17 +1,17 @@
 class CaseMailer < ApplicationMailer
-default from: 'notifcations@livelyteams.com'
+default from: 'no-reply@livelyteams.com'
 
  def new_case_email(new_case)
    @case = new_case
    recipient = []
    @case.case_users.each do |cu|
-     recipient.push(cu.user.email)    
+     recipient.push(cu.user.email)
    end
    recipient.push(@case.requested_by.email)
    recipient.push(@case.assigned_to.email)
- 
+
     mail(
-       to: recipient.uniq,  
+       to: recipient.uniq,
        subject: "[#{@case.severity.severity}] Case No. #{@case.id} #{@case.subject}"
      )
  end
@@ -42,7 +42,7 @@ default from: 'notifcations@livelyteams.com'
 
     mail(
        to: recipient.uniq,
-       subject: "Case No. #{@case.id} has a new comment"  
+       subject: "Case No. #{@case.id} has a new comment"
     )
  end
 
