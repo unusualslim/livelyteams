@@ -2,9 +2,9 @@
 <%= link_to 'Billable Cases', billable_cases_path %>
 <%= link_to 'Closed Cases', closed_cases_path %>
 <h2>Closed Cases (<%= @closed_cases.count %>)</h2>
-<%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>  
-<input id="gfg" type="text" placeholder="Search here"> 
-      
+<%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
+<input id="gfg" type="text" placeholder="Search here">
+<div class="table-responsive">
 <table class="table table-responsive">
   <thead>
     <tr>
@@ -54,21 +54,20 @@
     <td><%= c.severity.severity unless c.severity.blank? %></td>
     <td><%= c.created_at.strftime("%B %d, %Y")  %></td>
     <td><%= link_to 'Edit', edit_case_path(c) %></td>
-    <td><%= link_to 'X', case_path(c), method: :delete, data: {confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
+    <td><%= link_to 'X', case_path(c), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
   </tr>
   <% end %>
   </tbody>
 </table>
-<script> 
-            $(document).ready(function() { 
-                $("#gfg").on("keyup", function() { 
-                    var value = $(this).val().toLowerCase(); 
-                    $("#geeks tr").filter(function() { 
-                        $(this).toggle($(this).text() 
-                        .toLowerCase().indexOf(value) > -1) 
-                    }); 
-                }); 
-            }); 
-</script> 
-
-
+</div>
+<script>
+            $(document).ready(function() {
+                $("#gfg").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#geeks tr").filter(function() {
+                        $(this).toggle($(this).text()
+                        .toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+</script>
