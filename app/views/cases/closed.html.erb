@@ -21,7 +21,7 @@
           <%= link_to "#{tl.location.short_name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-info" %>
           <% end %>
         </div>
-        <div class="col-md-2"><%= c.updated_at.strftime("%A, %b %d, %Y - %l:%M %p")  %></div>
+        <div class="col-md-2 text-wrap"><%= c.updated_at.strftime("%A, %b %d, %Y - %l:%M %p")  %></div>
   </div>
   <% end %>
 </div>
