@@ -4,70 +4,53 @@
 <h2>Closed Cases (<%= @closed_cases.count %>)</h2>
 <%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
 <input id="gfg" type="text" placeholder="Search here">
-<div class="table-responsive">
-<table class="table table-responsive">
-  <thead>
-    <tr>
-      <th scope="col">Case No.</th>
-      <th scope="col">Subject</th>
-      <th scope="col">Locations</th>
-<!--      <th scope="col">Requested By</th>-->
-      <th scope="col">Assigned To</th>
-      <th scope="col">Comments</th>
-      <th scope="col">Attachments</th>
-      <th scope="col">Status</th>
-      <th scope="col">Severity</th>
-      <th scope="col">Created On</th>
-      <th scope="col" colspan="2"></th>
-    </tr>
-  </thead>
+<div class="container">
+  <div class="row">
 
-  <tbody id="geeks">
+    <div class="col-md-auto">Case No.</div>
+    <div class="col-md-auto">Subject</div>
+    <div class="col-md-auto">Locations</div>
+    <!--      <div class="col-md-auto">Requested By</div>-->
+    <div class="col-md-auto">Assigned To</div>
+    <div class="col-md-auto">Comments</div>
+    <div class="col-md-auto">Attachments</div>
+    <div class="col-md-auto">Status</div>
+    <div class="col-md-auto">Severity</div>
+    <div class="col-md-auto">Created On</div>
+    <div class="col-md-auto"></div>
+  </div>
   <% @closed_cases.each do |c| %>
   <% case  c.severity.severity
-    when "Urgent" %>
-      <tr scope="row" class="table-danger">
+  when "Urgent" %>
+  <div class="row" class="table-danger">
     <% when "Low"  %>
-      <tr scope="row" class="table-secondary">
-    <% else %>
-      <tr scope="row" class="table-white">
-  <% end %>
-    <td><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></td>
-    <td><%= c.subject %></td>
-    <td><% c.case_locations.each do |tl| %>
-          <%= link_to "#{tl.location.short_name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-info" %>
+    <div class="row" class="table-secondary">
+      <% else %>
+      <div class="row" class="table-white">
         <% end %>
-    </td>
-   <!-- <td><%# c.requested_by.email unless c.requested_by.blank? %></td>-->
-    <td><%= c.assigned_to.email unless c.assigned_to.blank? %></td>
-    <td><span class="badge badge-dark"><%= c.case_comments.count %></span></td>
-    <td><span class="badge badge-dark"><%= c.files.count %></span></td>
-    <% case c.status.status
-      when 'Open' %>
-        <td><span class="dot"></span><%= c.status.status unless c.status.blank? %></td>
-      <% when 'In progress' %>
-        <td><span class="spinner-border spinner-border-sm"></span> <%= c.status.status unless c.status.blank? %></td>
-      <% when 'Complete: Billable' %>
-        <td><span class="badge badge-success"><%= c.status.status unless c.status.blank? %></span></td>
-    <% end %>
+        <div class="col-md-auto"><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></div>
+        <div class="col-md-auto"><%= c.subject %></div>
+        <div class="col-md-auto"><% c.case_locations.each do |tl| %>
+          <%= link_to "#{tl.location.short_name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-info" %>
+          <% end %>
+        </div>
+        <!-- <div class="col-md-auto"><%# c.requested_by.email unless c.requested_by.blank? %></div>-->
+        <div class="col-md-auto"><%= c.assigned_to.email unless c.assigned_to.blank? %></div>
+        <div class="col-md-auto"><span class="badge badge-dark"><%= c.case_comments.count %></span></div>
+        <div class="col-md-auto"><span class="badge badge-dark"><%= c.files.count %></span></div>
+        <% case c.status.status
+        when 'Open' %>
+        <div class="col-md-auto"><span class="dot"></span><%= c.status.status unless c.status.blank? %></div>
+        <% when 'In progress' %>
+        <div class="col-md-auto"><span class="spinner-border spinner-border-sm"></span> <%= c.status.status unless c.status.blank? %></div>
+        <% when 'Complete: Billable' %>
+        <div class="col-md-auto"><span class="badge badge-success"><%= c.status.status unless c.status.blank? %></span></div>
+        <% end %>
 
-    <td><%= c.severity.severity unless c.severity.blank? %></td>
-    <td><%= c.created_at.strftime("%B %d, %Y")  %></td>
-    <td><%= link_to 'Edit', edit_case_path(c) %></td>
-    <td><%= link_to 'X', case_path(c), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
-  </tr>
-  <% end %>
-  </tbody>
-</table>
-</div>
-<script>
-            $(document).ready(function() {
-                $("#gfg").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#geeks tr").filter(function() {
-                        $(this).toggle($(this).text()
-                        .toLowerCase().indexOf(value) > -1)
-                    });
-                });
-            });
-</script>
+        <div class="col-md-auto"><%= c.severity.severity unless c.severity.blank? %></div>
+        <div class="col-md-auto"><%= c.created_at.strftime("%B %d, %Y")  %></div>
+        <div class="col-md-auto"><%= link_to 'Edit', edit_case_path(c) %></div>
+        <div class="col-md-auto"><%= link_to 'X', case_path(c), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></div>
+      </div>
+      <% end %>
+    </div>
