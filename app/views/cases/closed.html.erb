@@ -4,7 +4,7 @@
 <h2>Closed Cases (<%= @closed_cases.count %>)</h2>
 <%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
 
-<div class="container-fluid">
+<div class="container">
   <div class="row">
 
     <div class="col-md-2">Case No.</div>
@@ -17,7 +17,7 @@
   <% @closed_cases.each do |c| %>
   <div class="row">
         <div class="col-md-2"><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></div>
-        <div class="col-md-2"><%= c.subject %></div>
+        <div class="col-md-4"><%= c.subject %></div>
         <div class="col-md-2"><% c.case_locations.each do |tl| %>
           <%= link_to "#{tl.location.short_name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-info" %>
           <% end %>
