@@ -33,7 +33,7 @@
     <td><%= task.status.status unless task.status.blank? %></td>
     <td><%= task.severity.severity unless task.severity.blank? %></td>
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
-    <td><%= link_to 'X', task_path(task), method: :delete, data: {confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
+    <td><%= link_to 'X', task_path(task), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
   </tr>
   <% end %>
   </tbody>

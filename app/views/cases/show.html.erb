@@ -1,6 +1,6 @@
 <%= link_to '<', cases_path, :class => "btn btn-secondary" %>
 <%= link_to 'Edit', edit_case_path(@case.id), :class => "btn btn-primary" %>
-<%= link_to 'X', case_path(@case.id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
+<%= link_to 'X', case_path(@case.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger" %>
 <%= link_to 'Mark Billable', change_status_to_complete_billable_case_path(@case.id), method: :put, :class => "btn btn-link" %>
 <%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), method: :put, :class => "btn btn-link" %>
 <p>
@@ -61,4 +61,3 @@
 <h2>Comments</h2>
   <%= render @case.case_comments %>
   <%= render 'case_comments/form' %>
-

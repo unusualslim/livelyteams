@@ -1,6 +1,6 @@
 
 <%= link_to 'Edit', edit_task_path(@task.id), :class => "btn btn-primary" %>
-<%= link_to 'X', task_path(@task.id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
+<%= link_to 'X', task_path(@task.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger" %>
 <p>
   <strong>Task List</strong>
   <%= @task.task_list.name %>

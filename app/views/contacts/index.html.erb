@@ -17,14 +17,12 @@
     <tr scope="row">
       <td><%= link_to contact.company, contact_path(contact) %></td>
       <td><%= contact.first_name %></td>
-      <td><%= contact.last_name %></td> 
+      <td><%= contact.last_name %></td>
       <td><%= contact.email %></td>
       <td><%= contact.work_number %></td>
       <td><%= link_to 'edit', edit_contact_path(contact) %></td>
-      <td><%= link_to 'X', contact_path(contact), method: :delete, data: {confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
+      <td><%= link_to 'X', contact_path(contact), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
-
-

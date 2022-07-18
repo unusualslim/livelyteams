@@ -7,10 +7,10 @@
 <br />
 <h2>Open Cases (<%= @open_cases.count %>)</h2>
 <br />
-<%= link_to 'New Case', new_case_path, :class => "btn btn-success" %>  
-<input id="gfg" type="text" placeholder="Search here"> 
-<br /> 
-<br />      
+<%= link_to 'New Case', new_case_path, :class => "btn btn-success" %>
+<input id="gfg" type="text" placeholder="Search here">
+<br />
+<br />
 
 <table class="table table-responsive">
   <thead>
@@ -36,7 +36,7 @@
     <% else %>
       <tr scope="row" class="table-white">
   <% end %>
-    <td> 
+    <td>
       <% case c.status.status
          when 'In progress' %>
           <span class="spinner-border spinner-border-sm"></span>
@@ -44,19 +44,19 @@
           <span class="badge badge-success"><%= c.status.status unless c.status.blank? %></span>
       <% end %>
     </td>
-    <td><%= link_to c.id, case_path(c) %></td>     
-    <td><%= c.subject %></td>    
+    <td><%= link_to c.id, case_path(c) %></td>
+    <td><%= c.subject %></td>
     <td><%= c.assigned_to.email %></td>
     <td><small class="text-muted"> Created on <%= c.created_at.strftime("%b %d, %Y")  %></small></td>
-    <td><button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseLocations<%= c.id %>" aria-expanded="false" aria-controls="collapseLocations<%= c.id %>">
+    <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocations<%= c.id %>" aria-expanded="false" aria-controls="collapseLocations<%= c.id %>">
           <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
         </button>
     </td>
-    <td><button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">
+    <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">
           Comments (<%= c.case_comments.count %>)
         </button>
      </td>
-     <td><button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseAttachments<%= c.id %>" aria-expanded="false" aria-controls="collapseAttachments<%= c.id %>">
+     <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttachments<%= c.id %>" aria-expanded="false" aria-controls="collapseAttachments<%= c.id %>">
           Attachments (<%= c.files.count %>)
          </button>
      </td>
@@ -94,16 +94,14 @@
 </table>
 
 
-<script> 
-            $(document).ready(function() { 
-                $("#gfg").on("keyup", function() { 
-                    var value = $(this).val().toLowerCase(); 
-                    $("#geeks tr").filter(function() { 
-                        $(this).toggle($(this).text() 
-                        .toLowerCase().indexOf(value) > -1) 
-                    }); 
-                }); 
-            }); 
-</script> 
-
-
+<script>
+            $(document).ready(function() {
+                $("#gfg").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#geeks tr").filter(function() {
+                        $(this).toggle($(this).text()
+                        .toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+</script>
