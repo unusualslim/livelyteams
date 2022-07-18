@@ -4,52 +4,27 @@
 <h2>Closed Cases (<%= @closed_cases.count %>)</h2>
 <%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
 
-    <div class="col-md-1">Case No.</div>
-    <div class="col-md-2">Subject</div>
+    <div class="col-md-2">Case No.</div>
+    <div class="col-md-4">Subject</div>
     <div class="col-md-2">Locations</div>
     <!--      <div class="col-md-4">Requested By</div>-->
-    <div class="col-md-1">Assigned To</div>
-    <div class="col-md-1">Comments</div>
-    <div class="col-md-1">Attachments</div>
-    <div class="col-md-1">Status</div>
-    <div class="col-md-1">Severity</div>
-    <div class="col-md-1">Created On</div>
-    <div class="col-md-1"></div>
+    <div class="col-md-2">Assigned To</div>
+    <div class="col-md-2">Updated At</div>
   </div>
   <% @closed_cases.each do |c| %>
-  <% case  c.severity.severity
-  when "Urgent" %>
-  <div class="row" class="table-danger">
-    <% when "Low"  %>
-    <div class="row" class="table-secondary">
-      <% else %>
-      <div class="row" class="table-white">
-        <% end %>
-        <div class="col-md-1"><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></div>
+  <div class="row">
+        <div class="col-md-2"><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></div>
         <div class="col-md-2"><%= c.subject %></div>
         <div class="col-md-2"><% c.case_locations.each do |tl| %>
           <%= link_to "#{tl.location.short_name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-info" %>
           <% end %>
         </div>
         <!-- <div class="col-md-4"><%# c.requested_by.email unless c.requested_by.blank? %></div>-->
-        <div class="col-md-1"><%= c.assigned_to.email unless c.assigned_to.blank? %></div>
-        <div class="col-md-1"><span class="badge badge-dark"><%= c.case_comments.count %></span></div>
-        <div class="col-md-1"><span class="badge badge-dark"><%= c.files.count %></span></div>
-        <% case c.status.status
-        when 'Open' %>
-        <div class="col-md-1"><span class="dot"></span><%= c.status.status unless c.status.blank? %></div>
-        <% when 'In progress' %>
-        <div class="col-md-1"><span class="spinner-border spinner-border-sm"></span> <%= c.status.status unless c.status.blank? %></div>
-        <% when 'Complete: Billable' %>
-        <div class="col-md-1"><span class="badge badge-success"><%= c.status.status unless c.status.blank? %></span></div>
-        <% end %>
-
-        <div class="col-md-1"><%= c.severity.severity unless c.severity.blank? %></div>
-        <div class="col-md-1"><%= c.created_at.strftime("%B %d, %Y")  %></div>
-        <div class="col-md-1"><%= link_to 'Edit', edit_case_path(c) %> | <%= link_to 'X', case_path(c), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></div>
-      </div>
-      <% end %>
-    </div>
+        <div class="col-md-2"><%= c.assigned_to.email unless c.assigned_to.blank? %></div>
+        <div class="col-md-2"><%= c.updated_at.strftime("%B %d, %Y")  %></div>
+  </div>
+  <% end %>
+</div>
