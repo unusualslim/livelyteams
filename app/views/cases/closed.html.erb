@@ -7,21 +7,21 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-md-2">Case No.</div>
-    <div class="col-md-4">Subject</div>
-    <div class="col-md-4">Locations</div>
+    <div class="col-md-1 fw-bold">Case No.</div>
+    <div class="col-md-4 fw-bold">Subject</div>
+    <div class="col-md-4 fw-bold">Locations</div>
     <!--      <div class="col-md-4">Requested By</div>-->
-    <div class="col-md-2">Last Updated</div>
+    <div class="col-md-3 fw-bold">Last Updated</div>
   </div>
   <% @closed_cases.each do |c| %>
-  <div class="row">
-        <div class="col-md-2"><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></div>
+  <div class="row border border-secondary">
+        <div class="col-md-1"><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></div>
         <div class="col-md-4"><%= c.subject %></div>
         <div class="col-md-4"><% c.case_locations.each do |tl| %>
           <%= link_to "#{tl.location.short_name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-info" %>
           <% end %>
         </div>
-        <div class="col-md-2 text-wrap"><%= c.updated_at.strftime("%A, %b %d, %Y - %l:%M %p")  %></div>
+        <div class="col-md-3 overflow-auto"><%= c.updated_at.strftime("%A, %b %d, %Y - %l:%M %p")  %></div>
   </div>
   <% end %>
 </div>
