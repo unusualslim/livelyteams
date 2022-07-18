@@ -4,7 +4,7 @@
 <h2>Closed Cases (<%= @closed_cases.count %>)</h2>
 <%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
 
     <div class="col-sm-2 fw-bold">Case No.</div>
@@ -23,5 +23,6 @@
         </div>
         <div class="col-sm-2 overflow-auto"><%= c.updated_at.strftime("%A, %b %d, %Y - %l:%M %p")  %></div>
   </div>
+  <div class="row border-top border-dark"></div>
   <% end %>
 </div>
