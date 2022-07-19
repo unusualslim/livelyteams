@@ -56,7 +56,7 @@ class CasesController < ApplicationController
     @case = Case.find(params[:id])
     if @case.update_attribute(:status_id,3)
       CaseMailer.closed_case_email(@case).deliver_later
-      redirect_back(fallback_location: cases_path)
+      redirect_back fallback_location: cases_path, flash: {notice: "Status Updated to Closed"}
     else
       render 'edit'
     end
@@ -66,7 +66,7 @@ class CasesController < ApplicationController
     @case = Case.find(params[:id])
     if @case.update_attribute(:status_id,4)
       CaseMailer.billable_case_email(@case).deliver_later
-      redirect_back(fallback_location: cases_path)
+      redirect_back fallback_location: cases_path, flash: {notice: "Status Updated to Complete:Billable"}
     else
       render 'edit'
     end
