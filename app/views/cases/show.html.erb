@@ -5,14 +5,14 @@
 <%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), data: {turbo_method: :put}, :class => "btn btn-link" %>
 <p>
   <strong>Case No.</strong>
-  <%= @case.id %>
+  <%= @case.id %>   <%= @case.status.status unless @case.status.blank? %>
 </p>
 <p>
   <strong>Subject</strong>
   <%= @case.subject %>
 </p>
-<p><strong>Created On:</strong> <%= @case.created_at.strftime("%B %d, %Y")  %></br>
-   <strong>Last updated:</strong> <%= @case.updated_at.strftime("%B %d, %Y")  %></br>
+<p><strong>Created On:</strong> <%= @case.created_at.strftime("%B %d, %Y")  %><br>
+   <strong>Last updated:</strong> <%= @case.updated_at.strftime("%A, %b %d, %Y - %l:%M %p")  %><br>
 </p>
 
 <p>
@@ -35,13 +35,6 @@
   <%= cu.user.email %>
   <br />
   <% end %>
-</p>
-
-
-
-<p>
-  <strong>Status</strong>
-  <%= @case.status.status unless @case.status.blank? %>
 </p>
 <p>
   <strong>Description</strong>
