@@ -8,11 +8,11 @@
 <h2>Open Cases (<%= @open_cases.count %>)</h2>
 <br />
 <%= link_to 'New Case', new_case_path, :class => "btn btn-success" %>
-<input id="gfg" type="text" placeholder="Search here">
+<input id="table_search" type="text" placeholder="Search here">
 <br />
 <br />
 <div class="table-responsive-sm">
-<table class="table">
+<table id="cases" class="table">
   <thead>
     <tr>
       <th scope="col" colspan="1"></th>
@@ -26,7 +26,7 @@
     </tr>
   </thead>
 
-  <tbody id="geeks">
+  <tbody id="searchable">
   <% @open_cases.each do |c| %>
   <% case  c.severity.severity
     when "Urgent" %>
@@ -93,16 +93,3 @@
   </tbody>
 </table>
 </div>
-
-
-<script>
-            $(document).ready(function() {
-                $("#gfg").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#geeks tr").filter(function() {
-                        $(this).toggle($(this).text()
-                        .toLowerCase().indexOf(value) > -1)
-                    });
-                });
-            });
-</script>
