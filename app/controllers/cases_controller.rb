@@ -67,8 +67,9 @@ class CasesController < ApplicationController
     if @case.update_attribute(:status_id,4)
       CaseMailer.billable_case_email(@case).deliver_later
       redirect_to @case
-    else 
+    else
       render 'edit'
+    end
   end
 
 
