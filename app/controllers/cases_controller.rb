@@ -66,7 +66,7 @@ class CasesController < ApplicationController
     @case = Case.find(params[:id])
     if @case.update_attribute(:status_id,4)
       CaseMailer.billable_case_email(@case).deliver_later
-      redirect_back cases_path
+      redirect_to cases_path
     else
       render 'edit'
     end
