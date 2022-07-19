@@ -1,8 +1,8 @@
-<%= link_to '<', cases_path, :class => "btn btn-secondary" %>
-<%= link_to 'Edit', edit_case_path(@case.id), :class => "btn btn-primary" %>
-<%= link_to 'X', case_path(@case.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger" %>
-<%= link_to 'Mark Billable', change_status_to_complete_billable_case_path(@case.id), data: {tubo_method: :put}, :class => "btn btn-link" %>
-<%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), data: {turbo_method: :put}, :class => "btn btn-link" %>
+<%= link_to 'Back', cases_path, :class => "link-secondary" %> |
+<%= link_to 'Edit', edit_case_path(@case.id), :class => "link-primary" %> |
+<%= link_to 'Delete', case_path(@case.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "link-danger" %> |
+<%= link_to 'Mark Billable', change_status_to_complete_billable_case_path(@case.id), data: {tubo_method: :put}, :class => "link-primary" %>
+<%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %>
 <p>
   <strong>Case No.</strong>
   <%= @case.id %>   <%= @case.status.status unless @case.status.blank? %>
