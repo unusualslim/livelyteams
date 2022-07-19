@@ -1,5 +1,5 @@
 class CasesController < ApplicationController
-  
+
   def index
     @open_cases = Case.where.not(status: [3,4]).order( created_at: :desc)
   end
@@ -13,17 +13,17 @@ class CasesController < ApplicationController
   end
 
   def show
-    @case = Case.find(params[:id]) 
+    @case = Case.find(params[:id])
   end
- 
+
   def new
     @case = Case.new
   end
- 
+
   def edit
     @case = Case.find(params[:id])
   end
- 
+
   def create
     @case = Case.new(case_params)
     if @case.save
@@ -33,39 +33,42 @@ class CasesController < ApplicationController
       render 'new'
     end
   end
- 
+
   def update
     @case = Case.find(params[:id])
- 
+
     if @case.update(case_params)
-      CaseMailer.update_case_email(@case).deliver_later   
+      CaseMailer.update_case_email(@case).deliver_later
       redirect_to @case
     else
       render 'edit'
     end
   end
- 
+
   def destroy
     @case = Case.find(params[:id])
     @case.destroy
- 
+
     redirect_to cases_path
   end
 
   def change_status_to_closed
     @case = Case.find(params[:id])
-    @case.update_attribute(:status_id,3)
-    CaseMailer.closed_case_email(@case).deliver_later
-    
-    redirect_to cases_path
-  end 
+    if @case.update_attribute(:status_id,3)
+      CaseMailer.closed_case_email(@case).deliver_later
+      redirect_to @case
+    else
+      render 'edit'
+    end
+  end
 
   def change_status_to_complete_billable
     @case = Case.find(params[:id])
-    @case.update_attribute(:status_id,4)
-    CaseMailer.billable_case_email(@case).deliver_later
-
-    redirect_to cases_path
+    if @case.update_attribute(:status_id,4)
+      CaseMailer.billable_case_email(@case).deliver_later
+      redirect_to @case
+    else 
+      render 'edit'
   end
 
 
