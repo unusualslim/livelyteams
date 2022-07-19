@@ -54,22 +54,18 @@ class CasesController < ApplicationController
 
   def change_status_to_closed
     @case = Case.find(params[:id])
-    if @case.update_attribute(:status_id,3)
-      CaseMailer.closed_case_email(@case).deliver_later
-      redirect_to @case
-    else
-      render 'edit'
-    end
+    @case.update_attribute(:status_id,3)
+    CaseMailer.closed_case_email(@case).deliver_later
+    redirect_to @case
+
   end
 
   def change_status_to_complete_billable
     @case = Case.find(params[:id])
-    if @case.update_attribute(:status_id,4)
-      CaseMailer.billable_case_email(@case).deliver_later
-      redirect_to @case
-    else
-      render 'edit'
-    end
+    @case.update_attribute(:status_id,4)
+    CaseMailer.billable_case_email(@case).deliver_later
+    redirect_to @case
+
   end
 
 
