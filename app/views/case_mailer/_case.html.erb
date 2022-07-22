@@ -2,22 +2,20 @@
 <strong><%= link_to "Case No. #{@case.id}", "https://livelyteams.com/cases/#{@case.id}" %></strong>
 </p>
 <p>
+  <span class="badge bg-secondary"><%= @case.status.status unless @case.status.blank? %></span>
   <strong>Subject:</strong>
   <%= @case.subject %>
 </p>
 <p>
   <strong>Location(s):</strong><br>
   <% @case.case_locations.each do  |cl| %>
-  <%= cl.location.name %><br>
+  <%= link_to cl.location.name, location_path(cl.location) %><br>
   <%= link_to cl.location.phone, "tel:#{cl.location.phone}"  %><br>
   <%= cl.location.address1 %> <%= cl.location.address2 %><br>
   <%= cl.location.city %>, <%= cl.location.state %> <%= cl.location.zip %>
   <% end %>
 </p>
 <p>
-  <strong>Status:</strong>
-  <%= @case.status.status unless @case.status.blank? %>
-  <br>
   <strong>Severity:</strong>
   <%= @case.severity.severity unless @case.severity.blank? %>
   <br>
@@ -34,4 +32,3 @@
 
 <h3>Comments</h3>
   <%= render @case.case_comments %>
-
