@@ -3,7 +3,7 @@
 <%= link_to 'Delete', case_path(@case.id), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "link-danger" %> |
 <%= link_to 'Mark Billable', change_status_to_complete_billable_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
 <%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %>
-<%= link_to 'print', order_path, :onclick => 'window.print();return false;'%>
+<%= link_to 'Print', case_path, :onclick => 'window.print();return false;'%>
 <p>
   <strong>Case No.</strong>
   <%= @case.id %> <span class="badge bg-secondary"><%= @case.status.status unless @case.status.blank? %></span>
