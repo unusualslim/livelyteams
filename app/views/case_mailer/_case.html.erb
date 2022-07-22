@@ -1,5 +1,5 @@
 <p> To view the most recent updates to this case go to: <br>
-<strong><%= link_to "Case No. #{@case.id}", "https://#{{ENV['HOSTNAME']}}/cases/#{@case.id}" %></strong>
+<strong><%= link_to "Case No. #{@case.id}", "https://#{ENV['HOSTNAME']}/cases/#{@case.id}" %></strong>
 </p>
 <p>
   <strong>Subject:</strong>
@@ -8,7 +8,7 @@
 <p>
   <strong>Location(s):</strong><br>
   <% @case.case_locations.each do  |cl| %>
-  <%= link_to cl.location.name, "https://#{{ENV['HOSTNAME']}}/locations/#{cl.location.id}" %><br>
+  <%= link_to cl.location.name, "https://#{ENV['HOSTNAME']}/locations/#{cl.location.id}" %><br>
   <%= link_to cl.location.phone, "tel:#{cl.location.phone}"  %><br>
   <%= cl.location.address1 %> <%= cl.location.address2 %><br>
   <%= cl.location.city %>, <%= cl.location.state %> <%= cl.location.zip %>
