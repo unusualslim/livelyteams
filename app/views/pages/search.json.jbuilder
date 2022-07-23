@@ -1,7 +1,7 @@
 json.cases do
-  json.array!(@cases) do |case|
-    json.name case.subject
-    json.url case_path(case)
+  json.array!(@cases) do |c|
+    json.name c.subject
+    json.url case_path(c)
   end
 end
 

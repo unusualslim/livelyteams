@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col">
     <h1>Cases</h1>
-    <% @cases.each do |case| %>
-      <p><%= link_to "Case No. #{case.id}", case %><br>
-         subject: <%= case.subject %><br>
-         body:<%= case.body %><br>
-         asset:<%= case.location.name %></p>
+    <% @cases.each do |c| %>
+      <p><%= link_to "Case No. #{c.id}", case %><br>
+         subject: <%= c.subject %><br>
+         body:<%= c.body %><br>
+         location:<%= c.case_locations.first.location.name %></p>
     <% end %>
   </div>
 
