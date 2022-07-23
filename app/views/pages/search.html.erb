@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col">
+    <h1>Cases</h1>
+    <% @cases.each do |case| %>
+      <p><%= link_to "Case No. #{case.id}", case %><br>
+         subject: <%= case.subject %><br>
+         body:<%= case.body %><br>
+         asset:<%= case.location.name %></p>
+    <% end %>
+  </div>
+
+  <div class="col">
+    <h1>Locations</h1>
+    <% @locations.each do |location| %>
+      <p><%= link_to location.name, location %></p>
+    <% end %>
+  </div>
+</div>
