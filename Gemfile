@@ -30,6 +30,8 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'ransack', '~>3.2.0'
+
 #gem 'pg', '~> 0.18'
 #gem "passenger", ">= 5.0.25", require: "phusion_passenger/rack_handler"
 #gem 'puma', '~> 3.7'
