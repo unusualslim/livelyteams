@@ -27537,7 +27537,7 @@
         },
         {
           listLocation: "locations",
-          header: "<strong>Locations/strong>"
+          header: "<strong>Locations</strong>"
         }
       ],
       list: {

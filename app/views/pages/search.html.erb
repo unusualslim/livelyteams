@@ -2,7 +2,7 @@
   <div class="col">
     <h1>Cases</h1>
     <% @cases.each do |c| %>
-      <p><%= link_to "Case No. #{c.id}", case %><br>
+      <p><%= link_to "Case No. #{c.id}", case_path(c) %><br>
          subject: <%= c.subject %><br>
          body:<%= c.body %><br>
          location:<%= c.case_locations.first.location.name %></p>
