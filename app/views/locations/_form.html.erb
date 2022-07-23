@@ -34,8 +34,9 @@
     <%= form.text_field :phone, {class: "form-control", name: "phoneNumber", id: "phoneNumber"} %>
   </p>
 
-  <%= form.text_area :note, :class => "tinymce h-100", :rows => 50, :cols => 1 %>
+  <%# form.text_area :note, :class => "tinymce h-100", :rows => 50, :cols => 1 %>
+  <%= form.rich_text_area :note %>
+
 <% end %>
 
-<%= tinymce %>
 
