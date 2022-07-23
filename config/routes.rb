@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
 
   get "pages/:page" => "pages#show"
+  get :search, controller: :pages
+
 
   devise_for :users
   #devise_scope :user do
@@ -37,6 +39,7 @@ Rails.application.routes.draw do
   end
 
   resources :locations do
+    get :search, on: :collection
     resources :assets
   end
 
@@ -53,6 +56,7 @@ Rails.application.routes.draw do
   end
 
   resources :cases do
+    get :search, on: :collection
     resources :case_comments
     collection do
       get 'closed'

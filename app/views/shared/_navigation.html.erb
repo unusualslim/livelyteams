@@ -39,5 +39,9 @@
         </li>
       </ul>
     </div><!-- .collapse .navbar-collapse -->
+    <%= form_with url: search_path, local: true, method: :get, html: { class: "d-flex" } do |form| %>
+      <%= form.text_field :q, placeholder: "Search", data: { behavior: "autocomplete" }, class: "form-control me-2" %>
+      <%= form.button "Search", class: "btn btn-outline-success" %>
+    <% end %>
     <%= link_to '+', new_case_path, class:"btn btn-outline-success" %>
 </nav>
