@@ -5,8 +5,13 @@
   </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <%= link_to 'Cases', {controller: '/cases'}, class: "nav-link" %>
+        <li class="nav-item dropdown">
+          <%= link_to 'Cases', {controller: '/cases'}, {id: "navbarDropdwon", class: "nav-link dropdown-toggle", data-bs-toggle: "dropdown", aria-expanded: "false", role: "button"} %>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><%= link_to 'Open Cases', cases_path, :class=> "btn btn-primary" %></li>
+            <li><%= link_to 'Billable Cases', billable_cases_path, :class=> "btn btn-secondary" %></li>
+            <li><%= link_to 'Closed Cases', closed_cases_path, :class=> "btn btn-secondary" %></li>
+          </ul>
         </li>
         <li class="nav-item">
           <%= link_to 'Projects', {controller: '/task_lists'}, class: "nav-link" %>
