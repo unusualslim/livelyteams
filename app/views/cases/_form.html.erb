@@ -18,7 +18,7 @@
    </div>
    <div class="form-group">
      <%= form.label "Locations" %>
-     <%= form.collection_select :location_ids, Location.order(:name), :id, :name,{:prompt => false}, {:multiple => true, :size => 10, :required => true, class: "form-control" } %>
+     <%# form.collection_select :location_ids, Location.order(:name), :id, :name,{:prompt => false}, {:multiple => true, :size => 10, :required => true, class: "form-control" } %>
      <small id="selectHelp" class="form-text text-muted">Try ctrl+click to select multiple.(Use cmd+click on OSX.)</small>
      <%= form.text_field :location_search, placeholder: "Search for assets" %>
    </div>
