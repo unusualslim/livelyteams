@@ -44,6 +44,15 @@ class LocationsController < ApplicationController
     redirect_to locations_path
   end
 
+  def search
+#    @locations = location.where("name LIKE ?", "%" + params[:name] + "%")
+   @locations = location.ransack(name_cont: params[:q]).result(distinct: true)
+
+   respond_to do |format|
+       format.json { @locations = @locations.limit(5) }
+   end
+end
+
   private
     def location_params
       params.require(:location).permit(:name, :short_name, :address1, :address2, :city, :state, :zip, :phone, :note)
