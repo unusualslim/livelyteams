@@ -51,6 +51,7 @@ class LocationsController < ApplicationController
    respond_to do |format|
        format.json { @locations = @locations.limit(5) }
    end
+   
 end
 
   private
