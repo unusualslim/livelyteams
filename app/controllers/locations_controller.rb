@@ -46,7 +46,7 @@ class LocationsController < ApplicationController
 
   def search
 #    @locations = location.where("name LIKE ?", "%" + params[:name] + "%")
-   @locations = location.ransack(name_cont: params[:q]).result(distinct: true)
+   @locations = Location.ransack(name_cont: params[:q]).result(distinct: true)
 
    respond_to do |format|
        format.json { @locations = @locations.limit(5) }
