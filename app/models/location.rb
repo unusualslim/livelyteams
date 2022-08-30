@@ -5,5 +5,7 @@ class Location < ApplicationRecord
   has_many :cases, through: :case_locations, :dependent => :destroy
   has_many :assets
   has_many :equipment, :through => :assets, :dependent => :destroy
+  has_rich_text :note
+
 #  belongs_to :team
 end

@@ -27422,6 +27422,30 @@
       });
     });
   });
+
+  // src/location-search.js
+  window.addEventListener("turbo:load", function() {
+    $input = $("#case_location_search");
+    var options2 = {
+      getValue: "name",
+      url: function(phrase) {
+        return "/locations/search.json?q=" + phrase;
+      },
+      categories: [
+        {
+          listLocation: "locations",
+          header: "<strong>Assets</strong>"
+        }
+      ],
+      list: {
+        onSelectItemEvent: function() {
+          var value = $("#case_location_search").getSelectedItemData().id;
+          $("#case_location_id").val(value).trigger("change");
+        }
+      }
+    };
+    $input.easyAutocomplete(options2);
+  });
 })();
 /*!
   * Bootstrap v5.1.3 (https://getbootstrap.com/)
