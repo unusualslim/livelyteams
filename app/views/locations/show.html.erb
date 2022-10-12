@@ -1,11 +1,13 @@
-
+<div class="container-fluid">
 <h1 style="display: inline;"><%= @location.short_name %> <small><%= @location.name %> </small></h1><%= link_to 'edit', edit_location_path(@location.id) %>
 <p><%= @location.address1 %> <%= @location.address2 %>
   <%= @location.city %>, <%= @location.state %> <%= @location.zip %>
    <br> <%= link_to @location.phone, "tel:#{@location.phone}" %>
 </p>
 <h2>Notes</h2>
-<%= @location.note.html_safe unless @location.note.blank?  %>
+<div class="trix-content">
+<%= @location.note unless @location.note.blank?  %>
+</div>
 
 <h2>Cases</h2>
 <table class="table table-striped table-hover table-responsive">
@@ -61,3 +63,4 @@
     <%= form.submit %>
   </p>
 <% end %>
+</div>
