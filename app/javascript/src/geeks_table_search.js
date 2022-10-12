@@ -1,4 +1,4 @@
-  $(document).on("turbo:load", functions($) {
+  $(document).on("turbolinks:load", functions($) {
     $(".table_search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $(".searchable tr").filter(function() {
