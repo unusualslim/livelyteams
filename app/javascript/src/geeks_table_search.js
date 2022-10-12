@@ -1,4 +1,4 @@
-  $(document).ready(function() {
+  $(document).on('page:load', functions($) {
     $(".table_search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $(".searchable tr").filter(function() {
