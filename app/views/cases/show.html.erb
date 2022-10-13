@@ -24,11 +24,11 @@
 </p>
 <p>
   <strong>Requested By</strong>
-  <%= @case.requested_by.email unless @case.requested_by.blank? %>
+  <%= @case.requested_by.full_name unless @case.requested_by.full_name.blank? %>
 </p>
 <p>
   <strong>Assigned To</strong>
-  <%= @case.assigned_to.email unless @case.assigned_to.blank? %>
+  <%= @case.assigned_to.full_name unless @case.assigned_to.full_name.blank? %>
 </p>
 <p>
   <strong>Followed By:</strong><br>

@@ -39,7 +39,7 @@
         <% end %>
     </td>
    <!-- <td><%# c.requested_by.email unless c.requested_by.blank? %></td>-->
-    <td><%= c.assigned_to.email unless c.assigned_to.blank? %></td>
+    <td><%= c.assigned_to.full_name unless c.assigned_to.full_name.blank? %></td>
     <td><span class="badge badge-dark"><%= c.case_comments.count %></span></td>
     <td><span class="badge badge-dark"><%= c.files.count %></span></td>
     <% case c.status.status
