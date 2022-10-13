@@ -33,7 +33,7 @@
 <p>
   <strong>Followed By:</strong><br>
   <% @case.case_users.each do |cu| %>
-  <%= cu.user.email %>
+  <%= cu.user.full_name %>
   <br />
   <% end %>
 </p>
