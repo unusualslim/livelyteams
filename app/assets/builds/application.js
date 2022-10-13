@@ -27414,7 +27414,7 @@
   });
 
   // src/geeks_table_search.js
-  $(document).ready(function() {
+  document.addEventListener("turbo:load", () => {
     $(".table_search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $(".searchable tr").filter(function() {
