@@ -28,8 +28,8 @@
     <tr scope="row">
       <td><%= link_to task.case.id, case_path(task.case) %></td>
       <td><%= task.case.subject %></td>
-      <td><%= task.case.requested_by.email unless task.case.requested_by.blank? %></td>
-      <td><%= task.case.assigned_to.email unless task.case.assigned_to.blank? %></td>
+      <td><%= task.case.requested_by.full_name unless task.case.requested_by.full_name.blank? %></td>
+      <td><%= task.case.assigned_to.full_name unless task.case.assigned_to.full_name.blank? %></td>
       <td><%= task.case.status.status unless task.case.status.blank? %></td>
       <td><%= task.case.severity.severity unless task.case.severity.blank? %></td>
       <td><%= link_to 'Edit', edit_case_path(task.case) %></td>
