@@ -5,7 +5,10 @@
       <p><%= link_to "Case No. #{c.id}", case_path(c) %><br>
          subject: <%= c.subject %><br>
          body:<%= c.description %><br>
-         location:<%= c.case_locations.first.location.name %></p>
+         location:<% c.case_locations.each do |cl| %>
+                    <%= link_to cl.location.name, location_path(cl.location) %>
+                  <% end %>
+      </p>
     <% end %>
   </div>
 
