@@ -12,6 +12,7 @@
 <p>
   <strong>Attachments:</strong><br>
   <% @location.attachments.each do |attachment| %>
+    <%= attachment.filename %>
     <% if attachment.representable? %>
       <%= image_tag attachment.representation(resize_to_fit: [300, 300]) %>
     <% else %>
