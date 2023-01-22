@@ -11,16 +11,16 @@
 
 <p>
   <strong>Attachments:</strong><br>
-  <% @location.files.each do |f| %>
-    <% if f.representable? %>
-      <%= image_tag f.representation(resize_to_fit: [300, 300]) %>
+  <% @location.attachments.each do |attachment| %>
+    <% if attachment.representable? %>
+      <%= image_tag attachment.representation(resize_to_fit: [300, 300]) %>
     <% else %>
-      <%= link_to f.filename, url_for(f) %>
+      <%= link_to attachment.filename, url_for(f) %>
     <% end %>
-    <%= link_to 'show', f.url, :class => "btn btn-secondary btn-sm" %>
+    <%= link_to 'show', attachment.url, :class => "btn btn-secondary btn-sm" %>
     <%# link_to 'Remove', delete_image_location_url(image.id), method: :delete, data: { confirm: 'Are you sure?' }, :class=> "btn btn-danger btn-sm" %>
-    <%= link_to "Delete", purge_f_path(f), method: :delete, data: { confirm: 'Are you sure?' }, :class=> "btn btn-danger btn-sm"  %>
-    <%= link_to 'Download', rails_blob_path(f, disposition: "f"), :class => "btn btn-secondary btn-sm" %>
+    <%= link_to "Delete", purge_attachment_path(attachment), method: :delete, data: { confirm: 'Are you sure?' }, :class=> "btn btn-danger btn-sm"  %>
+    <%= link_to 'Download', rails_blob_path(attachment, disposition: "attachment"), :class => "btn btn-secondary btn-sm" %>
     <br>
   <% end %>
 </p>
