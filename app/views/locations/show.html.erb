@@ -19,7 +19,7 @@
     <% end %>
     <%= link_to 'show', image.url, :class => "btn btn-secondary btn-sm" %>
     <%# link_to 'Remove', delete_image_location_url(image.id), method: :delete, data: { confirm: 'Are you sure?' }, :class=> "btn btn-danger btn-sm" %>
-    <%= link_to "Delete", purge_attachment_path(image), method: :delete %>
+    <%= link_to "Delete", purge_attachment_path(image), method: :delete, data: { confirm: 'Are you sure?' }, :class=> "btn btn-danger btn-sm"  %>
     <%= link_to 'Download', rails_blob_path(image, disposition: "attachment"), :class => "btn btn-secondary btn-sm" %>
     <br>
   <% end %>
