@@ -44,12 +44,6 @@ class LocationsController < ApplicationController
     redirect_to locations_path
   end
 
-  def delete_image
-    @image = ActiveStorage::Attachment.find(params[:id])
-    @image.purge # or use purge_later
-    redirect_back(fallback_location: locations_path)
-  end
-
   def search
 #    @locations = location.where("name LIKE ?", "%" + params[:name] + "%")
    @locations = Location.ransack(name_cont: params[:q]).result(distinct: true)

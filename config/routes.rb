@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   get "pages/:page" => "pages#show"
   get :search, controller: :pages
 
+  delete "attachments/:id/purge", to: "attachments#purge", as: "purge_attachment"
+
+
 
   devise_for :users
   #devise_scope :user do
