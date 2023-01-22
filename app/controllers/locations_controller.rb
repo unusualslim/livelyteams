@@ -44,6 +44,12 @@ class LocationsController < ApplicationController
     redirect_to locations_path
   end
 
+  def delete_image
+    @image = ActiveStorage::Attachment.find(params[:id])
+    @image.purge # or use purge_later
+    redirect_back(fallback_location: locations_path)
+  end
+
   def search
 #    @locations = location.where("name LIKE ?", "%" + params[:name] + "%")
    @locations = Location.ransack(name_cont: params[:q]).result(distinct: true)
@@ -51,12 +57,12 @@ class LocationsController < ApplicationController
    respond_to do |format|
        format.json { @locations = @locations.limit(5) }
    end
-   
+
 end
 
   private
     def location_params
-      params.require(:location).permit(:name, :short_name, :address1, :address2, :city, :state, :zip, :phone, :note)
+      params.require(:location).permit(:name, :short_name, :address1, :address2, :city, :state, :zip, :phone, :note, images: [])
     end
 
 end
