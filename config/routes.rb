@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get "pages/:page" => "pages#show"
   get :search, controller: :pages
-  post '/incoming-emails', to: 'incoming_emails#create'
+  post '/incoming-email', to: 'incoming_emails#create'
 
   delete "attachments/:id/purge", to: "attachments#purge", as: "purge_attachment"
 
