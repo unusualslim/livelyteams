@@ -14,6 +14,9 @@ class IncomingEmailsController < ApplicationController
       sender = email_data['from']
       subject = email_data['subject']
       body = email_data['text']
+      Rails.logger.info "Received email from: #{sender}"
+      Rails.logger.info "Received email with subject: #{subject}"
+      Rails.logger.info "Email body: #{body}"
   
       # Case.create(sender: sender, subject: subject, body: body)
   
