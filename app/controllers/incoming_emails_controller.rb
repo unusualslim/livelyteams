@@ -6,14 +6,11 @@ class IncomingEmailsController < ApplicationController
       Rails.logger.info "Incoming email request parameters: #{params.inspect}"
   
       # Parse request body if it's JSON
-      email_data = JSON.parse(request.body.read)
+      parameters = params.to_unsafe_hash
+      sender = parameters['from']
+      subject = parameters['subject']
+      body = parameters['text']
   
-      # Log parsed email data
-      Rails.logger.info "Parsed email data: #{email_data.inspect}"
-  
-      sender = email_data['from']
-      subject = email_data['subject']
-      body = email_data['text']
       Rails.logger.info "Received email from: #{sender}"
       Rails.logger.info "Received email with subject: #{subject}"
       Rails.logger.info "Email body: #{body}"
