@@ -10,13 +10,23 @@ class IncomingEmailsController < ApplicationController
       sender = parameters['from']
       subject = parameters['subject']
       body = parameters['text']
+
+      @case = Case.new(
+        subject: subject,
+        description: body,
+        location_id: 152,
+        assigned_to_id: 79
+      )
   
-      Rails.logger.info "Received email from: #{sender}"
-      Rails.logger.info "Received email with subject: #{subject}"
-      Rails.logger.info "Email body: #{body}"
+      if @case.save
+        head :ok
+      else
+        head :unprocessable_entity
+      end
   
-      # Case.create(sender: sender, subject: subject, body: body)
-  
-      head :ok
+      # Rails.logger.info "Received email from: #{sender}"
+      # Rails.logger.info "Received email with subject: #{subject}"
+      # Rails.logger.info "Email body: #{body}"
+
     end
   end
