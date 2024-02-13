@@ -1,5 +1,6 @@
 class IncomingEmailsController < ApplicationController
     skip_before_action :verify_authenticity_token
+    before_action :skip_authentication, only: [:create]
   
     def create
       # Log request parameters
@@ -14,6 +15,7 @@ class IncomingEmailsController < ApplicationController
       @case = Case.new(
         subject: subject,
         description: body,
+        
         location_id: 152,
         assigned_to_id: 79
       )
@@ -28,5 +30,17 @@ class IncomingEmailsController < ApplicationController
       # Rails.logger.info "Received email with subject: #{subject}"
       # Rails.logger.info "Email body: #{body}"
 
+    end
+
+    private
+
+    def skip_authentication
+      if request_from_email_client?
+        skip_authentication!
+      end
+    end
+
+    def request_from_email_client?
+      request.headers['User-Agent'].to_s.downcase.include?('email-client')
     end
   end
