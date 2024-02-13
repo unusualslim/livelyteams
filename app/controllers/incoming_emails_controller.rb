@@ -6,16 +6,13 @@ class IncomingEmailsController < ApplicationController
       # Log request parameters
       Rails.logger.info "Incoming email request parameters: #{params.inspect}"
   
-      # Parse request body if it's JSON
-      parameters = params.to_unsafe_hash
-      sender = parameters['from']
-      subject = parameters['subject']
-      body = parameters['text']
+      sender = params['from']
+      subject = params['subject']
+      body = params['text']
 
       @case = Case.new(
         subject: subject,
         description: body,
-        
         location_id: 152,
         assigned_to_id: 79
       )
@@ -36,7 +33,10 @@ class IncomingEmailsController < ApplicationController
 
     def skip_authentication
       if request_from_email_client?
+        Rails.logger.info "Skipping authentication for email client request."
         skip_authentication!
+      else
+        Rails.logger.info "Not skipping authentication."
       end
     end
 
