@@ -4,7 +4,7 @@ class IncomingEmailsController < ApplicationController
   
     def create
       # Log request parameters
-      Rails.logger.info "Incoming email request parameters: #{params.inspect}"
+      puts "Incoming email request parameters: #{params.inspect}"
   
       sender = params['from']
       subject = params['subject']
@@ -33,10 +33,10 @@ class IncomingEmailsController < ApplicationController
 
     def skip_authentication
       if request_from_email_client?
-        Rails.logger.info "Skipping authentication for email client request."
+        puts "Skipping authentication for email client request."
         skip_authentication!
       else
-        Rails.logger.info "Not skipping authentication."
+        puts "Not skipping authentication."
       end
     end
 
