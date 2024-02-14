@@ -1,6 +1,7 @@
 class IncomingEmailsController < ApplicationController
     skip_before_action :verify_authenticity_token
-    before_action :skip_authentication, only: [:create]
+    skip_before_action :authenticate_user!
+    # before_action :skip_authentication, only: [:create]
   
     def create
       # Log request parameters
