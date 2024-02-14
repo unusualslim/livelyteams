@@ -10,6 +10,9 @@ class IncomingEmailsController < ApplicationController
       sender = params['from']
       subject = params['subject']
       body = params['text']
+      puts "Sender(from): #{sender}"
+      puts "Subject is: #{subject}"
+      puts "Body is: #{body}"
 
       @case = Case.new(
         subject: subject,
