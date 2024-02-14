@@ -17,8 +17,11 @@ class IncomingEmailsController < ApplicationController
       @case = Case.new(
         subject: subject,
         description: body,
+        status_id: 1,
+        severity_id: 2,
         location_id: 152,
-        assigned_to_id: 79
+        assigned_to_id: 79,
+        requested_by_id: 79,
       )
   
       if @case.save
