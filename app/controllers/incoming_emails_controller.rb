@@ -41,6 +41,6 @@ class IncomingEmailsController < ApplicationController
     end
 
     def request_from_email_client?
-      request.headers['User-Agent'].to_s.downcase.include?('email-client')
+      params.key?('from') && params.key?('subject') && params.key?('text')
     end
   end
