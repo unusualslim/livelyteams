@@ -24,6 +24,7 @@ class IncomingEmailsController < ApplicationController
       if @case.save
         head :ok
       else
+        puts "Error saving case: #{@case.errors.full_messages}"
         head :unprocessable_entity
       end
   
