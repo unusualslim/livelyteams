@@ -12,6 +12,7 @@ class IncomingEmailsController < ApplicationController
       subject = params['subject']
       body = params['text']
       to = params['to']
+      attachments = params['attachments']
       # validates to, presence: true, blob: {content_type: whitelist}
       puts "Sent to this email: #{to}"
       puts "Sender(from): #{sender}"
@@ -29,6 +30,7 @@ class IncomingEmailsController < ApplicationController
           )
     
         if @case.save
+          save_attachments(attachments) if attachments.present?
           head :ok
         else
           puts "Error saving case: #{@case.errors.full_messages}"
@@ -45,6 +47,13 @@ class IncomingEmailsController < ApplicationController
     end
 
     private
+
+    def save_attachments(attachments)
+      puts "Attempting to save attatchments"
+      attachments.each do |attachment|
+        @case.files.attach(attachment)
+      end
+    end
 
     def skip_authentication
       if request_from_email_client?
