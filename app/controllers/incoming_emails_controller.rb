@@ -1,6 +1,7 @@
 class IncomingEmailsController < ApplicationController
     skip_before_action :verify_authenticity_token
     skip_before_action :authenticate_user!
+    whitelist = ['support@livelyteams.com']
     # before_action :skip_authentication, only: [:create]
   
     def create
@@ -10,6 +11,9 @@ class IncomingEmailsController < ApplicationController
       sender = params['from']
       subject = params['subject']
       body = params['text']
+      to = params['to']
+      # validates to, presence: true, blob: {content_type: whitelist}
+      puts "Sent to this email: #{to}"
       puts "Sender(from): #{sender}"
       puts "Subject is: #{subject}"
       puts "Body is: #{body}"
