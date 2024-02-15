@@ -17,22 +17,25 @@ class IncomingEmailsController < ApplicationController
       puts "Sender(from): #{sender}"
       puts "Subject is: #{subject}"
       puts "Body is: #{body}"
-
-      @case = Case.new(
-        subject: subject,
-        description: body,
-        status_id: 1,
-        severity_id: 2,
-        location_ids: 152,
-        assigned_to_id: 79,
-        requested_by_id: 79,
-      )
-  
-      if @case.save
-        head :ok
+      if to == 'support@livelyteams.com'
+          @case = Case.new(
+            subject: subject,
+            description: body,
+            status_id: 1,
+            severity_id: 2,
+            location_ids: 152,
+            assigned_to_id: 79,
+            requested_by_id: 79,
+          )
+    
+        if @case.save
+          head :ok
+        else
+          puts "Error saving case: #{@case.errors.full_messages}"
+          head :unprocessable_entity
+        end
       else
-        puts "Error saving case: #{@case.errors.full_messages}"
-        head :unprocessable_entity
+        puts "Email was not sent to 'support@livelyteams.com'"
       end
   
       # Rails.logger.info "Received email from: #{sender}"
