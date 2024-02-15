@@ -30,7 +30,7 @@ class IncomingEmailsController < ApplicationController
           )
     
         if @case.save
-          save_attachments(attachments) if attachments.present?
+          # save_attachments(attachments) if attachments.present?
           head :ok
         else
           puts "Error saving case: #{@case.errors.full_messages}"
