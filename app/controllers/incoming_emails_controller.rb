@@ -19,7 +19,7 @@ class IncomingEmailsController < ApplicationController
         description: body,
         status_id: 1,
         severity_id: 2,
-        location_id: 152,
+        location_ids: 152,
         assigned_to_id: 79,
         requested_by_id: 79,
       )
