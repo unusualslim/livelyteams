@@ -17,7 +17,7 @@ class IncomingEmailsController < ApplicationController
       puts "Sender(from): #{sender}"
       puts "Subject is: #{subject}"
       puts "Body is: #{body}"
-      if to == 'support@livelyteams.com'
+      if to == "support@livelyteams.com"
           @case = Case.new(
             subject: subject,
             description: body,
