@@ -11,12 +11,14 @@ class IncomingEmailsController < ApplicationController
       subject = params['subject']
       body = params['text']
       to = params['to']
-      attachments = params['attachments']
-      # validates to, presence: true, blob: {content_type: whitelist}
-      puts "Sent to this email: #{to}"
-      puts "Sender(from): #{sender}"
-      puts "Subject is: #{subject}"
-      puts "Body is: #{body}"
+      attachment_info = JSON.parse(params["attachment-info"])
+      filename = attachment_info["attachment1"]["filename"]
+      type = attachment_info["attachment1"]["type"]
+      attachment = params["attachment1"]
+
+      puts "Attachment Filename: #{filename}"
+      puts "Attachment Type: #{type}"
+
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
             subject: subject,
@@ -27,10 +29,16 @@ class IncomingEmailsController < ApplicationController
             assigned_to_id: 79,
             requested_by_id: 79,
           )
+        # Attach files to the case if available
+        if attachment.present?
+          puts "Attachment present. Attaching to case..."
+          @case.files.attach(io: attachment.tempfile, filename: filename, content_type: type)
+          puts "Attachment attached to case."
+        else
+          puts "No attachment present."
+        end
     
         if @case.save
-          # Save email attachments as case files
-          save_attachments(attachments) if attachments.present?
           head :ok
         else
           puts "Error saving case: #{@case.errors.full_messages}"
