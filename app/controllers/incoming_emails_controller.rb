@@ -1,7 +1,6 @@
 class IncomingEmailsController < ApplicationController
     skip_before_action :verify_authenticity_token
     skip_before_action :authenticate_user!
-    whitelist = ['support@livelyteams.com']
     # before_action :skip_authentication, only: [:create]
   
     def create
@@ -30,7 +29,8 @@ class IncomingEmailsController < ApplicationController
           )
     
         if @case.save
-          # save_attachments(attachments) if attachments.present?
+          # Save email attachments as case files
+          save_attachments(attachments) if attachments.present?
           head :ok
         else
           puts "Error saving case: #{@case.errors.full_messages}"
@@ -49,9 +49,9 @@ class IncomingEmailsController < ApplicationController
     private
 
     def save_attachments(attachments)
-      puts "Attempting to save attatchments"
-      attachments.each do |attachment|
-        @case.files.attach(attachment)
+      attachments.each do |attachment_data|
+        # Create ActiveStorage attachment from attachment data
+        @case.files.attach(io: StringIO.new(attachment_data['data']), filename: attachment_data['filename'])
       end
     end
 
