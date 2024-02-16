@@ -47,9 +47,13 @@ class CasesController < ApplicationController
 
   def destroy
     @case = Case.find(params[:id])
-    @case.destroy
+    @case.destroy()
 
-    redirect_to cases_path
+    respond_to do |format|
+      format.html { redirect_to cases_path, status: :see_other, notice: "Case was successfully destroyed." }
+      format.json { head :no_content }
+
+    end
   end
 
   def change_status_to_closed
