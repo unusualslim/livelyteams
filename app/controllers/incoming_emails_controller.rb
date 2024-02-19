@@ -8,6 +8,7 @@ class IncomingEmailsController < ApplicationController
       puts "Incoming email request parameters: #{params.inspect}"
   
       sender = params['from']
+      puts "Sender is: #{sender}"
       sentBy = User.find_by(email: sender)
       subject = params['subject']
       body = params['text']
