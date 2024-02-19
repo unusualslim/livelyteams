@@ -4,12 +4,7 @@ class IncomingEmailsController < ApplicationController
     # before_action :skip_authentication, only: [:create]
   
     def create
-      # Log request parameters
-      puts "Incoming email request parameters: #{params.inspect}"
-  
       sender = params['from']
-      puts "Sender is: #{sender}"
-      sentBy = User.find_by(email: sender)
       subject = params['subject']
       body = params['text']
       to = params['to']
@@ -17,10 +12,6 @@ class IncomingEmailsController < ApplicationController
       filename = attachment_info["attachment1"]["filename"]
       type = attachment_info["attachment1"]["type"]
       attachment = params["attachment1"]
-
-      puts "Attachment Filename: #{filename}"
-      puts "Attachment Type: #{type}"
-      puts "sentBy ID: #{sentBy.id}"
 
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
@@ -30,7 +21,7 @@ class IncomingEmailsController < ApplicationController
             severity_id: 2,
             location_ids: 152,
             assigned_to_id: 79,
-            requested_by_id: sentBy ? sentBy.id : 79,
+            requested_by_id: 79,
           )
         # Attach files to the case if available
         if attachment.present?
@@ -50,11 +41,6 @@ class IncomingEmailsController < ApplicationController
       else
         puts "Email was not sent to 'support@livelyteams.com'"
       end
-  
-      # Rails.logger.info "Received email from: #{sender}"
-      # Rails.logger.info "Received email with subject: #{subject}"
-      # Rails.logger.info "Email body: #{body}"
-
     end
 
     private
