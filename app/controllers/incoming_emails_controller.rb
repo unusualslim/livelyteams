@@ -7,6 +7,7 @@ class IncomingEmailsController < ApplicationController
       sender = params['from']
       subject = params['subject']
       body = params['text']
+      text = "#{body} - Sent by #{sender}"
       to = params['to']
       attachment_info = JSON.parse(params["attachment-info"])
       filename = attachment_info["attachment1"]["filename"]
@@ -16,7 +17,7 @@ class IncomingEmailsController < ApplicationController
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
             subject: subject,
-            description: body,
+            description: text,
             status_id: 1,
             severity_id: 2,
             location_ids: 152,
