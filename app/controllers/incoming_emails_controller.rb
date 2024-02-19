@@ -8,6 +8,7 @@ class IncomingEmailsController < ApplicationController
       puts "Incoming email request parameters: #{params.inspect}"
   
       sender = params['from']
+      sentBy = User.find_by(email: sender)
       subject = params['subject']
       body = params['text']
       to = params['to']
@@ -18,6 +19,7 @@ class IncomingEmailsController < ApplicationController
 
       puts "Attachment Filename: #{filename}"
       puts "Attachment Type: #{type}"
+      puts "sentBy ID: #{sentBy.id}"
 
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
@@ -27,7 +29,7 @@ class IncomingEmailsController < ApplicationController
             severity_id: 2,
             location_ids: 152,
             assigned_to_id: 79,
-            requested_by_id: 79,
+            requested_by_id: sentBy ? sentBy.id : 79,
           )
         # Attach files to the case if available
         if attachment.present?
