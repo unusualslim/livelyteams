@@ -9,10 +9,16 @@ class IncomingEmailsController < ApplicationController
       body = params['text']
       text = "#{body} - Sent by #{sender}"
       to = params['to']
-      attachment_info = JSON.parse(params["attachment-info"])
-      filename = attachment_info["attachment1"]["filename"]
-      type = attachment_info["attachment1"]["type"]
-      attachment = params["attachment1"]
+      attachment_info = params["attachment-info"]
+      if attachment_info.present?
+        attachment_info = JSON.parse(attachment_info)
+        filename = attachment_info["attachment1"]["filename"]
+        type = attachment_info["attachment1"]["type"]
+        attachment = params["attachment1"]
+      else
+        # Handle the case where attachment-info is nil
+        logger.warn("No attachment information found in params")
+      end
 
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
