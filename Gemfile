@@ -54,7 +54,6 @@ gem 'image_processing', '~> 1.2'
 gem 'aws-sdk-s3', '~> 1.112'
 # gem 'poppler', '~> 3.5', '>= 3.5.1'
 # gem 'mini_magick'
-gem "image_processing", "~> 1.2"
 # gem 'mini_racer'
 # gem 'aws-sdk', '~> 3.0', '>= 3.0.1'
 # gem 'webpacker'
