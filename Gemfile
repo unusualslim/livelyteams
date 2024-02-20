@@ -11,6 +11,7 @@ ruby '3.1.1'
 #gem 'rails', '~> 6.1', '>= 6.1.6'
 gem 'rails', '~> 7.0', '>= 7.0.3'
 gem 'pg', '~> 1.3', '>= 1.3.5'
+gem 'recaptcha', require: 'recaptcha/rails'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
