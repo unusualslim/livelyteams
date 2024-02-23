@@ -39,6 +39,12 @@
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
+
+  <%# START add reCAPTCHA %>
+  <%= flash[:recaptcha_error] %>
+  <%= recaptcha_tags %>
+  <%# END add reCAPTCHA %>
+
 <% end %>
 
 <%= render "users/shared/links" %>
