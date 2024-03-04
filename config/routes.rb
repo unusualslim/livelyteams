@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
 
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
   #devise_scope :user do
     # Redirests signing out users back to sign-in
   #  get "users", to: "devise/sessions#new"
