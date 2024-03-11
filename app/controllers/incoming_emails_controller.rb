@@ -5,7 +5,6 @@ class IncomingEmailsController < ApplicationController
   
     def create
       sender = params[:from].match(/<([^>]+)>/)&.captures&.first.downcase
-      puts "Sender is: #{sender}"
       subject = params['subject']
       body = params['text']
       text = "#{body} - Sent by #{sender}"
@@ -23,7 +22,6 @@ class IncomingEmailsController < ApplicationController
 
       #check if sender of email corresponds to a user
       user = User.find_by(email: sender).id
-      puts "user = #{user}"
 
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
@@ -46,6 +44,7 @@ class IncomingEmailsController < ApplicationController
         end
     
         if @case.save
+          CaseMailer.new_case_email(@case).deliver_later
           head :ok
         else
           puts "Error saving case: #{@case.errors.full_messages}"
