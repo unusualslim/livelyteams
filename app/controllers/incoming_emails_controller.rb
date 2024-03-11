@@ -4,7 +4,8 @@ class IncomingEmailsController < ApplicationController
     # before_action :skip_authentication, only: [:create]
   
     def create
-      sender = params['from']
+      sender = params[:from].match(/<([^>]+)>/)&.captures&.first
+      puts "Sender is: #{sender}"
       subject = params['subject']
       body = params['text']
       text = "#{body} - Sent by #{sender}"
@@ -28,8 +29,11 @@ class IncomingEmailsController < ApplicationController
             severity_id: 2,
             location_ids: 152,
             assigned_to_id: 79,
-            requested_by_id: 79,
           )
+        #check if sender of email corresponds to a user
+        user = User.find_by(email: sender)
+        @case.requested_by_id = user || 79
+        
         # Attach files to the case if available
         if attachment.present?
           puts "Attachment present. Attaching to case..."
