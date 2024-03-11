@@ -21,6 +21,9 @@ class IncomingEmailsController < ApplicationController
         logger.warn("No attachment information found in params")
       end
 
+      #check if sender of email corresponds to a user
+      user = User.find_by(email: sender)
+
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
             subject: subject,
@@ -28,11 +31,9 @@ class IncomingEmailsController < ApplicationController
             status_id: 1,
             severity_id: 2,
             location_ids: 152,
+            requested_by_id: user || 79,
             assigned_to_id: 79,
           )
-        #check if sender of email corresponds to a user
-        user = User.find_by(email: sender)
-        @case.requested_by_id = user || 79
         
         # Attach files to the case if available
         if attachment.present?
