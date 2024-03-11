@@ -4,7 +4,7 @@ class IncomingEmailsController < ApplicationController
     # before_action :skip_authentication, only: [:create]
   
     def create
-      sender = params[:from].match(/<([^>]+)>/)&.captures&.first
+      sender = params[:from].match(/<([^>]+)>/)&.captures&.first.downcase
       puts "Sender is: #{sender}"
       subject = params['subject']
       body = params['text']
