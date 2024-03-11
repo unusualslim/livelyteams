@@ -22,7 +22,8 @@ class IncomingEmailsController < ApplicationController
       end
 
       #check if sender of email corresponds to a user
-      user = User.find_by(email: sender)
+      user = User.find_by(email: sender).id
+      puts "user = #{user}"
 
       if to =~ /support@livelyteams\.com/
           @case = Case.new(
