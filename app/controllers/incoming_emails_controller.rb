@@ -46,7 +46,7 @@ class IncomingEmailsController < ApplicationController
         if @case.save
           CaseMailer.new_case_email(@case).deliver_later
           twilio_service = TwilioService.new
-          twilio_service.send_sms(ENV['RECIPIENT_PHONE'], "New case created: Case No. #{@case.id}")
+          twilio_service.send_sms(ENV['RECIPIENT_PHONE'], "New unassigned case on livelyteams:  https://livelyteams.com/cases/#{@case.id}")
           head :ok
         else
           puts "Error saving case: #{@case.errors.full_messages}"
