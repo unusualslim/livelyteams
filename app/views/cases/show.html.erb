@@ -12,8 +12,9 @@
   <strong>Subject</strong>
   <%= @case.subject %>
 </p>
-<p><strong>Created On:</strong> <%= @case.created_at.strftime("%B %d, %Y")  %><br>
-   <strong>Last updated:</strong> <%= @case.updated_at.strftime("%A, %b %d, %Y - %l:%M %p")  %><br>
+<p>
+  <strong>Created On:</strong> <%= Time.use_zone('Eastern Time (US & Canada)') { @case.created_at.strftime("%B %d, %Y") } %><br>
+  <strong>Last updated:</strong> <%= Time.use_zone('Eastern Time (US & Canada)') { @case.updated_at.strftime("%A, %b %d, %Y - %l:%M %p") } %><br>
 </p>
 
 <p>
