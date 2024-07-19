@@ -32,6 +32,7 @@ class CasesController < ApplicationController
     else
       render 'new'
     end
+    @case.notify_assigned_user
   end
 
   def update
@@ -43,6 +44,8 @@ class CasesController < ApplicationController
     else
       render 'edit'
     end
+    # Send text to assigned_user when updating case
+    # @case.notify_assigned_user
   end
 
   def destroy
@@ -83,6 +86,4 @@ class CasesController < ApplicationController
     def case_params
       params.require(:case).permit(:subject, :status_id, :requested_by_id, :assigned_to_id, :description, :severity_id, :location_ids => [], :user_ids => [], files: [])
     end
-
-
 end
