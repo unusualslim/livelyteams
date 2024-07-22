@@ -12,7 +12,7 @@
     <tbody id="geeks">
       <% @notes.each do |note| %>
       <tr>
-        <td><%= link_to note.title, edit_note_path(note) %></td>
+        <td><%= link_to note.title, edit_note_path(note), data: { turbolinks: false } %></td>
         <td><%= note.updated_at %></td>
         <td><%= link_to 'X', note_path(note), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
       </tr>

@@ -12,6 +12,8 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src="https://cdn.tiny.cloud/1/<%= ENV['TINYMCE_API_KEY'] %>/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <%= javascript_include_tag 'tinymce_init', "data-turbo-track": "reload" %>
   </head>
 
   <body>
