@@ -32,7 +32,7 @@ class CasesController < ApplicationController
     else
       render 'new'
     end
-    @case.notify_assigned_user
+    #@case.notify_assigned_user
   end
 
   def update
