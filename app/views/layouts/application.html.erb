@@ -9,10 +9,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.core.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <script src="https://cdn.tiny.cloud/1/<%= ENV['TINYMCE_API_KEY'] %>/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <%= javascript_include_tag 'tinymce_init', "data-turbo-track": "reload" %>
   </head>
 
@@ -20,5 +23,6 @@
     <%= render 'shared/navigation' %>
     <br>
     <%= yield %>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.min.js"></script>
   </body>
 </html>
