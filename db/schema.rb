@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_175436) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_03_180613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -191,6 +191,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_175436) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "task", force: :cascade do |t|
+    t.string "subject"
+    t.bigint "location_id"
+    t.bigint "status_id"
+    t.text "description"
+    t.bigint "severity_id"
+    t.bigint "asset_id"
+    t.bigint "task_list_id"
+    t.bigint "requested_by_id"
+    t.bigint "assigned_to_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["asset_id"], name: "index_task_on_asset_id"
+    t.index ["assigned_to_id"], name: "index_task_on_assigned_to_id"
+    t.index ["location_id"], name: "index_task_on_location_id"
+    t.index ["requested_by_id"], name: "index_task_on_requested_by_id"
+    t.index ["severity_id"], name: "index_task_on_severity_id"
+    t.index ["status_id"], name: "index_task_on_status_id"
+    t.index ["task_list_id"], name: "index_task_on_task_list_id"
+  end
+
   create_table "task_comments", force: :cascade do |t|
     t.text "body"
     t.bigint "task_id"
@@ -267,18 +288,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_175436) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at", precision: nil
-    t.datetime "last_sign_in_at", precision: nil
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
     t.string "first_name"
     t.string "last_name"
     t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "new_case_created", default: true
+    t.boolean "updated_case", default: true
+    t.boolean "new_comment", default: true
+    t.boolean "billable_case", default: true
+    t.boolean "closed_case", default: true
+    t.string "notification_method", default: "email"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -302,6 +329,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_175436) do
   add_foreign_key "notes", "users"
   add_foreign_key "taggings", "assets"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "task", "assets"
+  add_foreign_key "task", "locations"
+  add_foreign_key "task", "severities"
+  add_foreign_key "task", "statuses"
+  add_foreign_key "task", "task_lists"
+  add_foreign_key "task", "users", column: "assigned_to_id"
+  add_foreign_key "task", "users", column: "requested_by_id"
   add_foreign_key "task_comments", "tasks"
   add_foreign_key "task_comments", "users"
   add_foreign_key "task_lists", "users"

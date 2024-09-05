@@ -81,4 +81,5 @@ config.action_mailer.smtp_settings = {
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+  config.skip_recaptcha = true
 end

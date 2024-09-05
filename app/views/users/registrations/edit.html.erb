@@ -3,6 +3,7 @@
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
+  <!-- Existing Fields -->
   <div class="field">
     <%= f.label :first_name %><br />
     <%= f.text_field :first_name, autofocus: true %>
@@ -46,6 +47,14 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <!-- Notification Preferences Button -->
+  <div class="field">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#notificationPreferencesModal">
+      Manage Notification Preferences
+    </button>
+  </div>
+
+  <!-- Update Button -->
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
@@ -56,3 +65,97 @@
 <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
 <%= link_to "Back", :back %>
+
+<!-- Bootstrap Modal for Notification Preferences -->
+<div class="modal fade" id="notificationPreferencesModal" tabindex="-1" aria-labelledby="notificationPreferencesModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notificationPreferencesModalLabel">Notification Preferences</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="modal_message" class="alert alert-success" style="display: none;">
+          Settings saved successfully!
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: 'notification_settings_form' }) do |f| %>
+          <h5>Notification Types</h5>
+
+          <div class="mb-3">
+            <%= f.check_box :new_case_created %>
+            <%= f.label :new_case_created, "New Case Created" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.check_box :updated_case %>
+            <%= f.label :updated_case, "Updated Case" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.check_box :new_comment %>
+            <%= f.label :new_comment, "New Comment" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.check_box :billable_case %>
+            <%= f.label :billable_case, "Billable Case" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.check_box :closed_case %>
+            <%= f.label :closed_case, "Closed Case" %>
+          </div>
+
+          <h5>Notification Method</h5>
+          <div class="mb-3">
+            <%= f.radio_button :notification_method, 'text', id: 'notification_method_text' %>
+            <%= f.label :notification_method_text, "Text" %><br>
+            <%= f.radio_button :notification_method, 'email', id: 'notification_method_email' %>
+            <%= f.label :notification_method_email, "Email" %><br>
+            <%= f.radio_button :notification_method, 'both', id: 'notification_method_both' %>
+            <%= f.label :notification_method_both, "Both" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Save Preferences", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('turbo:load', () => {
+    const form = document.querySelector('#notification_settings_form');
+    const messageDiv = document.querySelector('#modal_message');
+    const modal = new bootstrap.Modal(document.getElementById('notificationPreferencesModal'));
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        }
+      }).then(response => response.json()).then(data => {
+        if (data.success) {
+          messageDiv.style.display = 'block'; // Show the success message
+          setTimeout(() => {
+            messageDiv.style.display = 'none'; // Hide the message after 3 seconds
+            modal.hide(); // Close the modal
+          }, 3000);
+        } else {
+          messageDiv.style.display = 'none'; // Hide the success message
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  });
+</script>

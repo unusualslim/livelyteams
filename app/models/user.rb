@@ -19,4 +19,21 @@ class User < ApplicationRecord
 #  has_many :team_members
 #  has_many :teams, through: :team_members
 #  has_many :roles, through: :team_members
+
+  def notify_method?(event)
+    case event
+    when :new_case
+      new_case_created? && (notification_method.include?('text') || notification_method.include?('both'))
+    when :update_case
+      updated_case? && (notification_method.include?('text') || notification_method.include?('both'))
+    when :new_comment
+      new_comment? && (notification_method.include?('text') || notification_method.include?('both'))
+    when :billable_case
+      billable_case? && (notification_method.include?('text') || notification_method.include?('both'))
+    when :closed_case
+      closed_case? && (notification_method.include?('text') || notification_method.include?('both'))
+    else
+      false
+    end
+  end
 end
