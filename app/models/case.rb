@@ -25,7 +25,7 @@ class Case < ApplicationRecord
     assigned_user = User.find_by(id: assigned_to_id)
     if assigned_user
       phone_number = assigned_user.phone_number
-      message = "A case assigned to you has been updated: https://website.com/cases/#{id}"
+      message = "A case assigned to you has been updated: https://livelyteams.com/cases/#{id}"
       puts "Sending Twilio message to #{phone_number}: #{message}"
       TwilioService.new.send_sms(phone_number, message)
     end
@@ -46,17 +46,17 @@ class Case < ApplicationRecord
   def notify_users(event)
     message = case event
               when :new_case
-                "A new case has been created: https://website.com/cases/#{id}"
+                "A new case has been created: https://livelyteams.com/cases/#{id}"
               when :update_case
-                "Case No. #{id} has been updated: https://website.com/cases/#{id}"
+                "Case No. #{id} has been updated: https://livelyteams.com/cases/#{id}"
               when :new_comment
-                "Case No. #{id} has a new comment: https://website.com/cases/#{id}"
+                "Case No. #{id} has a new comment: https://livelyteams.com/cases/#{id}"
               when :billable_case
-                "Case No. #{id} is complete and ready for billing: https://website.com/cases/#{id}"
+                "Case No. #{id} is complete and ready for billing: https://livelyteams.com/cases/#{id}"
               when :closed_case
-                "Case No. #{id} is now closed: https://website.com/cases/#{id}"
+                "Case No. #{id} is now closed: https://livelyteams.com/cases/#{id}"
               else
-                "Case No. #{id} has been updated: https://website.com/cases/#{id}"
+                "Case No. #{id} has been updated: https://livelyteams.com/cases/#{id}"
               end
 
     recipients = users_to_notify(event)
