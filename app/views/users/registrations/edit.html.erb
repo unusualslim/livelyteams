@@ -79,7 +79,7 @@
           Settings saved successfully!
         </div>
 
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, id: 'notification_settings_form' }) do |f| %>
+        <%= form_for(resource, as: resource_name, url: update_user_preferences_path, html: { method: :patch, id: 'notification_settings_form' }) do |f| %>
           <h5>Notification Types</h5>
 
           <div class="mb-3">

@@ -10,8 +10,6 @@ Rails.application.routes.draw do
 
   delete "attachments/:id/purge", to: "attachments#purge", as: "purge_attachment"
 
-
-
   devise_for :users, controllers: { registrations: 'users/registrations' }
   #devise_scope :user do
     # Redirests signing out users back to sign-in
@@ -20,6 +18,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     get "users", to: "devise/sessions#new"
     match '/sessions/user', to: 'devise/sessions#create', via: :post
+    patch 'users/update_preferences', to: 'users/registrations#update_preferences', as: :update_user_preferences
 #    root :to => "cases#index"
   end
 
