@@ -17,6 +17,16 @@ class User < ApplicationRecord
     ([first_name, last_name] - ['']).compact.join(' ')                         
   end
 
+  scope :active, -> { where(active: true) }
+
+  def active_for_authentication?
+    super && active?
+  end
+
+  def inactive_message
+    "Your account has been deactivated. Please contact the administrator."
+  end
+
 #  has_many :team_members
 #  has_many :teams, through: :team_members
 #  has_many :roles, through: :team_members
