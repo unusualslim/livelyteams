@@ -58,6 +58,8 @@ Rails.application.routes.draw do
     resources :task_comments
   end
 
+  resources :case_comments, only: [:index]
+
   resources :cases do
     get :search, on: :collection
     resources :case_comments

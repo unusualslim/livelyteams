@@ -1,3 +1,7 @@
-
 <div class="alert alert-primary mb-0"><%= case_comment.body %></div>
-<div>-<%= case_comment.user.email unless case_comment.user.blank? %> on <%= case_comment.created_at.strftime("%A, %b %d, %Y - %l:%M %p" )  %></div>
+<div>
+-<%= case_comment.user.full_name unless case_comment.user.blank? %> on <%= case_comment.created_at.strftime("%A, %b %d, %Y - %l:%M %p" ) %>
+      <% if case_comment.labor_hours %>
+        - <span style="color: blue;">Labor Hours: <%= case_comment.labor_hours %> hrs</span>
+      <% end %>
+</div>

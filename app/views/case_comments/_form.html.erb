@@ -1,8 +1,13 @@
-<%= form_with(model: [ @case, @case.case_comments.build ]) do |f| %>
+<%= form_with model: [ @case, @case.case_comments.build ] do |f| %>
   <div class="form-group">
     <%= f.text_area :body, :class => "form-control", :rows => 2, :cols => 1 %>
   </div>
-    <%= f.hidden_field :user_id, value: current_user.id %>
+  <div class="form-group row" style="padding-top: 8px; padding-bottom: 8px;">
+    <div class="col-sm-6">
+      <%= f.text_field :labor_hours, class: "form-control", placeholder: "Labor Hours" %>
+    </div>
+  </div>
+  <%= f.hidden_field :user_id, value: current_user.id %>
   <p>
     <%= f.submit 'Add Comment', class: "btn btn-primary" %>
   </p>

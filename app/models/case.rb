@@ -43,6 +43,10 @@ class Case < ApplicationRecord
     status.status == 'Closed'
   end
 
+  def total_labor
+    case_comments.sum(:labor_hours)
+  end
+
   def notify_users(event)
     message = case event
               when :new_case

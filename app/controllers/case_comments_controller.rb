@@ -1,4 +1,8 @@
 class CaseCommentsController < ApplicationController
+
+  def index
+    @comments = CaseComment.order("created_at DESC").limit(500)
+  end
   def create
     @case = Case.find(params[:case_id])
     @case_comment = @case.case_comments.create(case_comment_params)
@@ -9,6 +13,6 @@ class CaseCommentsController < ApplicationController
 
   private
     def case_comment_params
-      params.require(:case_comment).permit(:user_id, :body)
+      params.require(:case_comment).permit(:user_id, :body, :labor_hours)
     end
 end

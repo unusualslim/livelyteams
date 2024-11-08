@@ -1,0 +1,18 @@
+<div class="container-fluid">
+<% @comments.each do |case_comment| %>
+  <div class="card bcase-dark">
+    <div class="card-header">
+      <%= link_to "case No. #{case_comment.case.id}", case_path(case_comment.case.id), {class: "stretched-link"} %>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= case_comment.body %></p>
+      <footer class="blockquote-footer">
+      <%= case_comment.user.full_name unless case_comment.user.blank? %> on <%= case_comment.created_at.strftime("%A, %b %d, %Y - %l:%M %p" )  %>
+      <% if case_comment.labor_hours %>
+        - <span style="color: blue;">Labor Hours: <%= case_comment.labor_hours %></span>
+      <% end %>
+      </footer>
+    </div>
+  </div><br>
+<% end %>
+</div>
