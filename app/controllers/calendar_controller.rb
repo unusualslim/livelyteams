@@ -5,18 +5,20 @@ class CalendarController < ApplicationController
     # Default to beginning and end of the current month if no date range is provided
     @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.today.beginning_of_month
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.today.end_of_month
-
+  
     # Filter case comments by the selected date range
     @case_comments = CaseComment.where(created_at: @start_date..@end_date)
     @case_comments ||= []
-
+  
     # Sum labor hours for each user within the date range
     @labor_hours = {}
+  
     @case_comments.group_by(&:user_id).each do |user_id, comments|
-      total_hours = comments.sum(&:labor_hours)
+      total_hours = comments.sum { |comment| comment.labor_hours.to_i } # Convert nil to 0
       @labor_hours[user_id] = total_hours
     end
   end
+  
 
   def labor_hours
     date = params[:date]
