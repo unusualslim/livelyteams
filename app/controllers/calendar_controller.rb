@@ -42,7 +42,7 @@ class CalendarController < ApplicationController
   
       {
         worker_name: user.first_name,
-        total_hours: comments.sum(&:labor_hours)
+        total_hours: comments.sum { |comment| comment.labor_hours.to_i } # Handle nil labor_hours
       }
     end.compact # Remove nil entries
   
@@ -51,6 +51,7 @@ class CalendarController < ApplicationController
     Rails.logger.error "Error in labor_hours: #{e.message}"
     render json: { error: "Internal server error" }, status: :internal_server_error
   end
+  
   
   def labor_hours_report
     start_date = params[:start_date]
