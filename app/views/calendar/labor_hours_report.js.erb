@@ -1,0 +1,2 @@
+// This updates the #report-results div with the HTML rendered from the partial
+$('#report-results').html('<%= j(render partial: "calendar/labor_hours_report_results", locals: { labor_hours: @labor_hours, total_labor_hours: @total_labor_hours }) %>');

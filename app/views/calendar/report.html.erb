@@ -1,0 +1,32 @@
+<h3>
+  Labor Hours Report
+</h3>
+<p>
+  <strong>Selected Date Range:</strong> 
+  <%= params[:start_date] %> to <%= params[:end_date] %>
+</p>
+
+<% if @labor_hours_by_user.present? %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">User Name</th>
+        <th scope="col">Total Labor Hours</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @labor_hours_by_user.each do |record| %>
+        <tr>
+          <td><%= record[:full_name] %></td>
+          <td><%= record[:total_hours] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No labor hours recorded for the selected date range.</p>
+<% end %>
+
+<div class="mt-4">
+  <a href="/calendar" class="btn btn-primary">Back to Calendar</a>
+</div>

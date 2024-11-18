@@ -1,0 +1,27 @@
+<h2>Labor Hours Report</h2>
+<% if labor_hours.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>User</th>
+        <th>Hours Worked</th>
+        <th>Task/Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% labor_hours.each do |labor_hour| %>
+        <tr>
+          <td><%= labor_hour.created_at.strftime('%B %d, %Y') %></td>
+          <td><%= labor_hour.user.full_name %></td>
+          <td><%= labor_hour.labor_hours %></td>
+          <td><%= labor_hour.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h4>Total Labor Hours: <%= total_labor_hours %></h4>
+<% else %>
+  <p>No labor hours found for the selected date range.</p>
+<% end %>

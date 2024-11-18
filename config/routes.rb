@@ -3,7 +3,11 @@ Rails.application.routes.draw do
 
   root :to => "cases#index"
 
-
+  get 'calendar/labor_hours_summary', to: 'calendar#labor_hours_summary'
+  get 'calendar/labor_hours_report', to: 'calendar#labor_hours_report'
+  resources :calendar, only: [:index] do
+    get 'labor_hours', on: :collection
+  end
   get "pages/:page" => "pages#show"
   get :search, controller: :pages
   post '/incoming-email', to: 'incoming_emails#create'

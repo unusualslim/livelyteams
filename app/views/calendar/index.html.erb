@@ -1,0 +1,138 @@
+<%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js' %>
+
+<div class="container-fluid">
+  <%= form_with url: calendar_labor_hours_report_path, method: :get, id: 'labor-hours-report-form' do |f| %>
+    <div>
+      <label for="start_date">Start Date:</label>
+      <%= f.date_field :start_date, value: params[:start_date] %>
+    </div>
+
+    <div>
+      <label for="end_date">End Date:</label>
+      <%= f.date_field :end_date, value: params[:end_date] %>
+    </div>
+
+    <%= f.submit 'Generate Report', class: 'btn btn-primary' %>
+
+  <% end %>
+
+  <!-- Month Calendar with CSS Grid for responsive layout -->
+  <div class="calendar-grid">
+    <%= month_calendar do |date| %>
+        <div class="calendar-day" data-date="<%= date %>">
+          <h5 class="text-primary text-center"><%= date.day %></h5>
+          <!-- Additional content for each day if needed -->
+        </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Modal for Labor Hours -->
+<div class="modal fade" id="laborHoursModal" tabindex="-1" aria-labelledby="laborHoursModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="laborHoursModalLabel">Labor Hours for <span id="selectedDate"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Worker</th>
+              <th>Labor Hours</th>
+            </tr>
+          </thead>
+          <tbody id="laborHoursTableBody">
+            <!-- Labor hours data will be inserted here dynamically -->
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.calendar-grid {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 10px;
+  flex-grow: 1;
+}
+
+.calendar-day {
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  border: 1px solid #ddd;
+  min-height: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.calendar-day h5 {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Add click event listener to each day in the calendar
+  document.querySelectorAll('.calendar-day').forEach(day => {
+    day.addEventListener('click', function () {
+      const selectedDate = this.getAttribute('data-date');
+      document.getElementById('selectedDate').textContent = selectedDate;
+
+      // Fetch labor hours for the selected date via AJAX
+      fetch(`/calendar/labor_hours?date=${selectedDate}`)
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.getElementById('laborHoursTableBody');
+          tableBody.innerHTML = ''; // Clear any previous data
+
+          // Populate the table with labor hours data
+          if (data.length > 0) {
+            data.forEach(item => {
+              const row = document.createElement('tr');
+              row.innerHTML = `<td>${item.worker_name}</td><td>${item.total_hours}</td>`;
+              tableBody.appendChild(row);
+            });
+          } else {
+            tableBody.innerHTML = '<tr><td colspan="2">No labor hours recorded for this date.</td></tr>';
+          }
+
+          // Show the modal using Bootstrap's JavaScript
+          const modal = new bootstrap.Modal(document.getElementById('laborHoursModal'));
+          modal.show();
+        })
+        .catch(error => console.error('Error fetching labor hours:', error));
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('labor-hours-report-form');
+  
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const startDate = document.getElementById('start_date').value;
+    const endDate = document.getElementById('end_date').value;
+
+    // Update the form action to include the start and end dates in the URL
+    const reportUrl = `/calendar/labor_hours_report?start_date=${startDate}&end_date=${endDate}`;
+
+    // Redirect to the new report page
+    window.location.href = reportUrl;
+  });
+});
+
+</script>
