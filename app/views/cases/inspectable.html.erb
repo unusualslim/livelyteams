@@ -1,0 +1,99 @@
+<%= link_to 'Open Cases', cases_path, :class=> "btn btn-secondary"  %>
+<%= link_to 'Billable Cases', billable_cases_path, :class=> "btn btn-secondary"  %>
+<%= link_to 'Closed Cases', closed_cases_path, :class=> "btn btn-secondary"  %>
+<h2>Inspectable Cases (<%= @inspectable_cases.count %>)</h2>
+<%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
+<input id="gfg" type="text" placeholder="Search here">
+<div class="table-responsive-sm">
+<table id="cases" class="table">
+  <thead>
+    <tr>
+      <th scope="col" colspan="1"></th>
+      <th scope="col">Case No.</th>
+      <th scope="col">Subject</th>
+      <th scope="col">Assigned To</th>
+      <th scope="col">Created On</th>
+      <th scope="col" colspan="1">Locations</th>
+      <th scope="col" colspan="1">Comments</th>
+      <th scope="col" colspan="1">Attachments</th>
+    </tr>
+  </thead>
+
+  <tbody class="searchable">
+  <% @inspectable_cases.each do |c| %>
+  <% case  c.severity.severity
+    when "Urgent" %>
+      <tr scope="row" class="table-danger">
+    <% when "Low"  %>
+      <tr scope="row" class="table-secondary">
+    <% else %>
+      <tr scope="row" class="table-white">
+  <% end %>
+    <td>
+      <% case c.status.status
+         when 'In progress' %>
+          <span class="spinner-border spinner-border-sm"></span>
+        <% when 'Complete: Billable' %>
+          <span class="badge badge-success"><%= c.status.status unless c.status.blank? %></span>
+      <% end %>
+    </td>
+    <td><%= link_to c.id, case_path(c) %></td>
+    <td><%= c.subject %></td>
+    <td><%= if c.assigned_to.first_name.blank? then c.assigned_to.email else (c.assigned_to.first_name + " " + c.assigned_to.last_name) end %></td>
+    <td><small class="text-muted"> Created on <%= c.created_at.strftime("%b %d, %Y")  %></small></td>
+    <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocations<%= c.id %>" aria-expanded="false" aria-controls="collapseLocations<%= c.id %>">
+          <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
+        </button>
+    </td>
+    <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">
+          Comments (<%= c.case_comments.count %>)
+        </button>
+     </td>
+     <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttachments<%= c.id %>" aria-expanded="false" aria-controls="collapseAttachments<%= c.id %>">
+          Attachments (<%= c.files.count %>)
+         </button>
+     </td>
+   </tr>
+   <tr>
+     <td id="collapseLocations<%= c.id %>" class="collapse bg-dark text-white" colspan="8">
+       <% c.case_locations.each do |tl| %>
+         <%= link_to "#{tl.location.name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-outline-primary" %>
+       <% end %>
+     </td>
+   </tr>
+   <tr>
+     <td class="collapse bg-dark text-white" colspan="8" id="collapseComments<%= c.id %>"><%= render c.case_comments %>
+          <%= form_with(model: [ c, c.case_comments.build ]) do |f| %>
+          <div class="form-group">
+            <%= f.text_area :body, :class => "form-control", :rows => 2, :cols => 1 %>
+          </div>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+          <p>
+            <%= f.submit 'Add Comment', class: "btn btn-primary" %>
+          </p>
+          <% end %>
+     </td>
+   </tr>
+   <tr>
+     <td class="collapse bg-dark text-white" colspan="8" id="collapseAttachments<%= c.id %>">
+       <% c.files.each do |f| %>
+         <%= link_to f.filename, url_for(f) %><br>
+       <% end %>
+     </td>
+   </tr>
+
+  <% end %>
+  </tbody>
+</table>
+</div>
+<script>
+            $(document).ready(function() {
+                $("#gfg").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#geeks tr").filter(function() {
+                        $(this).toggle($(this).text()
+                        .toLowerCase().indexOf(value) > -1)
+                    });
+                });
+            });
+</script>

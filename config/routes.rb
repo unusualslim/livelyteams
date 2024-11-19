@@ -70,7 +70,9 @@ Rails.application.routes.draw do
     collection do
       get 'closed'
       get 'billable'
+      get 'inspectable'
     end
+    put :change_status_to_inspectable, on: :member
     put :change_status_to_closed, on: :member
     put :change_status_to_complete_billable, on: :member
 

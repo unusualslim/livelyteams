@@ -43,6 +43,10 @@ class Case < ApplicationRecord
     status.status == 'Closed'
   end
 
+  def inspectable?
+    status.status == 'Inspectable'
+  end
+
   def total_labor
     case_comments.sum(:labor_hours)
   end
@@ -96,6 +100,10 @@ class Case < ApplicationRecord
 
   def notify_case_comment
     notify_users(:new_comment)
+  end
+
+  def notify_inspectable_case
+    notify_users(:inspectable_case)
   end
 
   def notify_billable_case

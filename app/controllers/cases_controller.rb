@@ -12,6 +12,10 @@ class CasesController < ApplicationController
     @closed_cases = Case.where(status: 3).order( updated_at: :desc)
   end
 
+  def inspectable
+    @inspectable_cases = Case.where(status: 5).order( updated_at: :desc)
+  end
+
   def show
     @case = Case.find(params[:id])
   end
@@ -77,10 +81,17 @@ class CasesController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
-
+  def change_status_to_inspectable
+    @case = Case.find(params[:id])
+    if @case.update_attribute(:status_id,5)
+      CaseMailer.inspectable_case_email(@case).deliver_later
+      redirect_to cases_path
+    else
+      render 'edit'
+    end
+  end
 
   private
     def case_params

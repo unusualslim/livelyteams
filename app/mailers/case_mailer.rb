@@ -73,6 +73,30 @@ class CaseMailer < ApplicationMailer
     ) unless recipient.empty?
   end
 
+  def inspectable_case_email(updated_case)
+    @case = updated_case
+    recipient = []
+
+    @case.case_users.each do |cu|
+      if cu.user.inspectable_case && (cu.user.notification_method == 'email' || cu.user.notification_method == 'both')
+        recipient.push(cu.user.email)
+      end
+    end
+
+    if @case.requested_by.inspectable_case && (@case.requested_by.notification_method == 'email' || @case.requested_by.notification_method == 'both')
+      recipient.push(@case.requested_by.email)
+    end
+
+    if @case.assigned_to.inspectable_case && (@case.assigned_to.notification_method == 'email' || @case.assigned_to.notification_method == 'both')
+      recipient.push(@case.assigned_to.email)
+    end
+
+    mail(
+      to: recipient.uniq,
+      subject: "Case No. #{@case.id} is ready for inspection"
+    ) unless recipient.empty?
+  end
+
   def billable_case_email(updated_case)
     @case = updated_case
     recipient = []
