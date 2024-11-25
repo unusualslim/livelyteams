@@ -38,6 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_sign_up_params
+    Rails.logger.info "Configuring sign-up parameters"
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone_number])
   end
 
@@ -48,7 +49,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_captcha
-    return if verify_recaptcha # verify_recaptcha(action: 'signup') for v3
+    recaptcha_enabled = false # Set to true to reenable
+
+    return if !recaptcha_enabled || verify_recaptcha
 
     self.resource = resource_class.new sign_up_params
     resource.validate # Look for any other validation errors besides reCAPTCHA
