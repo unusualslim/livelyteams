@@ -41,10 +41,7 @@
   </div>
 
   <%# START add reCAPTCHA %>
-  <% unless Rails.configuration.skip_recaptcha %>
-    <%= flash[:recaptcha_error] %>
-    <%= recaptcha_tags %>
-  <% end %>
+    <%= recaptcha_tags site_key: ENV['RECAPTCHA_SITE_KEY'] %>
   <%# END add reCAPTCHA %>
 
 <% end %>
