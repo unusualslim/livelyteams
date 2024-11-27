@@ -49,7 +49,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_captcha
-    recaptcha_enabled = false # Set to true to reenable
+    recaptcha_enabled = true # Set to true to reenable
 
     return if !recaptcha_enabled || verify_recaptcha
 
