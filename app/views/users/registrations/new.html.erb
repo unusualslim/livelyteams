@@ -41,10 +41,10 @@
   </div>
 
   <%# START add reCAPTCHA %>
-  <%# unless Rails.configuration.skip_recaptcha %>
-    <%# flash[:recaptcha_error] %>
-    <%# recaptcha_tags %>
-  <%# end %>
+  <% unless Rails.configuration.skip_recaptcha %>
+    <%= flash[:recaptcha_error] %>
+    <%= recaptcha_tags %>
+  <% end %>
   <%# END add reCAPTCHA %>
 
 <% end %>
