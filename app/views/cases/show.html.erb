@@ -57,6 +57,7 @@
           </a>
           <div class="card-body">
             <p class="card-text"><%= file.filename %></p>
+            <%= button_to "Send to AP", send_to_ap_case_path(@case, file_id: file.id), method: :post, class: "btn btn-primary" %>
           </div>
         </div>
       </div>

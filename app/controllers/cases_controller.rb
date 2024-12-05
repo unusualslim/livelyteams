@@ -1,7 +1,11 @@
 class CasesController < ApplicationController
 
   def index
+    @users = User.all
     @open_cases = Case.where.not(status: [3,4]).order( created_at: :desc)
+    @open_cases_counts = Case.where(status_id: [1]) # Assuming 1 is "open"
+                           .group(:assigned_to_id)
+                           .count
   end
 
   def billable
@@ -91,6 +95,17 @@ class CasesController < ApplicationController
     else
       render 'edit'
     end
+  end
+  
+  def send_to_ap
+    @case = Case.find(params[:id])
+    file = @case.files.find(params[:file_id])
+
+    # Call the mailer to send the email
+    CaseMailer.send_to_ap(file).deliver_now
+
+    # Redirect back with a success message
+    redirect_to case_path(@case), notice: "Photo sent to AP successfully!"
   end
 
   private

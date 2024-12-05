@@ -1,6 +1,16 @@
 class CaseMailer < ApplicationMailer
   default from: 'no-reply@livelyteams.com'
 
+  def send_to_ap(file)
+    @file = file
+    attachments[@file.filename.to_s] = @file.download
+
+    mail(
+      to: 'johnsmarr@perrybrothersoil.com',
+      subject: "New Photo from LivelyTeams Case "
+    )
+  end
+
   def new_case_email(new_case)
     @case = new_case
     recipient = []
