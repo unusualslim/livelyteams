@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'calendar/labor_hours_summary', to: 'calendar#labor_hours_summary'
   get 'calendar/labor_hours_report', to: 'calendar#labor_hours_report'
+  get 'cases/open_cases_count', to: 'cases#open_cases_count'
   resources :calendar, only: [:index] do
     get 'labor_hours', on: :collection
   end
@@ -65,6 +66,7 @@ Rails.application.routes.draw do
   resources :case_comments, only: [:index]
 
   resources :cases do
+    post 'send_to_ap', on: :member
     get :search, on: :collection
     resources :case_comments
     collection do
