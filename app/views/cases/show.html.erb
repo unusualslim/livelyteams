@@ -53,7 +53,7 @@
       <div class="col-md-4 mb-3">
         <div class="card">
           <a href="<%= url_for(file) %>" download="<%= file.filename %>">
-            <img src="<%= url_for(file) %>" class="card-img-top img-fluid" alt="<%= file.filename %>">
+            <img src="<%= url_for(file.variant(resize_to_limit: [800, 600])) %>" class="card-img-top img-fluid" alt="<%= file.filename %>">
           </a>
           <div class="card-body">
             <p class="card-text"><%= file.filename %></p>
@@ -71,7 +71,6 @@
     <% end %>
   <% end %>
 </div>
-
 
 <h2>Comments</h2>
   <p style="color:blue;">Total Labor Hours: <%= @case.total_labor %> hrs</p>
