@@ -47,11 +47,30 @@
   <strong>severity</strong>
   <%= @case.severity.severity unless @case.status.blank? %>
 </p>
-<p>
-  <% @case.files.each do |f| %>
-    <%= link_to f.filename, url_for(f) %><br>
+<div class="row">
+  <% @case.files.each do |file| %>
+    <% if file.content_type.start_with?('image/') %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <a href="<%= url_for(file) %>" download="<%= file.filename %>">
+            <img src="<%= url_for(file) %>" class="card-img-top img-fluid" alt="<%= file.filename %>">
+          </a>
+          <div class="card-body">
+            <p class="card-text"><%= file.filename %></p>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <p><%= link_to file.filename, url_for(file), download: file.filename %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-</p>
+</div>
 
 
 <h2>Comments</h2>
