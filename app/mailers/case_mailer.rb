@@ -4,6 +4,7 @@ class CaseMailer < ApplicationMailer
   def send_to_ap(file)
     @file = file
     attachments[@file.filename.to_s] = @file.download
+    case_id = @file.record.id # Get the case ID from the attachment's associated case
 
     mail(
       to: 'johnsmarr@perrybrothersoil.com',

@@ -9,6 +9,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  def new
+    Rails.logger.info("Users::RegistrationsController#new is being called")
+    super
+  end
+
   def update
     if update_resource(resource, account_update_params)
       set_flash_message :notice, :updated
