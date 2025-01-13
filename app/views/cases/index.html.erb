@@ -7,14 +7,7 @@
 </div>
 <br />
 <h2>Open Cases (<%= @open_cases.count %>)</h2>
-<%= link_to "Show Open Case Counts", "javascript:void(0);", id: "show-case-counts-link" %>
-  <div id="case-counts" style="display: none;">
-    <% @users.each do |user| %>
-      <div>
-        <%= user.first_name %> - Open Cases: <%= @open_cases_counts[user.id] || 0 %>
-      </div>
-    <% end %>
-  </div>
+
 <br />
 <%= link_to 'New Case', new_case_path, :class => "btn btn-success" %>
 <input class="table_search" type="text" placeholder="Search here">
