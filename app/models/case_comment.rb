@@ -8,5 +8,9 @@ class CaseComment < ApplicationRecord
     self.case.send(:notify_case_comment) # Using `send` to call the private method
   end
 
+  def self.ransackable_attributes(auth_object = nil)
+    super + ['body']
+  end
+
   private
 end

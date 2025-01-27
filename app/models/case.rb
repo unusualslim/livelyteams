@@ -75,6 +75,15 @@ class Case < ApplicationRecord
     end
   end
 
+  # Enable Ransack to search through associated comments
+  def self.ransackable_associations(auth_object = nil)
+    super + ['comments']
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + ['subject', 'description']
+  end
+
   private
 
   def users_to_notify(event)

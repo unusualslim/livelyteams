@@ -14,6 +14,8 @@ gem 'pg', '~> 1.3', '>= 1.3.5'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'twilio-ruby', '~> 5.58'
 gem 'simple_calendar'
+gem 'net-ping'
+gem 'sidekiq'
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
