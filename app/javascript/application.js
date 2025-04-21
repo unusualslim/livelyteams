@@ -10,3 +10,8 @@ import "./src/site-search"
 import "./src/geeks_table_search"
 import "./src/location-search"
 import "./src/tinymce_init"
+
+import { Application } from "@hotwired/stimulus";
+
+const application = Application.start();
+export { application };

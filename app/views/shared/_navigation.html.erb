@@ -1,6 +1,52 @@
+<script>
+  $(document).ready(function() {
+    // Select the input with the autocomplete behavior
+    var $input = $("[data-behavior='autocomplete']");
+    console.log("Autocomplete input element:", $input);
+
+    // Define your EasyAutocomplete options.
+    var options = {
+      // Use a function to preserve the full object.
+      getValue: function(item) {
+        return item.name;
+      },
+      url: function(phrase) {
+        return "/search.json?q=" + phrase;
+      },
+      categories: [
+        {
+          listLocation: "cases",
+          header: "<strong>Cases:</strong>"
+        },
+        {
+          listLocation: "locations",
+          header: "<strong>Locations:</strong>"
+        }
+      ],
+      list: {
+        onChooseEvent: function() {
+          var selectedItem = $input.getSelectedItemData();
+          console.log("Selected item data:", selectedItem);
+          var url = selectedItem && selectedItem.url;
+          $input.val("");
+          if(url) {
+            window.location = url;
+          } else {
+            console.error("No URL found in selected item:", selectedItem);
+          }
+        }
+      }
+    };
+
+    // Initialize easyAutocomplete on the input.
+    $input.easyAutocomplete(options);
+  });
+</script>
+
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-  <%= link_to 'Lively Teams', root_path, class:"navbar-brand" %>
+  <%= link_to 'Lively Teams', root_path, class:"navbar-brand", data: { turbo: false } %>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,35 +55,35 @@
         <li class="nav-item dropdown">
           <%= link_to 'Cases', cases_path, {:class => 'nav-link dropdown-toggle', :'data-bs-toggle' => 'dropdown', :'aria-expanded'=> 'false', :role => 'button'} %>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><%= link_to 'Open Cases', cases_path, :class => 'dropdown-item' %></li>
-            <li><%= link_to 'Billable Cases', billable_cases_path, :class => 'dropdown-item' %></li>
-            <li><%= link_to 'Inspectable Cases', inspectable_cases_path, :class => 'dropdown-item' %></li>
-            <li><%= link_to 'Closed Cases', closed_cases_path, :class => 'dropdown-item' %></li>
+            <li><%= link_to 'Open Cases', cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
+            <li><%= link_to 'Billable Cases', billable_cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
+            <li><%= link_to 'Inspectable Cases', inspectable_cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
+            <li><%= link_to 'Closed Cases', closed_cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
           </ul>
         </li>
         <li class="nav-item">
-          <%= link_to 'Projects', {controller: '/task_lists'}, class: "nav-link" %>
+          <%= link_to 'Projects', {controller: '/task_lists'}, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Notes',{controller: '/notes'}, class: "nav-link" %>
+          <%= link_to 'Notes',{controller: '/notes'}, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
-          <%= link_to 'File Share', {controller: '/things'}, class: "nav-link" %>
+          <%= link_to 'File Share', {controller: '/things'}, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Locations', {controller: '/locations'}, class: "nav-link" %>
+          <%= link_to 'Locations', {controller: '/locations'}, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Comments',{controller: '/case_comments'}, class: "nav-link" %>
+          <%= link_to 'Comments',{controller: '/case_comments'}, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
           <%= link_to 'Calendar', calendar_index_path, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Contacts', {controller: '/contacts'}, class: "nav-link" %>
+          <%= link_to 'Contacts', {controller: '/contacts'}, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Settings', admin_index_path, class: "nav-link" %>
+          <%= link_to 'Settings', admin_index_path, class: "nav-link", data: { turbo: false } %>
         </li>
         <li class="nav-item">
           <% if current_user %>
@@ -51,9 +97,15 @@
           <% end %>
         </li>
       </ul>
-    </div><!-- .collapse .navbar-collapse -->
-    <%= form_with url: search_path, local: true, method: :get, html: { class: "d-flex" } do |form| %>
-      <%= form.text_field :q, placeholder: "Search", data: { behavior: "autocomplete" }, class: "form-control me-2" %>
+    </div>
+
+    <%= form_with url: search_path, local: true, method: :get, data: { turbo: false }, html: { class: "d-flex" } do |form| %>
+      <%= form.text_field :q,
+            placeholder: "Search",
+            class: "form-control me-2",
+            data: { autocomplete_target: "input" } %>
+      <!-- Suggestions container -->
+      <ul id="autocomplete-suggestions" class="autocomplete-dropdown" style="display: none;"></ul>
       <%= form.button "Search", class: "btn btn-outline-success" %>
     <% end %>
 
@@ -64,3 +116,104 @@
     <%= link_to '+', new_case_path, class:"btn btn-outline-success" %>
 </div>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    console.log("Inline autocomplete script loaded!");
+
+    const input = document.querySelector("[data-autocomplete-target='input']");
+    const suggestionsContainer = document.getElementById("autocomplete-suggestions");
+
+    if (!input || !suggestionsContainer) {
+      console.error("Autocomplete input or suggestions container not found!");
+      return;
+    }
+
+    input.addEventListener("input", function() {
+      const query = input.value.trim();
+      if (query.length < 2) {
+        suggestionsContainer.innerHTML = "";
+        suggestionsContainer.style.display = "none";
+        return;
+      }
+
+      fetch(`/search.json?q=${query}`)
+        .then(response => response.json())
+        .then(data => {
+          renderSuggestions(data);
+        })
+        .catch(error => {
+          console.error("Error fetching autocomplete data:", error);
+        });
+    });
+
+    function renderSuggestions(data) {
+      suggestionsContainer.innerHTML = ""; // Clear previous suggestions
+      const cases = data.cases || [];
+      const locations = data.locations || [];
+
+      if (cases.length === 0 && locations.length === 0) {
+        suggestionsContainer.style.display = "none";
+        return;
+      }
+
+      const suggestions = [];
+
+      if (cases.length > 0) {
+        suggestions.push("<strong>Cases:</strong>");
+        cases.forEach(item => {
+          suggestions.push(
+            `<li data-url="${item.url}" class="suggestion-item">${item.name}</li>`
+          );
+        });
+      }
+
+      if (locations.length > 0) {
+        suggestions.push("<strong>Locations:</strong>");
+        locations.forEach(item => {
+          suggestions.push(
+            `<li data-url="${item.url}" class="suggestion-item">${item.name}</li>`
+          );
+        });
+      }
+
+      suggestionsContainer.innerHTML = suggestions.join("");
+      suggestionsContainer.style.display = "block";
+
+      // Add click event listeners to suggestions
+      const suggestionItems = suggestionsContainer.querySelectorAll(".suggestion-item");
+      suggestionItems.forEach(item => {
+        item.addEventListener("click", function() {
+          const url = this.dataset.url;
+          if (url) {
+            window.location = url; // Redirect to the selected item's URL
+          }
+        });
+      });
+    }
+  });
+</script>
+
+<style>
+  .autocomplete-dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    top: 100%; /* Position the dropdown directly below the input */
+    left: 0;
+  }
+
+  .autocomplete-dropdown li {
+    padding: 8px;
+    cursor: pointer;
+  }
+
+  .autocomplete-dropdown li:hover {
+    background-color: #f0f0f0;
+  }
+</style>
