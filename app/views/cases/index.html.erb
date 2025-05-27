@@ -48,7 +48,17 @@
     </td>
     <td><%= link_to c.id, case_path(c) %></td>
     <td><%= c.subject %></td>
-    <td><%= if c.assigned_to.first_name.blank? then c.assigned_to.email else (c.assigned_to.first_name + " " + c.assigned_to.last_name) end %></td>
+    <td>
+      <% if c.assigned_to.present? %>
+        <% if c.assigned_to.first_name.blank? %>
+          <%= c.assigned_to.email %>
+        <% else %>
+          <%= "#{c.assigned_to.first_name} #{c.assigned_to.last_name}" %>
+        <% end %>
+      <% else %>
+        <span class="text-muted">Unassigned</span>
+      <% end %>
+    </td>
     <td><small class="text-muted"> Created on <%= c.created_at.strftime("%b %d, %Y")  %></small></td>
     <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocations<%= c.id %>" aria-expanded="false" aria-controls="collapseLocations<%= c.id %>">
           <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
