@@ -1,3 +1,5 @@
+<div class="container-fluid ps-4">
+
 <%= link_to 'Back', cases_path, :class => "link-secondary" %> |
 <%= link_to 'Edit', edit_case_path(@case.id), :class => "link-success" %> |
 <%= link_to 'Delete', case_path(@case), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "link-danger" %> |
@@ -5,14 +7,17 @@
 <%= link_to 'Mark Billable', change_status_to_complete_billable_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
 <%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
 <%= link_to 'Print', case_path, :onclick => 'window.print();return false;'%>
+
 <p>
   <strong>Case No.</strong>
   <%= @case.id %> <span class="badge bg-secondary"><%= @case.status.status unless @case.status.blank? %></span>
 </p>
+
 <p>
   <strong>Subject</strong>
   <%= @case.subject %>
 </p>
+
 <p>
   <strong>Created On:</strong> <%= Time.use_zone('Eastern Time (US & Canada)') { @case.created_at.strftime("%B %d, %Y") } %><br>
   <strong>Last updated:</strong> <%= Time.use_zone('Eastern Time (US & Canada)') { @case.updated_at.strftime("%A, %b %d, %Y - %l:%M %p") } %><br>
@@ -64,25 +69,30 @@
   <strong>Requested By</strong>
   <%= @case.requested_by.full_name unless @case.requested_by.full_name.blank? %>
 </p>
+
 <p>
   <strong>Assigned To</strong>
   <%= @case.assigned_to.full_name unless @case.assigned_to.full_name.blank? %>
 </p>
+
 <p>
   <strong>Followed By:</strong><br>
   <% @case.case_users.each do |cu| %>
-  <%= cu.user.full_name %>
-  <br />
+    <%= cu.user.full_name %>
+    <br />
   <% end %>
 </p>
+
 <p>
   <strong>Description</strong>
   <%= @case.description %>
 </p>
+
 <p>
   <strong>severity</strong>
   <%= @case.severity.severity unless @case.status.blank? %>
 </p>
+
 <div class="row">
   <% @case.files.each do |file| %>
     <% if file.content_type.start_with?('image/') %>
@@ -110,10 +120,11 @@
 </div>
 
 <h2>Comments</h2>
-  <p style="color:blue;">Total Labor Hours: <%= @case.total_labor %> hrs</p>
-  <%= render @case.case_comments %>
-  <%= render 'case_comments/form' %>
+<p style="color:blue;">Total Labor Hours: <%= @case.total_labor %> hrs</p>
+<%= render @case.case_comments %>
+<%= render 'case_comments/form' %>
 
+</div>
 
 <script>
 document.addEventListener("click", async (e) => {
@@ -128,7 +139,6 @@ document.addEventListener("click", async (e) => {
     if (status) status.textContent = "Copied!";
     setTimeout(() => { if (status) status.textContent = ""; }, 1200);
   } catch (err) {
-    // Fallback for older browsers / clipboard blocked
     const ta = document.createElement("textarea");
     ta.value = text;
     ta.style.position = "fixed";
