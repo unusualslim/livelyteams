@@ -6,6 +6,10 @@ class User < ApplicationRecord
   has_many :comments
   has_many :case_users
   has_many :cases, through: :case_users
+  has_many :team_members, dependent: :destroy
+  has_many :teams, through: :team_members
+
+  after_create :assign_default_external_membership
 
   def full_name
     ([first_name, last_name] - ['']).compact.join(' ')
@@ -19,6 +23,35 @@ class User < ApplicationRecord
 
   def inactive_message
     "Your account has been deactivated. Please contact the administrator."
+  end
+
+   def role_names
+    team_members.includes(:role).map { |tm| tm.role&.role }.compact
+  end
+
+  def internal?
+    role_names.include?("internal_admin") || role_names.include?("internal_user")
+  end
+
+  def external?
+    role_names.include?("external_admin") || role_names.include?("external_user")
+  end
+
+  def current_team
+    teams.first
+  end
+
+  def move_to_team!(team_name, role_name)
+    team = Team.find_by!(name: team_name)
+    role = Role.find_by!(role: role_name)
+
+    tm = team_members.first
+
+    if tm.nil?
+      team_members.create!(team: team, role: role)
+    else
+      tm.update!(team: team, role: role)
+    end
   end
 
   def notify_method?(event)
@@ -36,5 +69,15 @@ class User < ApplicationRecord
     else
       false
     end
+  end
+
+  private
+
+  def assign_default_external_membership
+    external_team = Team.find_by(name: "External")
+    external_role = Role.find_by(role: "external_user")
+    return unless external_team && external_role
+
+    TeamMember.find_or_create_by!(user: self, team: external_team, role: external_role)
   end
 end
