@@ -8,5 +8,7 @@ class Location < ApplicationRecord
   has_many_attached :attachments
   has_rich_text :note
 
+  belongs_to :team, optional: true
+
 #  belongs_to :team
 end

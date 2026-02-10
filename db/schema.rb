@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_13_134905) do
+ActiveRecord::Schema[7.0].define(version: 2026_02_09_162654) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -100,11 +100,13 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_13_134905) do
     t.bigint "assigned_to_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.bigint "team_id"
     t.index ["assigned_to_id"], name: "index_cases_on_assigned_to_id"
     t.index ["location_id"], name: "index_cases_on_location_id"
     t.index ["requested_by_id"], name: "index_cases_on_requested_by_id"
     t.index ["severity_id"], name: "index_cases_on_severity_id"
     t.index ["status_id"], name: "index_cases_on_status_id"
+    t.index ["team_id"], name: "index_cases_on_team_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -141,6 +143,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_13_134905) do
     t.string "zip"
     t.string "phone"
     t.string "status"
+    t.bigint "team_id"
+    t.index ["team_id"], name: "index_locations_on_team_id"
   end
 
   create_table "manufacturers", force: :cascade do |t|
@@ -326,9 +330,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_13_134905) do
   add_foreign_key "cases", "locations"
   add_foreign_key "cases", "severities"
   add_foreign_key "cases", "statuses"
+  add_foreign_key "cases", "teams"
   add_foreign_key "cases", "users", column: "assigned_to_id"
   add_foreign_key "cases", "users", column: "requested_by_id"
   add_foreign_key "equipment", "manufacturers"
+  add_foreign_key "locations", "teams"
   add_foreign_key "notes", "users"
   add_foreign_key "taggings", "assets"
   add_foreign_key "taggings", "tags"

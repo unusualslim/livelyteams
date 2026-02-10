@@ -43,78 +43,98 @@
   });
 </script>
 
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-  <%= link_to 'Lively Teams', root_path, class:"navbar-brand", data: { turbo: false } %>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <%= link_to 'Lively Teams', root_path, class:"navbar-brand", data: { turbo: false } %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav me-auto">
+
+        <!-- CASES (visible to everyone logged in) -->
         <li class="nav-item dropdown">
-          <%= link_to 'Cases', cases_path, {:class => 'nav-link dropdown-toggle', :'data-bs-toggle' => 'dropdown', :'aria-expanded'=> 'false', :role => 'button'} %>
+          <%= link_to 'Cases', cases_path,
+            class: 'nav-link dropdown-toggle',
+            data: { bs_toggle: 'dropdown' },
+            role: 'button',
+            aria: { expanded: false } %>
+
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><%= link_to 'Open Cases', cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
-            <li><%= link_to 'Billable Cases', billable_cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
-            <li><%= link_to 'Inspectable Cases', inspectable_cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
-            <li><%= link_to 'Closed Cases', closed_cases_path, :class => 'dropdown-item', data: { turbo: false } %></li>
+            <li><%= link_to 'Open Cases', cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
+            <li><%= link_to 'Billable Cases', billable_cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
+            <li><%= link_to 'Inspectable Cases', inspectable_cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
+            <li><%= link_to 'Closed Cases', closed_cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <%= link_to 'Projects', {controller: '/task_lists'}, class: "nav-link", data: { turbo: false } %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Notes',{controller: '/notes'}, class: "nav-link", data: { turbo: false } %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'File Share', {controller: '/things'}, class: "nav-link", data: { turbo: false } %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Locations', {controller: '/locations'}, class: "nav-link", data: { turbo: false } %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Comments',{controller: '/case_comments'}, class: "nav-link", data: { turbo: false } %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Calendar', calendar_index_path, class: "nav-link", data: { turbo: false } %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Contacts', {controller: '/contacts'}, class: "nav-link", data: { turbo: false } %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Settings', admin_index_path, class: "nav-link", data: { turbo: false } %>
-        </li>
+
+        <% if current_user&.internal? %>
+          <li class="nav-item">
+            <%= link_to 'Projects', task_lists_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Notes', notes_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'File Share', things_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Locations', locations_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Comments', case_comments_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Calendar', calendar_index_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Contacts', contacts_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Settings', admin_index_path, class: "nav-link", data: { turbo: false } %>
+          </li>
+        <% end %>
+
         <li class="nav-item">
           <% if current_user %>
             <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
           <% else %>
             <%= link_to "Register", new_user_registration_path, class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-            <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
-
           <% end %>
         </li>
+
+        <% unless current_user %>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
+          </li>
+        <% end %>
+
       </ul>
     </div>
 
-    <%= form_with url: search_path, local: true, method: :get, data: { turbo: false }, html: { class: "d-flex" } do |form| %>
+    <%# SEARCH (shown to both internal/external; your controllers should already scope results) %>
+    <%= form_with url: search_path, local: true, method: :get, data: { turbo: false }, html: { class: "d-flex position-relative" } do |form| %>
       <%= form.text_field :q,
             placeholder: "Search",
             class: "form-control me-2",
             data: { autocomplete_target: "input" } %>
+
       <!-- Suggestions container -->
       <ul id="autocomplete-suggestions" class="autocomplete-dropdown" style="display: none;"></ul>
+
       <%= form.button "Search", class: "btn btn-outline-success" %>
     <% end %>
 
     <% if current_user %>
-      <%= link_to 'Edit Profile', edit_user_registration_path, class: "nav-link" %>
-    <% else %>
+      <%= link_to 'Edit Profile', edit_user_registration_path, class: "nav-link ms-3" %>
     <% end %>
-    <%= link_to '+', new_case_path, class:"btn btn-outline-success" %>
-</div>
+
+    <% if current_user&.internal? %>
+      <%= link_to '+', new_case_path, class:"btn btn-outline-success ms-2" %>
+    <% end %>
+
+  </div>
 </nav>
 
 <script>
@@ -148,7 +168,7 @@
     });
 
     function renderSuggestions(data) {
-      suggestionsContainer.innerHTML = ""; // Clear previous suggestions
+      suggestionsContainer.innerHTML = "";
       const cases = data.cases || [];
       const locations = data.locations || [];
 
@@ -168,7 +188,9 @@
         });
       }
 
-      if (locations.length > 0) {
+      // Only show Locations suggestions for internal users
+      const isInternal = <%= current_user&.internal? ? "true" : "false" %>;
+      if (isInternal && locations.length > 0) {
         suggestions.push("<strong>Locations:</strong>");
         locations.forEach(item => {
           suggestions.push(
@@ -180,14 +202,11 @@
       suggestionsContainer.innerHTML = suggestions.join("");
       suggestionsContainer.style.display = "block";
 
-      // Add click event listeners to suggestions
       const suggestionItems = suggestionsContainer.querySelectorAll(".suggestion-item");
       suggestionItems.forEach(item => {
         item.addEventListener("click", function() {
           const url = this.dataset.url;
-          if (url) {
-            window.location = url; // Redirect to the selected item's URL
-          }
+          if (url) window.location = url;
         });
       });
     }
@@ -204,7 +223,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    top: 100%; /* Position the dropdown directly below the input */
+    top: 100%;
     left: 0;
   }
 

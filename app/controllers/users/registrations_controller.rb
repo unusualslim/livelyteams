@@ -54,7 +54,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_captcha
-    recaptcha_enabled = true # Set to true to reenable
+    recaptcha_enabled = !Rails.env.development?
 
     return if !recaptcha_enabled || verify_recaptcha
 

@@ -71,3 +71,11 @@ Equipment.create( model: "Radiant Site Controller", manufacturer_id: 4)
 Role.create( role: "Administrator")
 Role.create( role: "Contributor")
 Role.create( role: "Audience")
+Role.find_or_create_by!(role: "internal_admin")
+Role.find_or_create_by!(role: "internal_user")
+Role.find_or_create_by!(role: "external_admin")
+Role.find_or_create_by!(role: "external_user")
+
+#Teams
+Team.find_or_create_by!(name: "Internal")
+Team.find_or_create_by!(name: "External")

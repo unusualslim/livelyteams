@@ -1,27 +1,47 @@
 class CasesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_case, only: %i[
+    show edit update destroy
+    change_status_to_closed change_status_to_complete_billable change_status_to_inspectable
+    send_to_ap
+  ]
+  before_action :authorize_case_access!, only: %i[
+    show edit update destroy
+    change_status_to_closed change_status_to_complete_billable change_status_to_inspectable
+    send_to_ap
+  ]
 
   def index
     @users = User.all
-    @open_cases = Case.where.not(status: [3,4]).order( created_at: :desc)
-    @open_cases_counts = Case.where(status_id: [1]) # Assuming 1 is "open"
-                           .group(:assigned_to_id)
-                           .count
+    base = case_scope
+
+    @open_cases = base
+      .where.not(status_id: [3, 4])
+      .order(created_at: :desc)
+
+    @open_cases_counts = base
+      .where(status_id: [1]) # 1 = "open"
+      .group(:assigned_to_id)
+      .count
   end
 
   def billable
-    @billable_cases = Case.where(status: 4).order( updated_at: :desc)
+    base = case_scope
+    @billable_cases = base.where(status_id: 4).order(updated_at: :desc)
   end
 
   def closed
-    @closed_cases = Case.where(status: 3).order( updated_at: :desc)
+    base = case_scope
+    @closed_cases = base.where(status_id: 3).order(updated_at: :desc)
   end
 
   def inspectable
-    @inspectable_cases = Case.where(status: 5).order( updated_at: :desc)
+    base = case_scope
+    @inspectable_cases = base.where(status_id: 5).order(updated_at: :desc)
   end
 
   def show
-    @case = Case.find(params[:id])
+    # @case is set by set_case
   end
 
   def new
@@ -29,87 +49,106 @@ class CasesController < ApplicationController
   end
 
   def edit
-    @case = Case.find(params[:id])
+    # @case is set by set_case
   end
 
   def create
     @case = Case.new(case_params)
+
     if @case.save
       CaseMailer.new_case_email(@case).deliver_later
       redirect_to @case
     else
-      render 'new'
+      render :new, status: :unprocessable_entity
     end
-    #@case.notify_assigned_user
   end
 
   def update
-    @case = Case.find(params[:id])
-
     if @case.update(case_params)
       CaseMailer.update_case_email(@case).deliver_later
       redirect_to @case
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
-    # Send text to assigned_user when updating case
-    # @case.notify_assigned_user
   end
 
   def destroy
-    @case = Case.find(params[:id])
-    @case.destroy()
+    @case.destroy
 
     respond_to do |format|
       format.html { redirect_to cases_path, status: :see_other, notice: "Case was successfully destroyed." }
       format.json { head :no_content }
-
     end
   end
 
   def change_status_to_closed
-    @case = Case.find(params[:id])
-    if @case.update_attribute(:status_id,3)
+    if @case.update(status_id: 3)
       CaseMailer.closed_case_email(@case).deliver_later
       redirect_to cases_path
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def change_status_to_complete_billable
-    @case = Case.find(params[:id])
-    if @case.update_attribute(:status_id,4)
+    if @case.update(status_id: 4)
       CaseMailer.billable_case_email(@case).deliver_later
       redirect_to cases_path
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def change_status_to_inspectable
-    @case = Case.find(params[:id])
-    if @case.update_attribute(:status_id,5)
+    if @case.update(status_id: 5)
       CaseMailer.inspectable_case_email(@case).deliver_later
       redirect_to cases_path
     else
-      render 'edit'
+      render :edit, status: :unprocessable_entity
     end
   end
-  
+
   def send_to_ap
-    @case = Case.find(params[:id])
     file = @case.files.find(params[:file_id])
-
-    # Call the mailer to send the email
     CaseMailer.send_to_ap(file).deliver_now
-
-    # Redirect back with a success message
     redirect_to case_path(@case), notice: "Photo sent to AP successfully!"
   end
 
   private
-    def case_params
-      params.require(:case).permit(:subject, :status_id, :requested_by_id, :assigned_to_id, :description, :severity_id, :location_ids => [], :user_ids => [], files: [])
+
+  def set_case
+    @case = Case.find(params[:id])
+  end
+
+  def authorize_case_access!
+    return if current_user.internal?
+
+    allowed =
+      @case.requested_by_id == current_user.id ||
+      @case.assigned_to_id == current_user.id ||
+      @case.users.exists?(id: current_user.id)
+
+    redirect_to cases_path, alert: "You don’t have access to that case." unless allowed
+  end
+
+  def case_scope
+    if current_user.internal?
+      Case.all
+    else
+      Case
+        .left_joins(:case_users)
+        .where(
+          "case_users.user_id = :uid OR cases.requested_by_id = :uid OR cases.assigned_to_id = :uid",
+          uid: current_user.id
+        )
+        .distinct
     end
+  end
+
+  def case_params
+    params.require(:case).permit(
+      :subject, :status_id, :requested_by_id, :assigned_to_id, :description, :severity_id,
+      location_ids: [], user_ids: [], files: []
+    )
+  end
 end
