@@ -54,17 +54,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def check_captcha
-    recaptcha_enabled = true
+    recaptcha_enabled = !Rails.env.development?
 
     return if !recaptcha_enabled || verify_recaptcha
 
+    flash.now[:alert] = "reCAPTCHA verification failed. Please try again."
+
     self.resource = resource_class.new sign_up_params
-    resource.validate # Look for any other validation errors besides reCAPTCHA
+    resource.validate
     set_minimum_password_length
 
     respond_with_navigational(resource) do
-      flash.discard(:recaptcha_error) # Discard flash to avoid showing it on the next page reload
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
