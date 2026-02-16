@@ -8,14 +8,23 @@ class LocationsController < ApplicationController
   end
 
   def show
-    # Use association (covers case_locations join)
     @location_cases =
       if current_user.internal?
         @location.cases.order(created_at: :desc)
       else
-        # External: only cases at this location they can actually access
-        case_scope.where(id: @location.case_locations.select(:case_id)).order(created_at: :desc)
+        # External: ONLY cases they can access at THIS location
+        case_scope
+          .joins(:case_locations)
+          .where(case_locations: { location_id: @location.id })
+          .distinct
+          .order(created_at: :desc)
       end
+
+    # Optional: if they can access the location (because it has at least one
+    # accessible case), but the query returns none for some reason, bounce them.
+    if current_user.external? && @location_cases.blank?
+      redirect_to locations_path, alert: "You don’t have access to that location."
+    end
   end
 
   def new
@@ -49,7 +58,10 @@ class LocationsController < ApplicationController
   end
 
   def search
-    @locations = location_scope.ransack(name_cont: params[:q]).result(distinct: true).limit(5)
+    @locations = location_scope
+      .ransack(name_cont: params[:q])
+      .result(distinct: true)
+      .limit(5)
 
     respond_to do |format|
       format.json
