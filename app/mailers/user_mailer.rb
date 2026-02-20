@@ -3,7 +3,7 @@ class UserMailer < ApplicationMailer
 
   def welcome_email(user)
     @user = user
-    @url = '#{ENV("HOSTNAME")}/login'
-    mail(to: @user.email, subject: 'Welcome to #{ENV("HOSTNAME")}')
+    @url = "#{ENV['HOSTNAME']}/login"
+    mail(to: @user.email, subject: "Welcome to #{ENV['HOSTNAME']}")
   end
 end

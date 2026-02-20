@@ -10,17 +10,17 @@
 
   <div class="field">
     <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true %>
+    <%= f.text_field :last_name %>
   </div>
 
   <div class="field">
     <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number, autofocus: true %>
+    <%= f.text_field :phone_number %>
   </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autocomplete: "email" %>
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
@@ -51,8 +51,72 @@
   </div>
 <% end %>
 
+<hr>
+
+<h3>Notification Emails</h3>
+<p>Add extra email addresses that should receive your case/task alerts.</p>
+
+<% if resource.notification_emails.any? %>
+  <ul style="padding-left: 18px;">
+    <% resource.notification_emails.order(:email).each do |ne| %>
+      <li style="margin-bottom: 12px;">
+        <strong><%= ne.email %></strong>
+        <span style="margin-left: 10px;">
+          Status: <%= ne.active? ? "Active" : "Disabled" %>
+        </span>
+
+        <div style="margin-top: 6px;">
+          <%= form_with model: [resource, ne], local: true, method: :patch do |nf| %>
+            <label style="margin-right: 10px;">
+              <%= nf.check_box :active %> Active
+            </label>
+            <%= nf.submit "Save", class: "btn btn-sm btn-secondary" %>
+          <% end %>
+
+          <%= button_to "Remove",
+                user_notification_email_path(resource, ne),
+                method: :delete,
+                class: "btn btn-sm btn-danger",
+                form: { style: "display:inline-block; margin-left: 8px;" },
+                data: { turbo_confirm: "Remove #{ne.email}?" } %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><em>No notification emails added yet.</em></p>
+<% end %>
+
+<h4>Add a new notification email</h4>
+
+<%= form_with model: [resource, NotificationEmail.new],
+      url: user_notification_emails_path(resource),
+      local: true do |nf| %>
+
+  <div class="field" style="max-width: 420px;">
+    <%= nf.label :email, "Email address" %><br />
+    <%= nf.email_field :email,
+          required: true,
+          placeholder: "alerts@company.com",
+          autocomplete: "email",
+          class: "form-control" %>
+  </div>
+
+  <div class="actions" style="margin-top: 10px;">
+    <%= nf.submit "Add Email", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<hr>
+
 <h3>Cancel my account</h3>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+<p>
+  Unhappy?
+  <%= button_to "Cancel my account",
+        registration_path(resource_name),
+        data: { confirm: "Are you sure?" },
+        method: :delete %>
+</p>
 
 <%= link_to "Back", :back %>

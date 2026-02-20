@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :cases, through: :case_users
   has_many :team_members, dependent: :destroy
   has_many :teams, through: :team_members
+  has_many :notification_emails, dependent: :destroy
 
   after_create :assign_default_external_membership
 
@@ -25,7 +26,7 @@ class User < ApplicationRecord
     "Your account has been deactivated. Please contact the administrator."
   end
 
-   def role_names
+  def role_names
     team_members.includes(:role).map { |tm| tm.role&.role }.compact
   end
 
@@ -52,6 +53,10 @@ class User < ApplicationRecord
     else
       tm.update!(team: team, role: role)
     end
+  end
+
+  def notification_recipients
+    ([email] + notification_emails.active.pluck(:email)).compact.uniq
   end
 
   def notify_method?(event)

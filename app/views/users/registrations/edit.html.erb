@@ -79,6 +79,64 @@
           Settings saved successfully!
         </div>
 
+        <!-- ✅ NEW SECTION: Notification Emails -->
+        <div class="mb-4">
+          <h5>Notification Emails</h5>
+          <p class="text-muted" style="margin-top: -6px;">
+            These emails will also receive your alerts (in addition to your login email).
+          </p>
+
+          <% if resource.notification_emails.any? %>
+            <ul class="list-group mb-3">
+              <% resource.notification_emails.order(:email).each do |ne| %>
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div>
+                    <div><strong><%= ne.email %></strong></div>
+                    <small class="text-muted">Status: <%= ne.active? ? "Active" : "Disabled" %></small>
+                  </div>
+
+                  <div class="d-flex gap-2">
+                    <!-- Toggle Active -->
+                    <%= form_with model: [resource, ne], local: true, method: :patch do |nf| %>
+                      <div class="form-check" style="margin-right: 10px;">
+                        <%= nf.check_box :active, class: "form-check-input", id: "ne_active_#{ne.id}" %>
+                        <%= nf.label :active, "Active", class: "form-check-label", for: "ne_active_#{ne.id}" %>
+                      </div>
+                      <%= nf.submit "Save", class: "btn btn-sm btn-outline-secondary" %>
+                    <% end %>
+
+                    <!-- Remove -->
+                    <%= button_to "Remove",
+                          user_notification_email_path(resource, ne),
+                          method: :delete,
+                          class: "btn btn-sm btn-outline-danger",
+                          data: { turbo_confirm: "Remove #{ne.email}?" } %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p><em>No notification emails added yet.</em></p>
+          <% end %>
+
+          <!-- Add new notification email -->
+          <%= form_with model: [resource, NotificationEmail.new],
+                url: user_notification_emails_path(resource),
+                local: true do |nf| %>
+            <div class="input-group" style="max-width: 520px;">
+              <%= nf.email_field :email,
+                    required: true,
+                    placeholder: "alerts@company.com",
+                    autocomplete: "email",
+                    class: "form-control" %>
+              <button class="btn btn-outline-primary" type="submit">Add</button>
+            </div>
+          <% end %>
+        </div>
+
+        <hr>
+
+        <!-- Existing Preferences Form (AJAX) -->
         <%= form_for(resource, as: resource_name, url: update_user_preferences_path, html: { method: :patch, id: 'notification_settings_form' }) do |f| %>
           <h5>Notification Types</h5>
 
@@ -132,6 +190,8 @@
     const messageDiv = document.querySelector('#modal_message');
     const modal = new bootstrap.Modal(document.getElementById('notificationPreferencesModal'));
 
+    if (!form) return;
+
     form.addEventListener('submit', (event) => {
       event.preventDefault();
 
@@ -145,13 +205,13 @@
         }
       }).then(response => response.json()).then(data => {
         if (data.success) {
-          messageDiv.style.display = 'block'; // Show the success message
+          messageDiv.style.display = 'block';
           setTimeout(() => {
-            messageDiv.style.display = 'none'; // Hide the message after 3 seconds
-            modal.hide(); // Close the modal
+            messageDiv.style.display = 'none';
+            modal.hide();
           }, 3000);
         } else {
-          messageDiv.style.display = 'none'; // Hide the success message
+          messageDiv.style.display = 'none';
         }
       }).catch(error => {
         console.error('Error:', error);

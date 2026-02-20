@@ -3,12 +3,23 @@ class TaskMailer < ApplicationMailer
 
   def new_task_email(task)
     @task = task
-    mail(to: [@task.requested_by.email, @task.assigned_to.email],  subject: 'You have created a new task')
+
+    recipients = [
+      *@task.requested_by.notification_recipients,
+      *@task.assigned_to.notification_recipients
+    ].compact.uniq
+
+    mail(to: recipients, subject: 'You have created a new task')
   end
 
   def update_task_email(task)
     @task = task
-    mail(to: [@task.requested_by.email, @task.assigned_to.email], subject: 'Your task has been Updated')
-  end
 
+    recipients = [
+      *@task.requested_by.notification_recipients,
+      *@task.assigned_to.notification_recipients
+    ].compact.uniq
+
+    mail(to: recipients, subject: 'Your task has been Updated')
+  end
 end
