@@ -1,81 +1,86 @@
 class IncomingEmailsController < ApplicationController
-    skip_before_action :verify_authenticity_token
-    skip_before_action :authenticate_user!
-    # before_action :skip_authentication, only: [:create]
-  
-    def create
-      sender = params[:from].match(/<([^>]+)>/)&.captures&.first.downcase
-      subject = params['subject']
-      body = params['text']
-      text = "#{body} - Sent by #{sender}"
-      to = params['to']
-      attachment_info = params["attachment-info"]
-      if attachment_info.present?
-        attachment_info = JSON.parse(attachment_info)
-        filename = attachment_info["attachment1"]["filename"]
-        type = attachment_info["attachment1"]["type"]
-        attachment = params["attachment1"]
-      else
-        # Handle the case where attachment-info is nil
-        logger.warn("No attachment information found in params")
-      end
+  skip_before_action :verify_authenticity_token
+  skip_before_action :authenticate_user!
 
-      #check if sender of email corresponds to a user
-      user = User.find_by(email: sender).id
+  DEFAULT_REQUESTED_BY_ID = 79
+  DEFAULT_ASSIGNED_TO_ID  = 79
+  DEFAULT_LOCATION_ID     = 152
 
-      if to =~ /support@livelyteams\.com/
-          @case = Case.new(
-            subject: subject,
-            description: text,
-            status_id: 1,
-            severity_id: 2,
-            location_ids: 152,
-            requested_by_id: user || 79,
-            assigned_to_id: 79,
-          )
-        
-        # Attach files to the case if available
-        if attachment.present?
-          puts "Attachment present. Attaching to case..."
-          @case.files.attach(io: attachment.tempfile, filename: filename, content_type: type)
-          puts "Attachment attached to case."
-        else
-          puts "No attachment present."
-        end
-    
-        if @case.save
-          CaseMailer.new_case_email(@case).deliver_later
-          twilio_service = TwilioService.new
-          twilio_service.send_sms(User.find(59), "New unassigned case on livelyteams:  https://livelyteams.com/cases/#{@case.id}")
-          head :ok
-        else
-          puts "Error saving case: #{@case.errors.full_messages}"
-          head :unprocessable_entity
-        end
-      else
-        puts "Email was not sent to 'support@livelyteams.com'"
-      end
+  def create
+    sender  = extract_sender_email(params[:from])
+    subject = params['subject'].to_s
+    body    = params['text'].to_s
+    to      = params['to'].to_s
+
+    text = "#{body} - Sent by #{sender.presence || 'unknown sender'}"
+
+    attachment, filename, content_type = extract_first_attachment(params)
+
+    requested_by_id = User.find_by(email: sender)&.id || DEFAULT_REQUESTED_BY_ID
+
+    unless to.match?(/support@livelyteams\.com/i)
+      Rails.logger.info("Incoming email ignored (not to support@livelyteams.com). to=#{to}")
+      return head :ok
     end
 
-    private
+    @case = Case.new(
+      subject: subject.presence || "(No subject)",
+      description: text,
+      status_id: 1,
+      severity_id: 2,
+      location_ids: DEFAULT_LOCATION_ID,
+      requested_by_id: requested_by_id,
+      assigned_to_id: DEFAULT_ASSIGNED_TO_ID
+    )
 
-    def save_attachments(attachments)
-      attachments.each do |attachment_data|
-        # Create ActiveStorage attachment from attachment data
-        @case.files.attach(io: StringIO.new(attachment_data['data']), filename: attachment_data['filename'])
-      end
+    if attachment.present?
+      Rails.logger.info("Attachment present. Attaching to case... filename=#{filename} content_type=#{content_type}")
+      @case.files.attach(
+        io: attachment.tempfile,
+        filename: filename.presence || "attachment",
+        content_type: content_type.presence || "application/octet-stream"
+      )
     end
 
-    def skip_authentication
-      if request_from_email_client?
-        puts "Skipping authentication for email client request."
-        skip_authentication!
-      else
-        puts "Not skipping authentication."
-      end
-    end
-
-    def request_from_email_client?
-      params.key?('from') && params.key?('subject') && params.key?('text')
+    if @case.save
+      CaseMailer.new_case_email(@case).deliver_later
+      TwilioService.new.send_sms(
+        User.find(59),
+        "New unassigned case on livelyteams:  https://livelyteams.com/cases/#{@case.id}"
+      )
+      head :ok
+    else
+      Rails.logger.error("Error saving case: #{@case.errors.full_messages.join(', ')}")
+      head :unprocessable_entity
     end
   end
+
+  private
+
+  def extract_sender_email(from_value)
+    from = from_value.to_s.strip
+    return "" if from.blank?
+
+    email =
+      from.match(/<([^>]+)>/)&.captures&.first ||
+      from.match(/([A-Z0-9._%+\-]+@[A-Z0-9.\-]+\.[A-Z]{2,})/i)&.captures&.first
+
+    email.to_s.downcase.strip
+  end
+
+  def extract_first_attachment(p)
+    info_raw = p["attachment-info"]
+    return [nil, nil, nil] if info_raw.blank?
+
+    info = JSON.parse(info_raw) rescue nil
+    return [nil, nil, nil] if info.blank?
+
+    first_key = info.keys.sort.first
+    meta = info[first_key] || {}
+
+    file_param = p[first_key]
+    return [nil, nil, nil] unless file_param.present?
+
+    [file_param, meta["filename"], meta["type"]]
+  end
+end
