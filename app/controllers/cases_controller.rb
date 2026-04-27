@@ -12,32 +12,38 @@ class CasesController < ApplicationController
   ]
 
   def index
-    @users = User.all
     base = case_scope
 
     @open_cases = base
       .where.not(status_id: [3, 4])
+      .includes(:status, :severity, :assigned_to, :requested_by, :case_comments, case_locations: :location)
       .order(created_at: :desc)
 
     @open_cases_counts = base
-      .where(status_id: [1]) # 1 = "open"
+      .where(status_id: [1])
       .group(:assigned_to_id)
       .count
   end
 
   def billable
     base = case_scope
-    @billable_cases = base.where(status_id: 4).order(updated_at: :desc)
+    @billable_cases = base.where(status_id: 4)
+      .includes(:status, :severity, :assigned_to, :requested_by, case_locations: :location)
+      .order(updated_at: :desc)
   end
 
   def closed
     base = case_scope
-    @closed_cases = base.where(status_id: 3).order(updated_at: :desc)
+    @closed_cases = base.where(status_id: 3)
+      .includes(:status, :severity, :assigned_to, :requested_by, case_locations: :location)
+      .order(updated_at: :desc)
   end
 
   def inspectable
     base = case_scope
-    @inspectable_cases = base.where(status_id: 5).order(updated_at: :desc)
+    @inspectable_cases = base.where(status_id: 5)
+      .includes(:status, :severity, :assigned_to, :requested_by, case_locations: :location)
+      .order(updated_at: :desc)
   end
 
   def show
@@ -117,7 +123,12 @@ class CasesController < ApplicationController
   private
 
   def set_case
-    @case = Case.find(params[:id])
+    @case = Case.includes(
+      :status, :severity, :assigned_to, :requested_by,
+      case_locations: :location,
+      case_comments: :user,
+      case_users: :user
+    ).find(params[:id])
   end
 
   def authorize_case_access!

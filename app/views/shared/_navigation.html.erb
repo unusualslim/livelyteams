@@ -1,238 +1,93 @@
-<script>
-  $(document).ready(function() {
-    // Select the input with the autocomplete behavior
-    var $input = $("[data-behavior='autocomplete']");
-    console.log("Autocomplete input element:", $input);
+<%
+  def nav_active?(path)
+    request.path == path || request.path.start_with?(path + "/") ? "active" : ""
+  end
+%>
 
-    // Define your EasyAutocomplete options.
-    var options = {
-      // Use a function to preserve the full object.
-      getValue: function(item) {
-        return item.name;
-      },
-      url: function(phrase) {
-        return "/search.json?q=" + phrase;
-      },
-      categories: [
-        {
-          listLocation: "cases",
-          header: "<strong>Cases:</strong>"
-        },
-        {
-          listLocation: "locations",
-          header: "<strong>Locations:</strong>"
-        }
-      ],
-      list: {
-        onChooseEvent: function() {
-          var selectedItem = $input.getSelectedItemData();
-          console.log("Selected item data:", selectedItem);
-          var url = selectedItem && selectedItem.url;
-          $input.val("");
-          if(url) {
-            window.location = url;
-          } else {
-            console.error("No URL found in selected item:", selectedItem);
-          }
-        }
-      }
-    };
+<!-- Mobile top bar -->
+<div class="sidebar-topbar d-lg-none">
+  <button class="sidebar-toggle-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+    <i class="bi bi-list"></i>
+  </button>
+  <span class="sidebar-topbar-brand">Lively Teams</span>
+</div>
 
-    // Initialize easyAutocomplete on the input.
-    $input.easyAutocomplete(options);
-  });
-</script>
+<!-- Desktop sidebar -->
+<aside class="app-sidebar d-none d-lg-flex flex-column">
+  <%= render 'shared/sidebar_content' %>
+</aside>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container-fluid">
-    <%= link_to 'Lively Teams', root_path, class:"navbar-brand", data: { turbo: false } %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-
-        <!-- CASES (visible to everyone logged in) -->
-        <li class="nav-item dropdown">
-          <%= link_to 'Cases', cases_path,
-            class: 'nav-link dropdown-toggle',
-            data: { bs_toggle: 'dropdown' },
-            role: 'button',
-            aria: { expanded: false } %>
-
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><%= link_to 'Open Cases', cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
-            <li><%= link_to 'Billable Cases', billable_cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
-            <li><%= link_to 'Inspectable Cases', inspectable_cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
-            <li><%= link_to 'Closed Cases', closed_cases_path, class: 'dropdown-item', data: { turbo: false } %></li>
-          </ul>
-        </li>
-
-        <% if current_user&.internal? %>
-          <li class="nav-item">
-            <%= link_to 'Projects', task_lists_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Notes', notes_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'File Share', things_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Locations', locations_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Comments', case_comments_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Calendar', calendar_index_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Contacts', contacts_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Settings', admin_index_path, class: "nav-link", data: { turbo: false } %>
-          </li>
-        <% end %>
-
-        <li class="nav-item">
-          <% if current_user %>
-            <%= link_to "Sign Out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
-          <% else %>
-            <%= link_to "Register", new_user_registration_path, class: "nav-link" %>
-          <% end %>
-        </li>
-
-        <% unless current_user %>
-          <li class="nav-item">
-            <%= link_to "Sign In", new_user_session_path, class: "nav-link" %>
-          </li>
-        <% end %>
-
-      </ul>
-    </div>
-
-    <%# SEARCH (shown to both internal/external; your controllers should already scope results) %>
-    <%= form_with url: search_path, local: true, method: :get, data: { turbo: false }, html: { class: "d-flex position-relative" } do |form| %>
-      <%= form.text_field :q,
-            placeholder: "Search",
-            class: "form-control me-2",
-            data: { autocomplete_target: "input" } %>
-
-      <!-- Suggestions container -->
-      <ul id="autocomplete-suggestions" class="autocomplete-dropdown" style="display: none;"></ul>
-
-      <%= form.button "Search", class: "btn btn-outline-success" %>
-    <% end %>
-
-    <% if current_user %>
-      <%= link_to 'Edit Profile', edit_user_registration_path, class: "nav-link ms-3" %>
-    <% end %>
-
-    <% if current_user&.internal? %>
-      <%= link_to '+', new_case_path, class:"btn btn-outline-success ms-2" %>
-    <% end %>
-
+<!-- Mobile offcanvas sidebar -->
+<div class="offcanvas offcanvas-start app-sidebar-offcanvas" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+  <div class="offcanvas-header border-bottom border-secondary pb-3">
+    <span class="sidebar-brand" id="sidebarOffcanvasLabel">Lively Teams</span>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
-</nav>
+  <div class="offcanvas-body p-0 d-flex flex-column">
+    <%= render 'shared/sidebar_content' %>
+  </div>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    console.log("Inline autocomplete script loaded!");
-
     const input = document.querySelector("[data-autocomplete-target='input']");
     const suggestionsContainer = document.getElementById("autocomplete-suggestions");
 
-    if (!input || !suggestionsContainer) {
-      console.error("Autocomplete input or suggestions container not found!");
-      return;
-    }
+    if (!input || !suggestionsContainer) return;
+
+    const isInternal = <%= current_user&.internal? ? "true" : "false" %>;
+
+    document.addEventListener("click", function(e) {
+      if (!e.target.closest("#autocomplete-suggestions") && e.target !== input) {
+        suggestionsContainer.style.display = "none";
+      }
+    });
 
     input.addEventListener("input", function() {
       const query = input.value.trim();
       if (query.length < 2) {
-        suggestionsContainer.innerHTML = "";
         suggestionsContainer.style.display = "none";
         return;
       }
 
-      fetch(`/search.json?q=${query}`)
-        .then(response => response.json())
-        .then(data => {
-          renderSuggestions(data);
-        })
-        .catch(error => {
-          console.error("Error fetching autocomplete data:", error);
-        });
+      fetch(`/search.json?q=${encodeURIComponent(query)}`)
+        .then(r => r.json())
+        .then(data => renderSuggestions(data))
+        .catch(() => { suggestionsContainer.style.display = "none"; });
     });
 
     function renderSuggestions(data) {
       suggestionsContainer.innerHTML = "";
       const cases = data.cases || [];
-      const locations = data.locations || [];
+      const locations = isInternal ? (data.locations || []) : [];
 
       if (cases.length === 0 && locations.length === 0) {
         suggestionsContainer.style.display = "none";
         return;
       }
 
-      const suggestions = [];
-
+      const items = [];
       if (cases.length > 0) {
-        suggestions.push("<strong>Cases:</strong>");
+        items.push(`<li class="sidebar-autocomplete-header">Cases</li>`);
         cases.forEach(item => {
-          suggestions.push(
-            `<li data-url="${item.url}" class="suggestion-item">${item.name}</li>`
-          );
+          items.push(`<li class="sidebar-autocomplete-item" data-url="${item.url}">${item.name}</li>`);
         });
       }
-
-      // Only show Locations suggestions for internal users
-      const isInternal = <%= current_user&.internal? ? "true" : "false" %>;
-      if (isInternal && locations.length > 0) {
-        suggestions.push("<strong>Locations:</strong>");
+      if (locations.length > 0) {
+        items.push(`<li class="sidebar-autocomplete-header">Locations</li>`);
         locations.forEach(item => {
-          suggestions.push(
-            `<li data-url="${item.url}" class="suggestion-item">${item.name}</li>`
-          );
+          items.push(`<li class="sidebar-autocomplete-item" data-url="${item.url}">${item.name}</li>`);
         });
       }
 
-      suggestionsContainer.innerHTML = suggestions.join("");
+      suggestionsContainer.innerHTML = items.join("");
       suggestionsContainer.style.display = "block";
 
-      const suggestionItems = suggestionsContainer.querySelectorAll(".suggestion-item");
-      suggestionItems.forEach(item => {
+      suggestionsContainer.querySelectorAll(".sidebar-autocomplete-item").forEach(item => {
         item.addEventListener("click", function() {
-          const url = this.dataset.url;
-          if (url) window.location = url;
+          if (this.dataset.url) window.location = this.dataset.url;
         });
       });
     }
   });
 </script>
-
-<style>
-  .autocomplete-dropdown {
-    position: absolute;
-    background-color: white;
-    border: 1px solid #ccc;
-    z-index: 1000;
-    width: 100%;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    top: 100%;
-    left: 0;
-  }
-
-  .autocomplete-dropdown li {
-    padding: 8px;
-    cursor: pointer;
-  }
-
-  .autocomplete-dropdown li:hover {
-    background-color: #f0f0f0;
-  }
-</style>

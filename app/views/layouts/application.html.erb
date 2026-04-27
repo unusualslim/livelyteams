@@ -5,24 +5,22 @@
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-     <!-- Bootstrap Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.core.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet">
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "actiontext", "data-turbo-track": "reload" %>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet" media="print" onload="this.media='all'">
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-    <%= javascript_include_tag 'tinymce_init', "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'tinymce_init', "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
+  <body class="app-layout">
     <%= render 'shared/navigation' %>
-    <br>
-    <%= yield %>
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.min.js"></script>
+    <main class="app-main">
+      <%= yield %>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.min.js" defer></script>
   </body>
 </html>

@@ -6,17 +6,11 @@ class CalendarController < ApplicationController
     @start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : Date.today.beginning_of_month
     @end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : Date.today.end_of_month
   
-    # Filter case comments by the selected date range
-    @case_comments = CaseComment.where(created_at: @start_date..@end_date)
-    @case_comments ||= []
-  
-    # Sum labor hours for each user within the date range
-    @labor_hours = {}
-  
-    @case_comments.group_by(&:user_id).each do |user_id, comments|
-      total_hours = comments.sum { |comment| comment.labor_hours.to_i } # Convert nil to 0
-      @labor_hours[user_id] = total_hours
-    end
+    @labor_hours = CaseComment
+      .where(created_at: @start_date..@end_date)
+      .group(:user_id)
+      .sum(:labor_hours)
+      .transform_values(&:to_i)
   end
   
 
@@ -35,16 +29,16 @@ class CalendarController < ApplicationController
       render json: { error: "Invalid date format" }, status: :unprocessable_entity and return
     end
   
-    # Fetch labor hours for the specified date
-    labor_hours_data = CaseComment.where(created_at: parsed_date.all_day).group_by(&:user_id).map do |user_id, comments|
-      user = User.find_by(id: user_id)
-      next unless user # Skip if user is not found
-  
+    comments = CaseComment.where(created_at: parsed_date.all_day).includes(:user)
+    labor_hours_data = comments.group_by(&:user_id).filter_map do |_user_id, user_comments|
+      user = user_comments.first.user
+      next unless user
+
       {
         worker_name: user.first_name,
-        total_hours: comments.sum { |comment| comment.labor_hours.to_i } # Handle nil labor_hours
+        total_hours: user_comments.sum { |c| c.labor_hours.to_i }
       }
-    end.compact # Remove nil entries
+    end
   
     render json: labor_hours_data
   rescue => e
@@ -58,15 +52,16 @@ class CalendarController < ApplicationController
     end_date = params[:end_date]
   
     # Group by user_id, sum the labor hours, and filter by date range
-    @labor_hours_by_user = CaseComment
-    .where(created_at: start_date..end_date)
-    .joins(:user) # Assuming CaseComment has a relationship with User
-    .group(:user_id)
-    .sum(:labor_hours)
-    .map { |user_id, total_hours| 
-      user = User.find(user_id)
-      { full_name: user.full_name, total_hours: total_hours } 
-    }
+    totals = CaseComment
+      .where(created_at: start_date..end_date)
+      .group(:user_id)
+      .sum(:labor_hours)
+
+    users = User.where(id: totals.keys).index_by(&:id)
+
+    @labor_hours_by_user = totals.map do |user_id, total_hours|
+      { full_name: users[user_id]&.full_name, total_hours: total_hours.to_i }
+    end
   
     # Explicitly respond with HTML (rendering the report on the new page)
     respond_to do |format|

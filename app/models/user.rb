@@ -27,15 +27,15 @@ class User < ApplicationRecord
   end
 
   def role_names
-    team_members.includes(:role).map { |tm| tm.role&.role }.compact
+    @role_names ||= team_members.includes(:role).map { |tm| tm.role&.role }.compact
   end
 
   def internal?
-    role_names.include?("internal_admin") || role_names.include?("internal_user")
+    @internal ||= role_names.include?("internal_admin") || role_names.include?("internal_user")
   end
 
   def external?
-    role_names.include?("external_admin") || role_names.include?("external_user")
+    @external ||= role_names.include?("external_admin") || role_names.include?("external_user")
   end
 
   def current_team

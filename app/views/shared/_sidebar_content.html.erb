@@ -1,0 +1,102 @@
+<!-- Brand -->
+<div class="sidebar-brand-area">
+  <%= link_to root_path, class: "sidebar-brand", data: { turbo: false } do %>
+    <i class="bi bi-lightning-charge-fill sidebar-brand-icon"></i>
+    Lively Teams
+  <% end %>
+</div>
+
+<!-- Search -->
+<div class="sidebar-search-area">
+  <div class="position-relative">
+    <%= form_with url: search_path, local: true, method: :get, data: { turbo: false } do |form| %>
+      <i class="bi bi-search sidebar-search-icon"></i>
+      <%= form.text_field :q,
+            placeholder: "Search...",
+            class: "sidebar-search-input",
+            autocomplete: "off",
+            data: { autocomplete_target: "input" } %>
+      <ul id="autocomplete-suggestions" class="sidebar-autocomplete-dropdown" style="display:none;"></ul>
+    <% end %>
+  </div>
+</div>
+
+<!-- Nav -->
+<nav class="sidebar-nav flex-grow-1">
+
+  <!-- CASES -->
+  <div class="sidebar-section-label">Cases</div>
+  <%= link_to cases_path, class: "sidebar-link #{request.path == cases_path ? 'active' : ''}", data: { turbo: false } do %>
+    <i class="bi bi-folder2-open"></i> Open
+  <% end %>
+  <%= link_to billable_cases_path, class: "sidebar-link #{request.path == billable_cases_path ? 'active' : ''}", data: { turbo: false } do %>
+    <i class="bi bi-currency-dollar"></i> Billable
+  <% end %>
+  <%= link_to inspectable_cases_path, class: "sidebar-link #{request.path == inspectable_cases_path ? 'active' : ''}", data: { turbo: false } do %>
+    <i class="bi bi-clipboard-check"></i> Inspectable
+  <% end %>
+  <%= link_to closed_cases_path, class: "sidebar-link #{request.path == closed_cases_path ? 'active' : ''}", data: { turbo: false } do %>
+    <i class="bi bi-archive"></i> Closed
+  <% end %>
+
+  <% if current_user&.internal? %>
+    <%= link_to new_case_path, class: "sidebar-new-case-btn mt-2", data: { turbo: false } do %>
+      <i class="bi bi-plus-lg"></i> New Case
+    <% end %>
+
+    <!-- WORK -->
+    <div class="sidebar-section-label mt-3">Work</div>
+    <%= link_to task_lists_path, class: "sidebar-link #{request.path.start_with?(task_lists_path) ? 'active' : ''}", data: { turbo: false } do %>
+      <i class="bi bi-kanban"></i> Projects
+    <% end %>
+    <%= link_to notes_path, class: "sidebar-link #{request.path.start_with?(notes_path) ? 'active' : ''}", data: { turbo: false } do %>
+      <i class="bi bi-journal-text"></i> Notes
+    <% end %>
+    <%= link_to calendar_index_path, class: "sidebar-link #{request.path.start_with?(calendar_index_path) ? 'active' : ''}", data: { turbo: false } do %>
+      <i class="bi bi-calendar3"></i> Calendar
+    <% end %>
+    <%= link_to case_comments_path, class: "sidebar-link #{request.path.start_with?(case_comments_path) ? 'active' : ''}", data: { turbo: false } do %>
+      <i class="bi bi-chat-dots"></i> Comments
+    <% end %>
+
+    <!-- RESOURCES -->
+    <div class="sidebar-section-label mt-3">Resources</div>
+    <%= link_to locations_path, class: "sidebar-link #{request.path.start_with?(locations_path) ? 'active' : ''}", data: { turbo: false } do %>
+      <i class="bi bi-geo-alt"></i> Locations
+    <% end %>
+    <%= link_to things_path, class: "sidebar-link #{request.path.start_with?(things_path) ? 'active' : ''}", data: { turbo: false } do %>
+      <i class="bi bi-share"></i> File Share
+    <% end %>
+    <%= link_to contacts_path, class: "sidebar-link #{request.path.start_with?(contacts_path) ? 'active' : ''}", data: { turbo: false } do %>
+      <i class="bi bi-people"></i> Contacts
+    <% end %>
+  <% end %>
+
+</nav>
+
+<!-- User footer -->
+<% if current_user %>
+  <div class="sidebar-footer">
+    <% if current_user&.internal? %>
+      <%= link_to admin_index_path, class: "sidebar-link sidebar-link-sm #{request.path.start_with?(admin_index_path) ? 'active' : ''}", data: { turbo: false } do %>
+        <i class="bi bi-gear"></i> Settings
+      <% end %>
+    <% end %>
+    <div class="sidebar-user dropdown">
+      <button class="sidebar-user-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="sidebar-user-avatar"><%= current_user.email.first.upcase %></span>
+        <span class="sidebar-user-email"><%= current_user.email %></span>
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end sidebar-user-menu">
+        <li><%= link_to 'Edit Profile', edit_user_registration_path, class: 'dropdown-item' %></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><%= link_to 'Sign Out', destroy_user_session_path, class: 'dropdown-item text-danger', data: { turbo_method: :delete } %></li>
+      </ul>
+    </div>
+  </div>
+<% else %>
+  <div class="sidebar-footer gap-2 d-flex flex-column">
+    <%= link_to 'Sign In', new_user_session_path, class: "btn btn-outline-light btn-sm w-100" %>
+    <%= link_to 'Register', new_user_registration_path, class: "btn btn-light btn-sm w-100" %>
+  </div>
+<% end %>
