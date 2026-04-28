@@ -21968,8 +21968,14 @@ a.ui-button:active,
 /*# sourceMappingURL=easy-autocomplete.themes.css.map */
 .app-layout {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
   background-color: #f4f5f7;
+}
+@media (min-width: 992px) {
+  .app-layout {
+    flex-direction: row;
+  }
 }
 
 .app-sidebar {
