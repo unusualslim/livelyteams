@@ -1,10 +1,17 @@
-<%= link_to 'Open Cases', cases_path, :class=> "btn btn-secondary"  %>
-<%= link_to 'Billable Cases', billable_cases_path, :class=> "btn btn-secondary"  %>
-<%= link_to 'Closed Cases', closed_cases_path, :class=> "btn btn-secondary"  %>
-<h2>Inspectable Cases (<%= @inspectable_cases.count %>)</h2>
-<%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
-<input id="gfg" type="text" placeholder="Search here">
-<div class="table-responsive-sm">
+<ul class="nav nav-pills flex-wrap gap-1 mb-3">
+  <li class="nav-item"><%= link_to 'Open Cases', cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Inspectable', inspectable_cases_path, class: "nav-link active" %></li>
+  <li class="nav-item"><%= link_to 'Billable', billable_cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Closed', closed_cases_path, class: "nav-link" %></li>
+</ul>
+
+<h2 class="mb-3">Inspectable Cases (<%= @inspectable_cases.count %>)</h2>
+
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <%= link_to 'New Case', new_case_path, class: "btn btn-success" %>
+  <input id="gfg" class="form-control" style="max-width: 260px;" type="text" placeholder="Search...">
+</div>
+<div class="table-responsive">
 <table id="cases" class="table">
   <thead>
     <tr>

@@ -1,5 +1,5 @@
 <%= link_to '+', new_contact_path, :class => "btn btn-primary" %>
-<div class="table-resonsive">
+<div class="table-responsive">
 <table class="table table-striped">
    <thead>
    <tr>
@@ -7,11 +7,11 @@
     <th scope="col">First Name </th>
     <th scope="col">Last Name </th>
     <th scope="col">Email</th>
-    <th scope="col">Work Number</th>
+    <th scope="col" class="d-none d-md-table-cell">Work Number</th>
     <th scope="col" colspan="1"></th>
     <th scope="col" colspan="1"></th>
   </tr>
-  <thead>
+  </thead>
 
   <tbody>
   <% @contacts.each do |contact| %>
@@ -20,7 +20,7 @@
       <td><%= contact.first_name %></td>
       <td><%= contact.last_name %></td>
       <td><%= contact.email %></td>
-      <td><%= contact.work_number %></td>
+      <td class="d-none d-md-table-cell"><%= contact.work_number %></td>
       <td><%= link_to 'edit', edit_contact_path(contact) %></td>
       <td><%= link_to 'X', contact_path(contact), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
     </tr>

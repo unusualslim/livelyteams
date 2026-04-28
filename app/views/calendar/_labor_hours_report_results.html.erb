@@ -1,5 +1,6 @@
 <h2>Labor Hours Report</h2>
 <% if labor_hours.any? %>
+  <div class="table-responsive">
   <table class="table">
     <thead>
       <tr>
@@ -20,6 +21,7 @@
       <% end %>
     </tbody>
   </table>
+  </div>
 
   <h4>Total Labor Hours: <%= total_labor_hours %></h4>
 <% else %>

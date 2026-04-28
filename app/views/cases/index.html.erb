@@ -1,29 +1,28 @@
-<div>
-<%= link_to 'Open Cases', cases_path, :class=> "btn btn-primary" %>
-<%= link_to 'Inspectable Cases', inspectable_cases_path, :class=> "btn btn-secondary" %>
-<%= link_to 'Billable Cases', billable_cases_path, :class=> "btn btn-secondary" %>
-<%= link_to 'Closed Cases', closed_cases_path, :class=> "btn btn-secondary" %>
-</div>
-<br />
-<h2>Open Cases (<%= @open_cases.count %>)</h2>
+<ul class="nav nav-pills flex-wrap gap-1 mb-3">
+  <li class="nav-item"><%= link_to 'Open Cases', cases_path, class: "nav-link active" %></li>
+  <li class="nav-item"><%= link_to 'Inspectable', inspectable_cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Billable', billable_cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Closed', closed_cases_path, class: "nav-link" %></li>
+</ul>
 
-<br />
-<%= link_to 'New Case', new_case_path, :class => "btn btn-success" %>
-<input class="table_search" type="text" placeholder="Search here">
-<br />
-<br />
-<div class="table-responsive-sm">
-<table id="cases" class="table">
+<h2 class="mb-3">Open Cases (<%= @open_cases.count %>)</h2>
+
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <%= link_to 'New Case', new_case_path, class: "btn btn-success" %>
+  <input class="table_search form-control" style="max-width: 260px;" type="text" placeholder="Search...">
+</div>
+<div class="table-responsive table-full-bleed">
+<table id="cases" class="table align-middle text-center">
   <thead>
-    <tr>
+    <tr class="text-center">
       <th scope="col" colspan="1"></th>
       <th scope="col">Case No.</th>
       <th scope="col">Subject</th>
-      <th scope="col">Assigned To</th>
+      <th scope="col" class="d-none d-md-table-cell">Assigned To</th>
       <th scope="col">Created On</th>
-      <th scope="col" colspan="1"></th>
-      <th scope="col" colspan="1"></th>
-      <th scope="col" colspan="1"></th>
+      <th scope="col">Location</th>
+      <th scope="col" colspan="1" class="d-none d-md-table-cell"></th>
+      <th scope="col" colspan="1" class="d-none d-md-table-cell"></th>
     </tr>
   </thead>
 
@@ -47,7 +46,7 @@
     </td>
     <td><%= link_to c.id, case_path(c) %></td>
     <td><%= c.subject %></td>
-    <td>
+    <td class="d-none d-md-table-cell">
       <% if c.assigned_to.present? %>
         <% if c.assigned_to.first_name.blank? %>
           <%= c.assigned_to.email %>
@@ -58,16 +57,16 @@
         <span class="text-muted">Unassigned</span>
       <% end %>
     </td>
-    <td><small class="text-muted"> Created on <%= c.created_at.strftime("%b %d, %Y")  %></small></td>
-    <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocations<%= c.id %>" aria-expanded="false" aria-controls="collapseLocations<%= c.id %>">
+    <td><small class="text-muted"><%= c.created_at.strftime("%b %d, %Y") %></small></td>
+    <td><button class="btn btn-outline-primary btn-truncate" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocations<%= c.id %>" aria-expanded="false" aria-controls="collapseLocations<%= c.id %>">
           <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
         </button>
     </td>
-    <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">
+    <td class="d-none d-md-table-cell"><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">
           Comments (<%= c.case_comments.count %>)
         </button>
      </td>
-     <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttachments<%= c.id %>" aria-expanded="false" aria-controls="collapseAttachments<%= c.id %>">
+     <td class="d-none d-md-table-cell"><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttachments<%= c.id %>" aria-expanded="false" aria-controls="collapseAttachments<%= c.id %>">
           Attachments (<%= c.files.count %>)
          </button>
      </td>

@@ -1,16 +1,22 @@
 <h1>Statuses</h1>
 <%= link_to 'New Status', new_status_path %>
 
-<table>
-  <tr>
-    <th>Status</th>
-  </tr>
-  
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
   <% @statuses.each do |status| %>
     <tr>
       <td><%= status.status %></td>
       <td><%= link_to 'edit', edit_status_path(status) %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
+</div>
   

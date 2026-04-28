@@ -46,8 +46,12 @@ $sidebar-section-color: #555e6e;
 .app-main {
   flex: 1;
   min-width: 0;
-  padding: 1.5rem;
+  padding: 1rem;
   overflow-x: auto;
+
+  @include media-breakpoint-up(lg) {
+    padding: 1.5rem;
+  }
 }
 
 // ── Brand ────────────────────────────────────────────────────────────────────
@@ -276,6 +280,28 @@ $sidebar-section-color: #555e6e;
 
 .sidebar-user-menu {
   min-width: 180px;
+}
+
+// ── Truncating button ────────────────────────────────────────────────────────
+.btn-truncate {
+  width: 160px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+// ── Full-bleed table on mobile ───────────────────────────────────────────────
+.table-full-bleed {
+  @include media-breakpoint-down(md) {
+    margin-left: -1rem;
+    margin-right: -1rem;
+
+    th, td {
+      padding: 0.4rem 0.5rem;
+      font-size: 0.875rem;
+    }
+  }
 }
 
 // ── Mobile offcanvas sidebar ─────────────────────────────────────────────────

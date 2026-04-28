@@ -1,11 +1,16 @@
 <h1>Severity</h1>
 <%= link_to 'New Severity', new_severity_path %>
 
-<table>
-  <tr>
-    <th>Severity</th>
-  </tr>
-
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Severity</th>
+      <th>Description</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
   <% @severities.each do |severity| %>
     <tr>
       <td><%= severity.severity %></td>
@@ -13,6 +18,8 @@
       <td><%= link_to 'edit', edit_severity_path(severity) %></td>
     </tr>
   <% end %>
+  </tbody>
 </table>
+</div>
 
 

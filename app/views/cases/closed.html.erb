@@ -1,8 +1,13 @@
-<%= link_to 'Open Cases', cases_path %>
-<%= link_to 'Billable Cases', billable_cases_path %>
-<%= link_to 'Closed Cases', closed_cases_path %>
-<h2>Closed Cases (<%= @closed_cases.count %>)</h2>
-<%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
+<ul class="nav nav-pills flex-wrap gap-1 mb-3">
+  <li class="nav-item"><%= link_to 'Open Cases', cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Inspectable', inspectable_cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Billable', billable_cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Closed', closed_cases_path, class: "nav-link active" %></li>
+</ul>
+
+<h2 class="mb-3">Closed Cases (<%= @closed_cases.count %>)</h2>
+
+<%= link_to 'New Case', new_case_path, class: "btn btn-success mb-3" %>
 
 <div class="container-fluid">
   <div class="row">

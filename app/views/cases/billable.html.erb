@@ -1,23 +1,30 @@
-<%= link_to 'Open Cases', cases_path, :class=> "btn btn-secondary"  %>
-<%= link_to 'Inspectable Cases', inspectable_cases_path, :class=> "btn btn-secondary"  %>
-<%= link_to 'Closed Cases', closed_cases_path, :class=> "btn btn-secondary"  %>
-<h2>Billable Cases (<%= @billable_cases.count %>)</h2>
-<%= link_to 'New Case', new_case_path, :class => "btn btn-primary" %>
-<input id="gfg" type="text" placeholder="Search here">
+<ul class="nav nav-pills flex-wrap gap-1 mb-3">
+  <li class="nav-item"><%= link_to 'Open Cases', cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Inspectable', inspectable_cases_path, class: "nav-link" %></li>
+  <li class="nav-item"><%= link_to 'Billable', billable_cases_path, class: "nav-link active" %></li>
+  <li class="nav-item"><%= link_to 'Closed', closed_cases_path, class: "nav-link" %></li>
+</ul>
+
+<h2 class="mb-3">Billable Cases (<%= @billable_cases.count %>)</h2>
+
+<div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+  <%= link_to 'New Case', new_case_path, class: "btn btn-success" %>
+  <input id="gfg" class="form-control" style="max-width: 260px;" type="text" placeholder="Search...">
+</div>
 <div class="table-responsive">
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Case No.</th>
       <th scope="col">Subject</th>
-      <th scope="col">Locations</th>
+      <th scope="col" class="d-none d-md-table-cell">Locations</th>
 <!--      <th scope="col">Requested By</th>-->
-      <th scope="col">Assigned To</th>
-      <th scope="col">Comments</th>
-      <th scope="col">Attachments</th>
+      <th scope="col" class="d-none d-md-table-cell">Assigned To</th>
+      <th scope="col" class="d-none d-md-table-cell">Comments</th>
+      <th scope="col" class="d-none d-md-table-cell">Attachments</th>
       <th scope="col">Status</th>
-      <th scope="col">Severity</th>
-      <th scope="col">Created On</th>
+      <th scope="col" class="d-none d-md-table-cell">Severity</th>
+      <th scope="col" class="d-none d-md-table-cell">Created On</th>
       <th scope="col" colspan="2"></th>
     </tr>
   </thead>
@@ -34,14 +41,14 @@
   <% end %>
     <td><%= link_to c.id, case_path(c), :class => "btn btn-primary" %></td>
     <td><%= c.subject %></td>
-    <td><% c.case_locations.each do |tl| %>
+    <td class="d-none d-md-table-cell"><% c.case_locations.each do |tl| %>
           <%= link_to "#{tl.location.short_name} (#{tl.location.city})", location_path(tl.location), :class => "btn btn-info" %>
         <% end %>
     </td>
    <!-- <td><%# c.requested_by.email unless c.requested_by.blank? %></td>-->
-    <td><%= c.assigned_to.full_name unless c.assigned_to.full_name.blank? %></td>
-    <td><span class="badge badge-dark"><%= c.case_comments.count %></span></td>
-    <td><span class="badge badge-dark"><%= c.files.count %></span></td>
+    <td class="d-none d-md-table-cell"><%= c.assigned_to.full_name unless c.assigned_to.full_name.blank? %></td>
+    <td class="d-none d-md-table-cell"><span class="badge badge-dark"><%= c.case_comments.count %></span></td>
+    <td class="d-none d-md-table-cell"><span class="badge badge-dark"><%= c.files.count %></span></td>
     <% case c.status.status
       when 'Open' %>
         <td><span class="dot"></span><%= c.status.status unless c.status.blank? %></td>
@@ -51,8 +58,8 @@
         <td><span class="badge badge-success"><%= c.status.status unless c.status.blank? %></span></td>
     <% end %>
 
-    <td><%= c.severity.severity unless c.severity.blank? %></td>
-    <td><%= c.created_at.strftime("%B %d, %Y")  %></td>
+    <td class="d-none d-md-table-cell"><%= c.severity.severity unless c.severity.blank? %></td>
+    <td class="d-none d-md-table-cell"><%= c.created_at.strftime("%B %d, %Y")  %></td>
     <td><%= link_to 'Edit', edit_case_path(c) %></td>
     <td><%= link_to 'X', case_path(c), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
   </tr>

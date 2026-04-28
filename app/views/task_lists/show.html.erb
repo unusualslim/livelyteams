@@ -3,17 +3,18 @@
 <%= link_to 'Destroy List', task_list_path(@task_list.id), method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" %>
 
 <h2><%= @task_list.name %></h2>
-<table class="table table-striped table-hover table-responsive">
+<div class="table-responsive">
+<table class="table table-striped table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Task</th>
-      <th scope="col">Locations</th>
-      <th scope="col">Assigned To</th>
-      <th scope="col">Comments</th>
-      <th scope="col">Attachments</th>
+      <th scope="col" class="d-none d-md-table-cell">Locations</th>
+      <th scope="col" class="d-none d-md-table-cell">Assigned To</th>
+      <th scope="col" class="d-none d-md-table-cell">Comments</th>
+      <th scope="col" class="d-none d-md-table-cell">Attachments</th>
       <th scope="col">Status</th>
-      <th scope="col">Severity</th>
+      <th scope="col" class="d-none d-md-table-cell">Severity</th>
       <th scope="col" colspan="2"></th>
     </tr>
   </thead>
@@ -23,19 +24,20 @@
   <tr scope="row">
     <td><%= link_to task.id, task_path(task) %></td>
     <td><%= task.subject %></td>
-    <td><% task.task_locations.each do |tl| %>
+    <td class="d-none d-md-table-cell"><% task.task_locations.each do |tl| %>
           <%= tl.location.short_name %>,
         <% end %>
     </td>
-    <td><%= task.assigned_to.email unless task.assigned_to.blank? %></td>
-    <td><%= task.task_comments.count %></td>
-    <td><%= task.files.count %></td>
+    <td class="d-none d-md-table-cell"><%= task.assigned_to.email unless task.assigned_to.blank? %></td>
+    <td class="d-none d-md-table-cell"><%= task.task_comments.count %></td>
+    <td class="d-none d-md-table-cell"><%= task.files.count %></td>
     <td><%= task.status.status unless task.status.blank? %></td>
-    <td><%= task.severity.severity unless task.severity.blank? %></td>
+    <td class="d-none d-md-table-cell"><%= task.severity.severity unless task.severity.blank? %></td>
     <td><%= link_to 'Edit', edit_task_path(task) %></td>
     <td><%= link_to 'X', task_path(task), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "btn btn-danger btn-sm" %></td>
   </tr>
   <% end %>
   </tbody>
 </table>
+</div>
 <br>

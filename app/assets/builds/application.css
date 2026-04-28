@@ -21997,8 +21997,13 @@ a.ui-button:active,
 .app-main {
   flex: 1;
   min-width: 0;
-  padding: 1.5rem;
+  padding: 1rem;
   overflow-x: auto;
+}
+@media (min-width: 992px) {
+  .app-main {
+    padding: 1.5rem;
+  }
 }
 
 .sidebar-brand-area {
@@ -22227,6 +22232,25 @@ a.ui-button:active,
 
 .sidebar-user-menu {
   min-width: 180px;
+}
+
+.btn-truncate {
+  width: 160px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+@media (max-width: 767.98px) {
+  .table-full-bleed {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+  .table-full-bleed th, .table-full-bleed td {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.875rem;
+  }
 }
 
 .app-sidebar-offcanvas {
