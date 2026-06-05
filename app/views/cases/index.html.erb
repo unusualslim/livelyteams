@@ -11,27 +11,111 @@
   <%= link_to 'New Case', new_case_path, class: "btn btn-success" %>
   <input class="table_search form-control" style="max-width: 260px;" type="text" placeholder="Search...">
 </div>
-<div class="table-responsive table-full-bleed">
+<%# Mobile card layout (hidden on md+) %>
+<div class="d-md-none searchable">
+  <% @open_cases.each do |c| %>
+    <% card_class = case c.severity.severity
+         when "Urgent" then "border-danger"
+         when "Low"    then "border-secondary"
+         else               "border-light"
+       end %>
+    <div class="card mb-2 <%= card_class %> border-2">
+      <div class="card-body py-2 px-3">
+        <%# Header row: case # + status indicator %>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+          <span class="fw-bold"><%= link_to "Case ##{c.id}", case_path(c) %></span>
+          <span>
+            <% case c.status.status
+               when 'In progress' %>
+              <span class="spinner-border spinner-border-sm text-primary"></span>
+              <small class="text-muted ms-1">In Progress</small>
+            <% when 'Complete: Billable' %>
+              <span class="badge bg-success"><%= c.status.status %></span>
+            <% else %>
+              <small class="text-muted"><%= c.status.status %></small>
+            <% end %>
+          </span>
+        </div>
+        <%# Subject %>
+        <div class="mb-1"><%= c.subject %></div>
+        <%# Meta row: assigned + date %>
+        <div class="d-flex flex-wrap gap-3 mb-2">
+          <small class="text-muted">
+            <strong>Assigned:</strong>
+            <% if c.assigned_to.present? %>
+              <% if c.assigned_to.first_name.blank? %>
+                <%= c.assigned_to.email %>
+              <% else %>
+                <%= "#{c.assigned_to.first_name} #{c.assigned_to.last_name}" %>
+              <% end %>
+            <% else %>
+              Unassigned
+            <% end %>
+          </small>
+          <small class="text-muted">
+            <strong>Created:</strong> <%= c.created_at.strftime("%b %d, %Y") %>
+          </small>
+        </div>
+        <%# Action buttons %>
+        <div class="d-flex flex-wrap gap-2">
+          <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cardLocations<%= c.id %>">
+            <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
+          </button>
+          <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#cardComments<%= c.id %>">
+            Comments (<%= c.case_comments.count %>)
+          </button>
+          <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#cardAttachments<%= c.id %>">
+            Attachments (<%= c.files.count %>)
+          </button>
+        </div>
+        <%# Collapsible sections %>
+        <div id="cardLocations<%= c.id %>" class="collapse mt-2 p-2 bg-dark rounded">
+          <% c.case_locations.each do |tl| %>
+            <%= link_to "#{tl.location.name} (#{tl.location.city})", location_path(tl.location), class: "btn btn-sm btn-outline-light me-1 mb-1" %>
+          <% end %>
+        </div>
+        <div id="cardComments<%= c.id %>" class="collapse mt-2 p-2 bg-dark rounded text-white">
+          <%= render c.case_comments %>
+          <%= form_with(model: [c, c.case_comments.build]) do |f| %>
+            <div class="form-group mb-2">
+              <%= f.text_area :body, class: "form-control", rows: 2 %>
+            </div>
+            <%= f.hidden_field :user_id, value: current_user.id %>
+            <%= f.submit 'Add Comment', class: "btn btn-sm btn-primary" %>
+          <% end %>
+        </div>
+        <div id="cardAttachments<%= c.id %>" class="collapse mt-2 p-2 bg-dark rounded text-white">
+          <% c.files.each do |f| %>
+            <%= link_to f.filename, url_for(f) %><br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%# Desktop table layout (hidden below md) %>
+<div class="table-responsive table-full-bleed d-none d-md-block">
 <table id="cases" class="table align-middle text-center">
   <thead>
     <tr class="text-center">
       <th scope="col" colspan="1"></th>
       <th scope="col">Case No.</th>
       <th scope="col">Subject</th>
-      <th scope="col" class="d-none d-md-table-cell">Assigned To</th>
+      <th scope="col">Assigned To</th>
       <th scope="col">Created On</th>
       <th scope="col">Location</th>
-      <th scope="col" colspan="1" class="d-none d-md-table-cell"></th>
-      <th scope="col" colspan="1" class="d-none d-md-table-cell"></th>
+      <th scope="col" colspan="1"></th>
+      <th scope="col" colspan="1"></th>
     </tr>
   </thead>
 
   <tbody class="searchable">
   <% @open_cases.each do |c| %>
-  <% case  c.severity.severity
+  <% case c.severity.severity
     when "Urgent" %>
       <tr scope="row" class="table-danger">
-    <% when "Low"  %>
+    <% when "Low" %>
       <tr scope="row" class="table-secondary">
     <% else %>
       <tr scope="row" class="table-white">
@@ -46,7 +130,7 @@
     </td>
     <td><%= link_to c.id, case_path(c) %></td>
     <td><%= c.subject %></td>
-    <td class="d-none d-md-table-cell">
+    <td>
       <% if c.assigned_to.present? %>
         <% if c.assigned_to.first_name.blank? %>
           <%= c.assigned_to.email %>
@@ -62,11 +146,11 @@
           <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
         </button>
     </td>
-    <td class="d-none d-md-table-cell"><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">
+    <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">
           Comments (<%= c.case_comments.count %>)
         </button>
      </td>
-     <td class="d-none d-md-table-cell"><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttachments<%= c.id %>" aria-expanded="false" aria-controls="collapseAttachments<%= c.id %>">
+     <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttachments<%= c.id %>" aria-expanded="false" aria-controls="collapseAttachments<%= c.id %>">
           Attachments (<%= c.files.count %>)
          </button>
      </td>
