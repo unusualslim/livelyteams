@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_02_20_154439) do
+ActiveRecord::Schema[7.0].define(version: 2026_06_17_133734) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -144,6 +144,12 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_20_154439) do
     t.string "phone"
     t.string "status"
     t.bigint "team_id"
+    t.string "bill_to_name"
+    t.string "bill_to_address1"
+    t.string "bill_to_address2"
+    t.string "bill_to_city"
+    t.string "bill_to_state"
+    t.string "bill_to_zip"
     t.index ["team_id"], name: "index_locations_on_team_id"
   end
 

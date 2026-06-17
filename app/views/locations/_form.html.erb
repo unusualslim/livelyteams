@@ -33,6 +33,23 @@
     <br><%= form.label :phone %>
     <%= form.text_field :phone, class: "form-control" %>
   </p>
+
+  <p>
+    <strong>Bill To Address</strong><br>
+    <%= form.label :bill_to_name, "Bill To Name" %>
+    <%= form.text_field :bill_to_name, class: "form-control" %>
+    <br><%= form.label :bill_to_address1, "Address 1" %>
+    <%= form.text_field :bill_to_address1, class: "form-control" %>
+    <br><%= form.label :bill_to_address2, "Address 2" %>
+    <%= form.text_field :bill_to_address2, class: "form-control" %>
+    <br><%= form.label :bill_to_city, "City" %>
+    <%= form.text_field :bill_to_city, class: "form-control" %>
+    <br><%= form.label :bill_to_state, "State" %>
+    <%= form.text_field :bill_to_state, class: "form-control" %>
+    <br><%= form.label :bill_to_zip, "Zip" %>
+    <%= form.text_field :bill_to_zip, class: "form-control" %>
+  </p>
+
   <div class="mb-3">
       <%= form.label :attachments, class: "form-label" %>
       <%= form.file_field :attachments, {multiple: true, class: "form-control", id: "formFileMultiple", type: "file"} %>

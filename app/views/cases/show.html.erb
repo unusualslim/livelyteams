@@ -119,6 +119,25 @@
   <% end %>
 </div>
 
+<% bill_to_locations = @case.case_locations.select { |cl| cl.location.bill_to_address1.present? } %>
+<% if bill_to_locations.any? %>
+  <h2>Bill To</h2>
+  <% bill_to_locations.each do |cl| %>
+    <% loc = cl.location %>
+    <div style="margin-bottom: 12px;">
+      <strong><%= loc.name %></strong><br>
+      <% if loc.bill_to_name.present? %>
+        <div><%= loc.bill_to_name %></div>
+      <% end %>
+      <div><%= loc.bill_to_address1 %></div>
+      <% if loc.bill_to_address2.present? %>
+        <div><%= loc.bill_to_address2 %></div>
+      <% end %>
+      <div><%= [loc.bill_to_city, loc.bill_to_state].compact.join(", ") %> <%= loc.bill_to_zip %></div>
+    </div>
+  <% end %>
+<% end %>
+
 <h2>Comments</h2>
 <p style="color:blue;">Total Labor Hours: <%= @case.total_labor %> hrs</p>
 <%= render @case.case_comments %>

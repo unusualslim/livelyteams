@@ -14,6 +14,20 @@
     <%= link_to @location.phone, "tel:#{@location.phone}" %>
   </p>
 
+  <% if @location.bill_to_address1.present? %>
+    <p>
+      <strong>Bill To:</strong><br>
+      <% if @location.bill_to_name.present? %>
+        <%= @location.bill_to_name %><br>
+      <% end %>
+      <%= @location.bill_to_address1 %><br>
+      <% if @location.bill_to_address2.present? %>
+        <%= @location.bill_to_address2 %><br>
+      <% end %>
+      <%= [@location.bill_to_city, @location.bill_to_state].compact.join(", ") %> <%= @location.bill_to_zip %>
+    </p>
+  <% end %>
+
   <h2>Notes</h2>
   <div class="trix-content">
     <%= @location.note unless @location.note.blank? %>
