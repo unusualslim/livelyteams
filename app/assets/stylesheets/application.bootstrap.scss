@@ -5,6 +5,7 @@ $bootstrap-icons-font-src: url("/fonts/bootstrap-icons.woff2") format("woff2"), 
 @import 'easy-autocomplete';
 @import 'easy-autocomplete.themes';
 @import 'actiontext.css';
+@import 'tom-select/dist/css/tom-select.bootstrap5';
 
 // ── Layout ──────────────────────────────────────────────────────────────────
 $sidebar-width: 230px;

@@ -10,6 +10,7 @@ import "./src/site-search"
 import "./src/geeks_table_search"
 import "./src/location-search"
 import "./src/tinymce_init"
+import "./src/tom-select-init"
 
 import { Application } from "@hotwired/stimulus";
 

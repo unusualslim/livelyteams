@@ -5,6 +5,7 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
   var __esm = (fn2, res) => function __init() {
     return fn2 && (res = (0, fn2[__getOwnPropNames(fn2)[0]])(fn2 = 0)), res;
   };
@@ -24,6 +25,10 @@
     return to;
   };
   var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+  var __publicField = (obj, key, value) => {
+    __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+    return value;
+  };
 
   // ../../node_modules/@rails/actioncable/src/adapters.js
   var adapters_default;
@@ -1454,7 +1459,7 @@
                 return first === 1 && last === 0 ? function(elem) {
                   return !!elem.parentNode;
                 } : function(elem, _context, xml) {
-                  var cache, uniqueCache, outerCache, node, nodeIndex, start4, dir2 = simple !== forward ? "nextSibling" : "previousSibling", parent = elem.parentNode, name = ofType && elem.nodeName.toLowerCase(), useCache = !xml && !ofType, diff = false;
+                  var cache, uniqueCache, outerCache, node, nodeIndex4, start4, dir2 = simple !== forward ? "nextSibling" : "previousSibling", parent = elem.parentNode, name = ofType && elem.nodeName.toLowerCase(), useCache = !xml && !ofType, diff = false;
                   if (parent) {
                     if (simple) {
                       while (dir2) {
@@ -1474,12 +1479,12 @@
                       outerCache = node[expando] || (node[expando] = {});
                       uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});
                       cache = uniqueCache[type] || [];
-                      nodeIndex = cache[0] === dirruns && cache[1];
-                      diff = nodeIndex && cache[2];
-                      node = nodeIndex && parent.childNodes[nodeIndex];
-                      while (node = ++nodeIndex && node && node[dir2] || (diff = nodeIndex = 0) || start4.pop()) {
+                      nodeIndex4 = cache[0] === dirruns && cache[1];
+                      diff = nodeIndex4 && cache[2];
+                      node = nodeIndex4 && parent.childNodes[nodeIndex4];
+                      while (node = ++nodeIndex4 && node && node[dir2] || (diff = nodeIndex4 = 0) || start4.pop()) {
                         if (node.nodeType === 1 && ++diff && node === elem) {
-                          uniqueCache[type] = [dirruns, nodeIndex, diff];
+                          uniqueCache[type] = [dirruns, nodeIndex4, diff];
                           break;
                         }
                       }
@@ -1489,11 +1494,11 @@
                         outerCache = node[expando] || (node[expando] = {});
                         uniqueCache = outerCache[node.uniqueID] || (outerCache[node.uniqueID] = {});
                         cache = uniqueCache[type] || [];
-                        nodeIndex = cache[0] === dirruns && cache[1];
-                        diff = nodeIndex;
+                        nodeIndex4 = cache[0] === dirruns && cache[1];
+                        diff = nodeIndex4;
                       }
                       if (diff === false) {
-                        while (node = ++nodeIndex && node && node[dir2] || (diff = nodeIndex = 0) || start4.pop()) {
+                        while (node = ++nodeIndex4 && node && node[dir2] || (diff = nodeIndex4 = 0) || start4.pop()) {
                           if ((ofType ? node.nodeName.toLowerCase() === name : node.nodeType === 1) && ++diff) {
                             if (useCache) {
                               outerCache = node[expando] || (node[expando] = {});
@@ -4836,9 +4841,9 @@
           time = jQuery2.fx ? jQuery2.fx.speeds[time] || time : time;
           type = type || "fx";
           return this.queue(type, function(next, hooks) {
-            var timeout = window2.setTimeout(next, time);
+            var timeout2 = window2.setTimeout(next, time);
             hooks.stop = function() {
-              window2.clearTimeout(timeout);
+              window2.clearTimeout(timeout2);
             };
           });
         };
@@ -9774,8 +9779,8 @@
     }
   }
   var Dispatcher = class {
-    constructor(application2) {
-      this.application = application2;
+    constructor(application3) {
+      this.application = application3;
       this.eventListenerMaps = /* @__PURE__ */ new Map();
       this.started = false;
     }
@@ -10891,8 +10896,8 @@
     };
   }
   var Module = class {
-    constructor(application2, definition) {
-      this.application = application2;
+    constructor(application3, definition) {
+      this.application = application3;
       this.definition = blessDefinition(definition);
       this.contextsByScope = /* @__PURE__ */ new WeakMap();
       this.connectedContexts = /* @__PURE__ */ new Set();
@@ -11153,8 +11158,8 @@
     }
   };
   var Router = class {
-    constructor(application2) {
-      this.application = application2;
+    constructor(application3) {
+      this.application = application3;
       this.scopeObserver = new ScopeObserver(this.element, this.schema, this);
       this.scopesByIdentifier = new Multimap();
       this.modulesByIdentifier = /* @__PURE__ */ new Map();
@@ -11252,9 +11257,9 @@
       this.router = new Router(this);
     }
     static start(element, schema) {
-      const application2 = new Application(element, schema);
-      application2.start();
-      return application2;
+      const application3 = new Application(element, schema);
+      application3.start();
+      return application3;
     }
     async start() {
       await domReady();
@@ -11593,14 +11598,65 @@
   application.debug = false;
   window.Stimulus = application;
 
-  // rails:/home/dev/livelyteams/app/javascript/controllers/**/*_controller.js
-  var modules = [];
-  var controller_default = modules;
+  // controllers/autocomplete_controller.js
+  var autocomplete_controller_default = class extends Controller {
+    connect() {
+      console.log("AutocompleteController connected!");
+      console.log("URL value:", this.urlValue);
+      console.log("Input target:", this.inputTarget);
+      console.log("Suggestions target:", this.suggestionsTarget);
+    }
+    search(event) {
+      console.log("Search triggered! Query:", this.inputTarget.value);
+      const query = this.inputTarget.value;
+      if (query.length < 2) {
+        this.suggestionsTarget.innerHTML = "";
+        this.suggestionsTarget.style.display = "none";
+        return;
+      }
+      fetch(`${this.urlValue}?q=${query}`).then((response) => response.json()).then((data) => {
+        console.log("Suggestions data received:", data);
+        this.renderSuggestions(data);
+      });
+    }
+    renderSuggestions(data) {
+      console.log("Rendering suggestions:", data);
+      this.suggestionsTarget.innerHTML = "";
+      const cases = data.cases || [];
+      const locations = data.locations || [];
+      if (cases.length === 0 && locations.length === 0) {
+        this.suggestionsTarget.style.display = "none";
+        return;
+      }
+      const suggestions = [];
+      if (cases.length > 0) {
+        suggestions.push("<strong>Cases:</strong>");
+        cases.forEach((item) => {
+          suggestions.push(`<li data-url="${item.url}" class="suggestion-item">${item.name}</li>`);
+        });
+      }
+      if (locations.length > 0) {
+        suggestions.push("<strong>Locations:</strong>");
+        locations.forEach((item) => {
+          suggestions.push(`<li data-url="${item.url}" class="suggestion-item">${item.name}</li>`);
+        });
+      }
+      this.suggestionsTarget.innerHTML = suggestions.join("");
+      this.suggestionsTarget.style.display = "block";
+    }
+    select(event) {
+      const url = event.target.dataset.url;
+      console.log("Suggestion selected:", url);
+      if (url) {
+        window.location = url;
+      }
+    }
+  };
+  __publicField(autocomplete_controller_default, "values", { url: String });
+  __publicField(autocomplete_controller_default, "targets", ["input", "suggestions"]);
 
   // controllers/index.js
-  controller_default.forEach((controller) => {
-    application.register(controller.name, controller.module.default);
-  });
+  application.register("autocomplete", autocomplete_controller_default);
 
   // ../../node_modules/@popperjs/core/lib/index.js
   var lib_exports = {};
@@ -13205,45 +13261,56 @@
   });
 
   // ../../node_modules/bootstrap/dist/js/bootstrap.esm.js
+  var elementMap = /* @__PURE__ */ new Map();
+  var Data = {
+    set(element, key, instance) {
+      if (!elementMap.has(element)) {
+        elementMap.set(element, /* @__PURE__ */ new Map());
+      }
+      const instanceMap = elementMap.get(element);
+      if (!instanceMap.has(key) && instanceMap.size !== 0) {
+        console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
+        return;
+      }
+      instanceMap.set(key, instance);
+    },
+    get(element, key) {
+      if (elementMap.has(element)) {
+        return elementMap.get(element).get(key) || null;
+      }
+      return null;
+    },
+    remove(element, key) {
+      if (!elementMap.has(element)) {
+        return;
+      }
+      const instanceMap = elementMap.get(element);
+      instanceMap.delete(key);
+      if (instanceMap.size === 0) {
+        elementMap.delete(element);
+      }
+    }
+  };
   var MAX_UID = 1e6;
   var MILLISECONDS_MULTIPLIER = 1e3;
   var TRANSITION_END = "transitionend";
-  var toType = (obj) => {
-    if (obj === null || obj === void 0) {
-      return `${obj}`;
+  var parseSelector = (selector) => {
+    if (selector && window.CSS && window.CSS.escape) {
+      selector = selector.replace(/#([^\s"#']+)/g, (match2, id3) => `#${CSS.escape(id3)}`);
     }
-    return {}.toString.call(obj).match(/\s([a-z]+)/i)[1].toLowerCase();
+    return selector;
+  };
+  var toType = (object2) => {
+    if (object2 === null || object2 === void 0) {
+      return `${object2}`;
+    }
+    return Object.prototype.toString.call(object2).match(/\s([a-z]+)/i)[1].toLowerCase();
   };
   var getUID = (prefix) => {
     do {
       prefix += Math.floor(Math.random() * MAX_UID);
     } while (document.getElementById(prefix));
     return prefix;
-  };
-  var getSelector = (element) => {
-    let selector = element.getAttribute("data-bs-target");
-    if (!selector || selector === "#") {
-      let hrefAttr = element.getAttribute("href");
-      if (!hrefAttr || !hrefAttr.includes("#") && !hrefAttr.startsWith(".")) {
-        return null;
-      }
-      if (hrefAttr.includes("#") && !hrefAttr.startsWith("#")) {
-        hrefAttr = `#${hrefAttr.split("#")[1]}`;
-      }
-      selector = hrefAttr && hrefAttr !== "#" ? hrefAttr.trim() : null;
-    }
-    return selector;
-  };
-  var getSelectorFromElement = (element) => {
-    const selector = getSelector(element);
-    if (selector) {
-      return document.querySelector(selector) ? selector : null;
-    }
-    return null;
-  };
-  var getElementFromSelector = (element) => {
-    const selector = getSelector(element);
-    return selector ? document.querySelector(selector) : null;
   };
   var getTransitionDurationFromElement = (element) => {
     if (!element) {
@@ -13265,39 +13332,43 @@
   var triggerTransitionEnd = (element) => {
     element.dispatchEvent(new Event(TRANSITION_END));
   };
-  var isElement2 = (obj) => {
-    if (!obj || typeof obj !== "object") {
+  var isElement2 = (object2) => {
+    if (!object2 || typeof object2 !== "object") {
       return false;
     }
-    if (typeof obj.jquery !== "undefined") {
-      obj = obj[0];
+    if (typeof object2.jquery !== "undefined") {
+      object2 = object2[0];
     }
-    return typeof obj.nodeType !== "undefined";
+    return typeof object2.nodeType !== "undefined";
   };
-  var getElement = (obj) => {
-    if (isElement2(obj)) {
-      return obj.jquery ? obj[0] : obj;
+  var getElement = (object2) => {
+    if (isElement2(object2)) {
+      return object2.jquery ? object2[0] : object2;
     }
-    if (typeof obj === "string" && obj.length > 0) {
-      return document.querySelector(obj);
+    if (typeof object2 === "string" && object2.length > 0) {
+      return document.querySelector(parseSelector(object2));
     }
     return null;
-  };
-  var typeCheckConfig = (componentName, config2, configTypes) => {
-    Object.keys(configTypes).forEach((property) => {
-      const expectedTypes = configTypes[property];
-      const value = config2[property];
-      const valueType = value && isElement2(value) ? "element" : toType(value);
-      if (!new RegExp(expectedTypes).test(valueType)) {
-        throw new TypeError(`${componentName.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
-      }
-    });
   };
   var isVisible = (element) => {
     if (!isElement2(element) || element.getClientRects().length === 0) {
       return false;
     }
-    return getComputedStyle(element).getPropertyValue("visibility") === "visible";
+    const elementIsVisible = getComputedStyle(element).getPropertyValue("visibility") === "visible";
+    const closedDetails = element.closest("details:not([open])");
+    if (!closedDetails) {
+      return elementIsVisible;
+    }
+    if (closedDetails !== element) {
+      const summary = element.closest("summary");
+      if (summary && summary.parentNode !== closedDetails) {
+        return false;
+      }
+      if (summary === null) {
+        return false;
+      }
+    }
+    return elementIsVisible;
   };
   var isDisabled = (element) => {
     if (!element || element.nodeType !== Node.ELEMENT_NODE) {
@@ -13333,11 +13404,8 @@
     element.offsetHeight;
   };
   var getjQuery = () => {
-    const {
-      jQuery: jQuery2
-    } = window;
-    if (jQuery2 && !document.body.hasAttribute("data-bs-no-jquery")) {
-      return jQuery2;
+    if (window.jQuery && !document.body.hasAttribute("data-bs-no-jquery")) {
+      return window.jQuery;
     }
     return null;
   };
@@ -13346,7 +13414,9 @@
     if (document.readyState === "loading") {
       if (!DOMContentLoadedCallbacks.length) {
         document.addEventListener("DOMContentLoaded", () => {
-          DOMContentLoadedCallbacks.forEach((callback2) => callback2());
+          for (const callback2 of DOMContentLoadedCallbacks) {
+            callback2();
+          }
         });
       }
       DOMContentLoadedCallbacks.push(callback);
@@ -13355,25 +13425,23 @@
     }
   };
   var isRTL = () => document.documentElement.dir === "rtl";
-  var defineJQueryPlugin = (plugin) => {
+  var defineJQueryPlugin = (plugin15) => {
     onDOMContentLoaded(() => {
       const $2 = getjQuery();
       if ($2) {
-        const name = plugin.NAME;
+        const name = plugin15.NAME;
         const JQUERY_NO_CONFLICT = $2.fn[name];
-        $2.fn[name] = plugin.jQueryInterface;
-        $2.fn[name].Constructor = plugin;
+        $2.fn[name] = plugin15.jQueryInterface;
+        $2.fn[name].Constructor = plugin15;
         $2.fn[name].noConflict = () => {
           $2.fn[name] = JQUERY_NO_CONFLICT;
-          return plugin.jQueryInterface;
+          return plugin15.jQueryInterface;
         };
       }
     });
   };
-  var execute = (callback) => {
-    if (typeof callback === "function") {
-      callback();
-    }
+  var execute = (possibleCallback, args = [], defaultValue = possibleCallback) => {
+    return typeof possibleCallback === "function" ? possibleCallback(...args) : defaultValue;
   };
   var executeAfterTransition = (callback, transitionElement, waitForTransition = true) => {
     if (!waitForTransition) {
@@ -13401,11 +13469,11 @@
     }, emulatedDuration);
   };
   var getNextActiveElement = (list, activeElement, shouldGetNext, isCycleAllowed) => {
+    const listLength = list.length;
     let index = list.indexOf(activeElement);
     if (index === -1) {
-      return list[!shouldGetNext && isCycleAllowed ? list.length - 1 : 0];
+      return !shouldGetNext && isCycleAllowed ? list[listLength - 1] : list[0];
     }
-    const listLength = list.length;
     index += shouldGetNext ? 1 : -1;
     if (isCycleAllowed) {
       index = (index + listLength) % listLength;
@@ -13421,20 +13489,21 @@
     mouseenter: "mouseover",
     mouseleave: "mouseout"
   };
-  var customEventsRegex = /^(mouseenter|mouseleave)/i;
   var nativeEvents = /* @__PURE__ */ new Set(["click", "dblclick", "mouseup", "mousedown", "contextmenu", "mousewheel", "DOMMouseScroll", "mouseover", "mouseout", "mousemove", "selectstart", "selectend", "keydown", "keypress", "keyup", "orientationchange", "touchstart", "touchmove", "touchend", "touchcancel", "pointerdown", "pointermove", "pointerup", "pointerleave", "pointercancel", "gesturestart", "gesturechange", "gestureend", "focus", "blur", "change", "reset", "select", "submit", "focusin", "focusout", "load", "unload", "beforeunload", "resize", "move", "DOMContentLoaded", "readystatechange", "error", "abort", "scroll"]);
-  function getUidEvent(element, uid) {
+  function makeEventUid(element, uid) {
     return uid && `${uid}::${uidEvent++}` || element.uidEvent || uidEvent++;
   }
-  function getEvent(element) {
-    const uid = getUidEvent(element);
+  function getElementEvents(element) {
+    const uid = makeEventUid(element);
     element.uidEvent = uid;
     eventRegistry[uid] = eventRegistry[uid] || {};
     return eventRegistry[uid];
   }
   function bootstrapHandler(element, fn2) {
     return function handler(event) {
-      event.delegateTarget = element;
+      hydrateObj(event, {
+        delegateTarget: element
+      });
       if (handler.oneOff) {
         EventHandler.off(element, event.type, fn2);
       }
@@ -13447,77 +13516,63 @@
       for (let {
         target
       } = event; target && target !== this; target = target.parentNode) {
-        for (let i = domElements.length; i--; ) {
-          if (domElements[i] === target) {
-            event.delegateTarget = target;
-            if (handler.oneOff) {
-              EventHandler.off(element, event.type, selector, fn2);
-            }
-            return fn2.apply(target, [event]);
+        for (const domElement of domElements) {
+          if (domElement !== target) {
+            continue;
           }
+          hydrateObj(event, {
+            delegateTarget: target
+          });
+          if (handler.oneOff) {
+            EventHandler.off(element, event.type, selector, fn2);
+          }
+          return fn2.apply(target, [event]);
         }
       }
-      return null;
     };
   }
-  function findHandler(events, handler, delegationSelector = null) {
-    const uidEventList = Object.keys(events);
-    for (let i = 0, len = uidEventList.length; i < len; i++) {
-      const event = events[uidEventList[i]];
-      if (event.originalHandler === handler && event.delegationSelector === delegationSelector) {
-        return event;
-      }
-    }
-    return null;
+  function findHandler(events, callable, delegationSelector = null) {
+    return Object.values(events).find((event) => event.callable === callable && event.delegationSelector === delegationSelector);
   }
-  function normalizeParams(originalTypeEvent, handler, delegationFn) {
-    const delegation = typeof handler === "string";
-    const originalHandler = delegation ? delegationFn : handler;
+  function normalizeParameters(originalTypeEvent, handler, delegationFunction) {
+    const isDelegated = typeof handler === "string";
+    const callable = isDelegated ? delegationFunction : handler || delegationFunction;
     let typeEvent = getTypeEvent(originalTypeEvent);
-    const isNative = nativeEvents.has(typeEvent);
-    if (!isNative) {
+    if (!nativeEvents.has(typeEvent)) {
       typeEvent = originalTypeEvent;
     }
-    return [delegation, originalHandler, typeEvent];
+    return [isDelegated, callable, typeEvent];
   }
-  function addHandler(element, originalTypeEvent, handler, delegationFn, oneOff) {
+  function addHandler(element, originalTypeEvent, handler, delegationFunction, oneOff) {
     if (typeof originalTypeEvent !== "string" || !element) {
       return;
     }
-    if (!handler) {
-      handler = delegationFn;
-      delegationFn = null;
-    }
-    if (customEventsRegex.test(originalTypeEvent)) {
-      const wrapFn = (fn3) => {
+    let [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
+    if (originalTypeEvent in customEvents) {
+      const wrapFunction = (fn3) => {
         return function(event) {
           if (!event.relatedTarget || event.relatedTarget !== event.delegateTarget && !event.delegateTarget.contains(event.relatedTarget)) {
             return fn3.call(this, event);
           }
         };
       };
-      if (delegationFn) {
-        delegationFn = wrapFn(delegationFn);
-      } else {
-        handler = wrapFn(handler);
-      }
+      callable = wrapFunction(callable);
     }
-    const [delegation, originalHandler, typeEvent] = normalizeParams(originalTypeEvent, handler, delegationFn);
-    const events = getEvent(element);
+    const events = getElementEvents(element);
     const handlers = events[typeEvent] || (events[typeEvent] = {});
-    const previousFn = findHandler(handlers, originalHandler, delegation ? handler : null);
-    if (previousFn) {
-      previousFn.oneOff = previousFn.oneOff && oneOff;
+    const previousFunction = findHandler(handlers, callable, isDelegated ? handler : null);
+    if (previousFunction) {
+      previousFunction.oneOff = previousFunction.oneOff && oneOff;
       return;
     }
-    const uid = getUidEvent(originalHandler, originalTypeEvent.replace(namespaceRegex, ""));
-    const fn2 = delegation ? bootstrapDelegationHandler(element, handler, delegationFn) : bootstrapHandler(element, handler);
-    fn2.delegationSelector = delegation ? handler : null;
-    fn2.originalHandler = originalHandler;
+    const uid = makeEventUid(callable, originalTypeEvent.replace(namespaceRegex, ""));
+    const fn2 = isDelegated ? bootstrapDelegationHandler(element, handler, callable) : bootstrapHandler(element, callable);
+    fn2.delegationSelector = isDelegated ? handler : null;
+    fn2.callable = callable;
     fn2.oneOff = oneOff;
     fn2.uidEvent = uid;
     handlers[uid] = fn2;
-    element.addEventListener(typeEvent, fn2, delegation);
+    element.addEventListener(typeEvent, fn2, isDelegated);
   }
   function removeHandler(element, events, typeEvent, handler, delegationSelector) {
     const fn2 = findHandler(events[typeEvent], handler, delegationSelector);
@@ -13529,52 +13584,50 @@
   }
   function removeNamespacedHandlers(element, events, typeEvent, namespace) {
     const storeElementEvent = events[typeEvent] || {};
-    Object.keys(storeElementEvent).forEach((handlerKey) => {
+    for (const [handlerKey, event] of Object.entries(storeElementEvent)) {
       if (handlerKey.includes(namespace)) {
-        const event = storeElementEvent[handlerKey];
-        removeHandler(element, events, typeEvent, event.originalHandler, event.delegationSelector);
+        removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
       }
-    });
+    }
   }
   function getTypeEvent(event) {
     event = event.replace(stripNameRegex, "");
     return customEvents[event] || event;
   }
   var EventHandler = {
-    on(element, event, handler, delegationFn) {
-      addHandler(element, event, handler, delegationFn, false);
+    on(element, event, handler, delegationFunction) {
+      addHandler(element, event, handler, delegationFunction, false);
     },
-    one(element, event, handler, delegationFn) {
-      addHandler(element, event, handler, delegationFn, true);
+    one(element, event, handler, delegationFunction) {
+      addHandler(element, event, handler, delegationFunction, true);
     },
-    off(element, originalTypeEvent, handler, delegationFn) {
+    off(element, originalTypeEvent, handler, delegationFunction) {
       if (typeof originalTypeEvent !== "string" || !element) {
         return;
       }
-      const [delegation, originalHandler, typeEvent] = normalizeParams(originalTypeEvent, handler, delegationFn);
+      const [isDelegated, callable, typeEvent] = normalizeParameters(originalTypeEvent, handler, delegationFunction);
       const inNamespace = typeEvent !== originalTypeEvent;
-      const events = getEvent(element);
+      const events = getElementEvents(element);
+      const storeElementEvent = events[typeEvent] || {};
       const isNamespace = originalTypeEvent.startsWith(".");
-      if (typeof originalHandler !== "undefined") {
-        if (!events || !events[typeEvent]) {
+      if (typeof callable !== "undefined") {
+        if (!Object.keys(storeElementEvent).length) {
           return;
         }
-        removeHandler(element, events, typeEvent, originalHandler, delegation ? handler : null);
+        removeHandler(element, events, typeEvent, callable, isDelegated ? handler : null);
         return;
       }
       if (isNamespace) {
-        Object.keys(events).forEach((elementEvent) => {
+        for (const elementEvent of Object.keys(events)) {
           removeNamespacedHandlers(element, events, elementEvent, originalTypeEvent.slice(1));
-        });
+        }
       }
-      const storeElementEvent = events[typeEvent] || {};
-      Object.keys(storeElementEvent).forEach((keyHandlers) => {
+      for (const [keyHandlers, event] of Object.entries(storeElementEvent)) {
         const handlerKey = keyHandlers.replace(stripUidRegex, "");
         if (!inNamespace || originalTypeEvent.includes(handlerKey)) {
-          const event = storeElementEvent[keyHandlers];
-          removeHandler(element, events, typeEvent, event.originalHandler, event.delegationSelector);
+          removeHandler(element, events, typeEvent, event.callable, event.delegationSelector);
         }
-      });
+      }
     },
     trigger(element, event, args) {
       if (typeof event !== "string" || !element) {
@@ -13583,12 +13636,10 @@
       const $2 = getjQuery();
       const typeEvent = getTypeEvent(event);
       const inNamespace = event !== typeEvent;
-      const isNative = nativeEvents.has(typeEvent);
-      let jQueryEvent;
+      let jQueryEvent = null;
       let bubbles = true;
       let nativeDispatch = true;
       let defaultPrevented = false;
-      let evt = null;
       if (inNamespace && $2) {
         jQueryEvent = $2.Event(event, args);
         $2(element).trigger(jQueryEvent);
@@ -13596,85 +13647,151 @@
         nativeDispatch = !jQueryEvent.isImmediatePropagationStopped();
         defaultPrevented = jQueryEvent.isDefaultPrevented();
       }
-      if (isNative) {
-        evt = document.createEvent("HTMLEvents");
-        evt.initEvent(typeEvent, bubbles, true);
-      } else {
-        evt = new CustomEvent(event, {
-          bubbles,
-          cancelable: true
-        });
-      }
-      if (typeof args !== "undefined") {
-        Object.keys(args).forEach((key) => {
-          Object.defineProperty(evt, key, {
-            get() {
-              return args[key];
-            }
-          });
-        });
-      }
+      const evt = hydrateObj(new Event(event, {
+        bubbles,
+        cancelable: true
+      }), args);
       if (defaultPrevented) {
         evt.preventDefault();
       }
       if (nativeDispatch) {
         element.dispatchEvent(evt);
       }
-      if (evt.defaultPrevented && typeof jQueryEvent !== "undefined") {
+      if (evt.defaultPrevented && jQueryEvent) {
         jQueryEvent.preventDefault();
       }
       return evt;
     }
   };
-  var elementMap = /* @__PURE__ */ new Map();
-  var Data = {
-    set(element, key, instance) {
-      if (!elementMap.has(element)) {
-        elementMap.set(element, /* @__PURE__ */ new Map());
+  function hydrateObj(obj, meta = {}) {
+    for (const [key, value] of Object.entries(meta)) {
+      try {
+        obj[key] = value;
+      } catch (_unused) {
+        Object.defineProperty(obj, key, {
+          configurable: true,
+          get() {
+            return value;
+          }
+        });
       }
-      const instanceMap = elementMap.get(element);
-      if (!instanceMap.has(key) && instanceMap.size !== 0) {
-        console.error(`Bootstrap doesn't allow more than one instance per element. Bound instance: ${Array.from(instanceMap.keys())[0]}.`);
-        return;
-      }
-      instanceMap.set(key, instance);
-    },
-    get(element, key) {
-      if (elementMap.has(element)) {
-        return elementMap.get(element).get(key) || null;
-      }
+    }
+    return obj;
+  }
+  function normalizeData(value) {
+    if (value === "true") {
+      return true;
+    }
+    if (value === "false") {
+      return false;
+    }
+    if (value === Number(value).toString()) {
+      return Number(value);
+    }
+    if (value === "" || value === "null") {
       return null;
+    }
+    if (typeof value !== "string") {
+      return value;
+    }
+    try {
+      return JSON.parse(decodeURIComponent(value));
+    } catch (_unused) {
+      return value;
+    }
+  }
+  function normalizeDataKey(key) {
+    return key.replace(/[A-Z]/g, (chr) => `-${chr.toLowerCase()}`);
+  }
+  var Manipulator = {
+    setDataAttribute(element, key, value) {
+      element.setAttribute(`data-bs-${normalizeDataKey(key)}`, value);
     },
-    remove(element, key) {
-      if (!elementMap.has(element)) {
-        return;
+    removeDataAttribute(element, key) {
+      element.removeAttribute(`data-bs-${normalizeDataKey(key)}`);
+    },
+    getDataAttributes(element) {
+      if (!element) {
+        return {};
       }
-      const instanceMap = elementMap.get(element);
-      instanceMap.delete(key);
-      if (instanceMap.size === 0) {
-        elementMap.delete(element);
+      const attributes2 = {};
+      const bsKeys = Object.keys(element.dataset).filter((key) => key.startsWith("bs") && !key.startsWith("bsConfig"));
+      for (const key of bsKeys) {
+        let pureKey = key.replace(/^bs/, "");
+        pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1, pureKey.length);
+        attributes2[pureKey] = normalizeData(element.dataset[key]);
+      }
+      return attributes2;
+    },
+    getDataAttribute(element, key) {
+      return normalizeData(element.getAttribute(`data-bs-${normalizeDataKey(key)}`));
+    }
+  };
+  var Config = class {
+    static get Default() {
+      return {};
+    }
+    static get DefaultType() {
+      return {};
+    }
+    static get NAME() {
+      throw new Error('You have to implement the static method "NAME", for each component!');
+    }
+    _getConfig(config2) {
+      config2 = this._mergeConfigObj(config2);
+      config2 = this._configAfterMerge(config2);
+      this._typeCheckConfig(config2);
+      return config2;
+    }
+    _configAfterMerge(config2) {
+      return config2;
+    }
+    _mergeConfigObj(config2, element) {
+      const jsonConfig = isElement2(element) ? Manipulator.getDataAttribute(element, "config") : {};
+      return {
+        ...this.constructor.Default,
+        ...typeof jsonConfig === "object" ? jsonConfig : {},
+        ...isElement2(element) ? Manipulator.getDataAttributes(element) : {},
+        ...typeof config2 === "object" ? config2 : {}
+      };
+    }
+    _typeCheckConfig(config2, configTypes = this.constructor.DefaultType) {
+      for (const [property, expectedTypes] of Object.entries(configTypes)) {
+        const value = config2[property];
+        const valueType = isElement2(value) ? "element" : toType(value);
+        if (!new RegExp(expectedTypes).test(valueType)) {
+          throw new TypeError(`${this.constructor.NAME.toUpperCase()}: Option "${property}" provided type "${valueType}" but expected type "${expectedTypes}".`);
+        }
       }
     }
   };
-  var VERSION = "5.1.3";
-  var BaseComponent = class {
-    constructor(element) {
+  var VERSION = "5.3.3";
+  var BaseComponent = class extends Config {
+    constructor(element, config2) {
+      super();
       element = getElement(element);
       if (!element) {
         return;
       }
       this._element = element;
+      this._config = this._getConfig(config2);
       Data.set(this._element, this.constructor.DATA_KEY, this);
     }
     dispose() {
       Data.remove(this._element, this.constructor.DATA_KEY);
       EventHandler.off(this._element, this.constructor.EVENT_KEY);
-      Object.getOwnPropertyNames(this).forEach((propertyName) => {
+      for (const propertyName of Object.getOwnPropertyNames(this)) {
         this[propertyName] = null;
-      });
+      }
     }
     _queueCallback(callback, element, isAnimated = true) {
       executeAfterTransition(callback, element, isAnimated);
+    }
+    _getConfig(config2) {
+      config2 = this._mergeConfigObj(config2, this._element);
+      config2 = this._configAfterMerge(config2);
+      this._typeCheckConfig(config2);
+      return config2;
     }
     static getInstance(element) {
       return Data.get(getElement(element), this.DATA_KEY);
@@ -13685,14 +13802,87 @@
     static get VERSION() {
       return VERSION;
     }
-    static get NAME() {
-      throw new Error('You have to implement the static method "NAME", for each component!');
-    }
     static get DATA_KEY() {
       return `bs.${this.NAME}`;
     }
     static get EVENT_KEY() {
       return `.${this.DATA_KEY}`;
+    }
+    static eventName(name) {
+      return `${name}${this.EVENT_KEY}`;
+    }
+  };
+  var getSelector = (element) => {
+    let selector = element.getAttribute("data-bs-target");
+    if (!selector || selector === "#") {
+      let hrefAttribute = element.getAttribute("href");
+      if (!hrefAttribute || !hrefAttribute.includes("#") && !hrefAttribute.startsWith(".")) {
+        return null;
+      }
+      if (hrefAttribute.includes("#") && !hrefAttribute.startsWith("#")) {
+        hrefAttribute = `#${hrefAttribute.split("#")[1]}`;
+      }
+      selector = hrefAttribute && hrefAttribute !== "#" ? hrefAttribute.trim() : null;
+    }
+    return selector ? selector.split(",").map((sel) => parseSelector(sel)).join(",") : null;
+  };
+  var SelectorEngine = {
+    find(selector, element = document.documentElement) {
+      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
+    },
+    findOne(selector, element = document.documentElement) {
+      return Element.prototype.querySelector.call(element, selector);
+    },
+    children(element, selector) {
+      return [].concat(...element.children).filter((child) => child.matches(selector));
+    },
+    parents(element, selector) {
+      const parents = [];
+      let ancestor = element.parentNode.closest(selector);
+      while (ancestor) {
+        parents.push(ancestor);
+        ancestor = ancestor.parentNode.closest(selector);
+      }
+      return parents;
+    },
+    prev(element, selector) {
+      let previous = element.previousElementSibling;
+      while (previous) {
+        if (previous.matches(selector)) {
+          return [previous];
+        }
+        previous = previous.previousElementSibling;
+      }
+      return [];
+    },
+    next(element, selector) {
+      let next = element.nextElementSibling;
+      while (next) {
+        if (next.matches(selector)) {
+          return [next];
+        }
+        next = next.nextElementSibling;
+      }
+      return [];
+    },
+    focusableChildren(element) {
+      const focusables = ["a", "button", "input", "textarea", "select", "details", "[tabindex]", '[contenteditable="true"]'].map((selector) => `${selector}:not([tabindex^="-"])`).join(",");
+      return this.find(focusables, element).filter((el) => !isDisabled(el) && isVisible(el));
+    },
+    getSelectorFromElement(element) {
+      const selector = getSelector(element);
+      if (selector) {
+        return SelectorEngine.findOne(selector) ? selector : null;
+      }
+      return null;
+    },
+    getElementFromSelector(element) {
+      const selector = getSelector(element);
+      return selector ? SelectorEngine.findOne(selector) : null;
+    },
+    getMultipleElementsFromSelector(element) {
+      const selector = getSelector(element);
+      return selector ? SelectorEngine.find(selector) : [];
     }
   };
   var enableDismissTrigger = (component, method = "hide") => {
@@ -13705,21 +13895,21 @@
       if (isDisabled(this)) {
         return;
       }
-      const target = getElementFromSelector(this) || this.closest(`.${name}`);
+      const target = SelectorEngine.getElementFromSelector(this) || this.closest(`.${name}`);
       const instance = component.getOrCreateInstance(target);
       instance[method]();
     });
   };
-  var NAME$d = "alert";
-  var DATA_KEY$c = "bs.alert";
-  var EVENT_KEY$c = `.${DATA_KEY$c}`;
-  var EVENT_CLOSE = `close${EVENT_KEY$c}`;
-  var EVENT_CLOSED = `closed${EVENT_KEY$c}`;
+  var NAME$f = "alert";
+  var DATA_KEY$a = "bs.alert";
+  var EVENT_KEY$b = `.${DATA_KEY$a}`;
+  var EVENT_CLOSE = `close${EVENT_KEY$b}`;
+  var EVENT_CLOSED = `closed${EVENT_KEY$b}`;
   var CLASS_NAME_FADE$5 = "fade";
   var CLASS_NAME_SHOW$8 = "show";
   var Alert = class extends BaseComponent {
     static get NAME() {
-      return NAME$d;
+      return NAME$f;
     }
     close() {
       const closeEvent = EventHandler.trigger(this._element, EVENT_CLOSE);
@@ -13750,16 +13940,16 @@
   };
   enableDismissTrigger(Alert, "close");
   defineJQueryPlugin(Alert);
-  var NAME$c = "button";
-  var DATA_KEY$b = "bs.button";
-  var EVENT_KEY$b = `.${DATA_KEY$b}`;
-  var DATA_API_KEY$7 = ".data-api";
+  var NAME$e = "button";
+  var DATA_KEY$9 = "bs.button";
+  var EVENT_KEY$a = `.${DATA_KEY$9}`;
+  var DATA_API_KEY$6 = ".data-api";
   var CLASS_NAME_ACTIVE$3 = "active";
   var SELECTOR_DATA_TOGGLE$5 = '[data-bs-toggle="button"]';
-  var EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$b}${DATA_API_KEY$7}`;
+  var EVENT_CLICK_DATA_API$6 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
   var Button = class extends BaseComponent {
     static get NAME() {
-      return NAME$c;
+      return NAME$e;
     }
     toggle() {
       this._element.setAttribute("aria-pressed", this._element.classList.toggle(CLASS_NAME_ACTIVE$3));
@@ -13780,152 +13970,119 @@
     data.toggle();
   });
   defineJQueryPlugin(Button);
-  function normalizeData(val) {
-    if (val === "true") {
-      return true;
-    }
-    if (val === "false") {
-      return false;
-    }
-    if (val === Number(val).toString()) {
-      return Number(val);
-    }
-    if (val === "" || val === "null") {
-      return null;
-    }
-    return val;
-  }
-  function normalizeDataKey(key) {
-    return key.replace(/[A-Z]/g, (chr) => `-${chr.toLowerCase()}`);
-  }
-  var Manipulator = {
-    setDataAttribute(element, key, value) {
-      element.setAttribute(`data-bs-${normalizeDataKey(key)}`, value);
-    },
-    removeDataAttribute(element, key) {
-      element.removeAttribute(`data-bs-${normalizeDataKey(key)}`);
-    },
-    getDataAttributes(element) {
-      if (!element) {
-        return {};
-      }
-      const attributes2 = {};
-      Object.keys(element.dataset).filter((key) => key.startsWith("bs")).forEach((key) => {
-        let pureKey = key.replace(/^bs/, "");
-        pureKey = pureKey.charAt(0).toLowerCase() + pureKey.slice(1, pureKey.length);
-        attributes2[pureKey] = normalizeData(element.dataset[key]);
-      });
-      return attributes2;
-    },
-    getDataAttribute(element, key) {
-      return normalizeData(element.getAttribute(`data-bs-${normalizeDataKey(key)}`));
-    },
-    offset(element) {
-      const rect = element.getBoundingClientRect();
-      return {
-        top: rect.top + window.pageYOffset,
-        left: rect.left + window.pageXOffset
-      };
-    },
-    position(element) {
-      return {
-        top: element.offsetTop,
-        left: element.offsetLeft
-      };
-    }
-  };
-  var NODE_TEXT = 3;
-  var SelectorEngine = {
-    find(selector, element = document.documentElement) {
-      return [].concat(...Element.prototype.querySelectorAll.call(element, selector));
-    },
-    findOne(selector, element = document.documentElement) {
-      return Element.prototype.querySelector.call(element, selector);
-    },
-    children(element, selector) {
-      return [].concat(...element.children).filter((child) => child.matches(selector));
-    },
-    parents(element, selector) {
-      const parents = [];
-      let ancestor = element.parentNode;
-      while (ancestor && ancestor.nodeType === Node.ELEMENT_NODE && ancestor.nodeType !== NODE_TEXT) {
-        if (ancestor.matches(selector)) {
-          parents.push(ancestor);
-        }
-        ancestor = ancestor.parentNode;
-      }
-      return parents;
-    },
-    prev(element, selector) {
-      let previous = element.previousElementSibling;
-      while (previous) {
-        if (previous.matches(selector)) {
-          return [previous];
-        }
-        previous = previous.previousElementSibling;
-      }
-      return [];
-    },
-    next(element, selector) {
-      let next = element.nextElementSibling;
-      while (next) {
-        if (next.matches(selector)) {
-          return [next];
-        }
-        next = next.nextElementSibling;
-      }
-      return [];
-    },
-    focusableChildren(element) {
-      const focusables = ["a", "button", "input", "textarea", "select", "details", "[tabindex]", '[contenteditable="true"]'].map((selector) => `${selector}:not([tabindex^="-"])`).join(", ");
-      return this.find(focusables, element).filter((el) => !isDisabled(el) && isVisible(el));
-    }
-  };
-  var NAME$b = "carousel";
-  var DATA_KEY$a = "bs.carousel";
-  var EVENT_KEY$a = `.${DATA_KEY$a}`;
-  var DATA_API_KEY$6 = ".data-api";
-  var ARROW_LEFT_KEY = "ArrowLeft";
-  var ARROW_RIGHT_KEY = "ArrowRight";
-  var TOUCHEVENT_COMPAT_WAIT = 500;
+  var NAME$d = "swipe";
+  var EVENT_KEY$9 = ".bs.swipe";
+  var EVENT_TOUCHSTART = `touchstart${EVENT_KEY$9}`;
+  var EVENT_TOUCHMOVE = `touchmove${EVENT_KEY$9}`;
+  var EVENT_TOUCHEND = `touchend${EVENT_KEY$9}`;
+  var EVENT_POINTERDOWN = `pointerdown${EVENT_KEY$9}`;
+  var EVENT_POINTERUP = `pointerup${EVENT_KEY$9}`;
+  var POINTER_TYPE_TOUCH = "touch";
+  var POINTER_TYPE_PEN = "pen";
+  var CLASS_NAME_POINTER_EVENT = "pointer-event";
   var SWIPE_THRESHOLD = 40;
-  var Default$a = {
-    interval: 5e3,
-    keyboard: true,
-    slide: false,
-    pause: "hover",
-    wrap: true,
-    touch: true
+  var Default$c = {
+    endCallback: null,
+    leftCallback: null,
+    rightCallback: null
   };
-  var DefaultType$a = {
-    interval: "(number|boolean)",
-    keyboard: "boolean",
-    slide: "(boolean|string)",
-    pause: "(string|boolean)",
-    wrap: "boolean",
-    touch: "boolean"
+  var DefaultType$c = {
+    endCallback: "(function|null)",
+    leftCallback: "(function|null)",
+    rightCallback: "(function|null)"
   };
+  var Swipe = class extends Config {
+    constructor(element, config2) {
+      super();
+      this._element = element;
+      if (!element || !Swipe.isSupported()) {
+        return;
+      }
+      this._config = this._getConfig(config2);
+      this._deltaX = 0;
+      this._supportPointerEvents = Boolean(window.PointerEvent);
+      this._initEvents();
+    }
+    static get Default() {
+      return Default$c;
+    }
+    static get DefaultType() {
+      return DefaultType$c;
+    }
+    static get NAME() {
+      return NAME$d;
+    }
+    dispose() {
+      EventHandler.off(this._element, EVENT_KEY$9);
+    }
+    _start(event) {
+      if (!this._supportPointerEvents) {
+        this._deltaX = event.touches[0].clientX;
+        return;
+      }
+      if (this._eventIsPointerPenTouch(event)) {
+        this._deltaX = event.clientX;
+      }
+    }
+    _end(event) {
+      if (this._eventIsPointerPenTouch(event)) {
+        this._deltaX = event.clientX - this._deltaX;
+      }
+      this._handleSwipe();
+      execute(this._config.endCallback);
+    }
+    _move(event) {
+      this._deltaX = event.touches && event.touches.length > 1 ? 0 : event.touches[0].clientX - this._deltaX;
+    }
+    _handleSwipe() {
+      const absDeltaX = Math.abs(this._deltaX);
+      if (absDeltaX <= SWIPE_THRESHOLD) {
+        return;
+      }
+      const direction = absDeltaX / this._deltaX;
+      this._deltaX = 0;
+      if (!direction) {
+        return;
+      }
+      execute(direction > 0 ? this._config.rightCallback : this._config.leftCallback);
+    }
+    _initEvents() {
+      if (this._supportPointerEvents) {
+        EventHandler.on(this._element, EVENT_POINTERDOWN, (event) => this._start(event));
+        EventHandler.on(this._element, EVENT_POINTERUP, (event) => this._end(event));
+        this._element.classList.add(CLASS_NAME_POINTER_EVENT);
+      } else {
+        EventHandler.on(this._element, EVENT_TOUCHSTART, (event) => this._start(event));
+        EventHandler.on(this._element, EVENT_TOUCHMOVE, (event) => this._move(event));
+        EventHandler.on(this._element, EVENT_TOUCHEND, (event) => this._end(event));
+      }
+    }
+    _eventIsPointerPenTouch(event) {
+      return this._supportPointerEvents && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH);
+    }
+    static isSupported() {
+      return "ontouchstart" in document.documentElement || navigator.maxTouchPoints > 0;
+    }
+  };
+  var NAME$c = "carousel";
+  var DATA_KEY$8 = "bs.carousel";
+  var EVENT_KEY$8 = `.${DATA_KEY$8}`;
+  var DATA_API_KEY$5 = ".data-api";
+  var ARROW_LEFT_KEY$1 = "ArrowLeft";
+  var ARROW_RIGHT_KEY$1 = "ArrowRight";
+  var TOUCHEVENT_COMPAT_WAIT = 500;
   var ORDER_NEXT = "next";
   var ORDER_PREV = "prev";
   var DIRECTION_LEFT = "left";
   var DIRECTION_RIGHT = "right";
-  var KEY_TO_DIRECTION = {
-    [ARROW_LEFT_KEY]: DIRECTION_RIGHT,
-    [ARROW_RIGHT_KEY]: DIRECTION_LEFT
-  };
-  var EVENT_SLIDE = `slide${EVENT_KEY$a}`;
-  var EVENT_SLID = `slid${EVENT_KEY$a}`;
-  var EVENT_KEYDOWN = `keydown${EVENT_KEY$a}`;
-  var EVENT_MOUSEENTER = `mouseenter${EVENT_KEY$a}`;
-  var EVENT_MOUSELEAVE = `mouseleave${EVENT_KEY$a}`;
-  var EVENT_TOUCHSTART = `touchstart${EVENT_KEY$a}`;
-  var EVENT_TOUCHMOVE = `touchmove${EVENT_KEY$a}`;
-  var EVENT_TOUCHEND = `touchend${EVENT_KEY$a}`;
-  var EVENT_POINTERDOWN = `pointerdown${EVENT_KEY$a}`;
-  var EVENT_POINTERUP = `pointerup${EVENT_KEY$a}`;
-  var EVENT_DRAG_START = `dragstart${EVENT_KEY$a}`;
-  var EVENT_LOAD_DATA_API$2 = `load${EVENT_KEY$a}${DATA_API_KEY$6}`;
-  var EVENT_CLICK_DATA_API$5 = `click${EVENT_KEY$a}${DATA_API_KEY$6}`;
+  var EVENT_SLIDE = `slide${EVENT_KEY$8}`;
+  var EVENT_SLID = `slid${EVENT_KEY$8}`;
+  var EVENT_KEYDOWN$1 = `keydown${EVENT_KEY$8}`;
+  var EVENT_MOUSEENTER$1 = `mouseenter${EVENT_KEY$8}`;
+  var EVENT_MOUSELEAVE$1 = `mouseleave${EVENT_KEY$8}`;
+  var EVENT_DRAG_START = `dragstart${EVENT_KEY$8}`;
+  var EVENT_LOAD_DATA_API$3 = `load${EVENT_KEY$8}${DATA_API_KEY$5}`;
+  var EVENT_CLICK_DATA_API$5 = `click${EVENT_KEY$8}${DATA_API_KEY$5}`;
   var CLASS_NAME_CAROUSEL = "carousel";
   var CLASS_NAME_ACTIVE$2 = "active";
   var CLASS_NAME_SLIDE = "slide";
@@ -13933,40 +14090,55 @@
   var CLASS_NAME_START = "carousel-item-start";
   var CLASS_NAME_NEXT = "carousel-item-next";
   var CLASS_NAME_PREV = "carousel-item-prev";
-  var CLASS_NAME_POINTER_EVENT = "pointer-event";
-  var SELECTOR_ACTIVE$1 = ".active";
-  var SELECTOR_ACTIVE_ITEM = ".active.carousel-item";
+  var SELECTOR_ACTIVE = ".active";
   var SELECTOR_ITEM = ".carousel-item";
+  var SELECTOR_ACTIVE_ITEM = SELECTOR_ACTIVE + SELECTOR_ITEM;
   var SELECTOR_ITEM_IMG = ".carousel-item img";
-  var SELECTOR_NEXT_PREV = ".carousel-item-next, .carousel-item-prev";
   var SELECTOR_INDICATORS = ".carousel-indicators";
-  var SELECTOR_INDICATOR = "[data-bs-target]";
   var SELECTOR_DATA_SLIDE = "[data-bs-slide], [data-bs-slide-to]";
   var SELECTOR_DATA_RIDE = '[data-bs-ride="carousel"]';
-  var POINTER_TYPE_TOUCH = "touch";
-  var POINTER_TYPE_PEN = "pen";
+  var KEY_TO_DIRECTION = {
+    [ARROW_LEFT_KEY$1]: DIRECTION_RIGHT,
+    [ARROW_RIGHT_KEY$1]: DIRECTION_LEFT
+  };
+  var Default$b = {
+    interval: 5e3,
+    keyboard: true,
+    pause: "hover",
+    ride: false,
+    touch: true,
+    wrap: true
+  };
+  var DefaultType$b = {
+    interval: "(number|boolean)",
+    keyboard: "boolean",
+    pause: "(string|boolean)",
+    ride: "(boolean|string)",
+    touch: "boolean",
+    wrap: "boolean"
+  };
   var Carousel = class extends BaseComponent {
     constructor(element, config2) {
-      super(element);
-      this._items = null;
+      super(element, config2);
       this._interval = null;
       this._activeElement = null;
-      this._isPaused = false;
       this._isSliding = false;
       this.touchTimeout = null;
-      this.touchStartX = 0;
-      this.touchDeltaX = 0;
-      this._config = this._getConfig(config2);
+      this._swipeHelper = null;
       this._indicatorsElement = SelectorEngine.findOne(SELECTOR_INDICATORS, this._element);
-      this._touchSupported = "ontouchstart" in document.documentElement || navigator.maxTouchPoints > 0;
-      this._pointerEvent = Boolean(window.PointerEvent);
       this._addEventListeners();
+      if (this._config.ride === CLASS_NAME_CAROUSEL) {
+        this.cycle();
+      }
     }
     static get Default() {
-      return Default$a;
+      return Default$b;
+    }
+    static get DefaultType() {
+      return DefaultType$b;
     }
     static get NAME() {
-      return NAME$b;
+      return NAME$c;
     }
     next() {
       this._slide(ORDER_NEXT);
@@ -13979,120 +14151,85 @@
     prev() {
       this._slide(ORDER_PREV);
     }
-    pause(event) {
-      if (!event) {
-        this._isPaused = true;
-      }
-      if (SelectorEngine.findOne(SELECTOR_NEXT_PREV, this._element)) {
+    pause() {
+      if (this._isSliding) {
         triggerTransitionEnd(this._element);
-        this.cycle(true);
       }
-      clearInterval(this._interval);
-      this._interval = null;
+      this._clearInterval();
     }
-    cycle(event) {
-      if (!event) {
-        this._isPaused = false;
+    cycle() {
+      this._clearInterval();
+      this._updateInterval();
+      this._interval = setInterval(() => this.nextWhenVisible(), this._config.interval);
+    }
+    _maybeEnableCycle() {
+      if (!this._config.ride) {
+        return;
       }
-      if (this._interval) {
-        clearInterval(this._interval);
-        this._interval = null;
+      if (this._isSliding) {
+        EventHandler.one(this._element, EVENT_SLID, () => this.cycle());
+        return;
       }
-      if (this._config && this._config.interval && !this._isPaused) {
-        this._updateInterval();
-        this._interval = setInterval((document.visibilityState ? this.nextWhenVisible : this.next).bind(this), this._config.interval);
-      }
+      this.cycle();
     }
     to(index) {
-      this._activeElement = SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element);
-      const activeIndex = this._getItemIndex(this._activeElement);
-      if (index > this._items.length - 1 || index < 0) {
+      const items = this._getItems();
+      if (index > items.length - 1 || index < 0) {
         return;
       }
       if (this._isSliding) {
         EventHandler.one(this._element, EVENT_SLID, () => this.to(index));
         return;
       }
+      const activeIndex = this._getItemIndex(this._getActive());
       if (activeIndex === index) {
-        this.pause();
-        this.cycle();
         return;
       }
       const order2 = index > activeIndex ? ORDER_NEXT : ORDER_PREV;
-      this._slide(order2, this._items[index]);
+      this._slide(order2, items[index]);
     }
-    _getConfig(config2) {
-      config2 = {
-        ...Default$a,
-        ...Manipulator.getDataAttributes(this._element),
-        ...typeof config2 === "object" ? config2 : {}
-      };
-      typeCheckConfig(NAME$b, config2, DefaultType$a);
+    dispose() {
+      if (this._swipeHelper) {
+        this._swipeHelper.dispose();
+      }
+      super.dispose();
+    }
+    _configAfterMerge(config2) {
+      config2.defaultInterval = config2.interval;
       return config2;
-    }
-    _handleSwipe() {
-      const absDeltax = Math.abs(this.touchDeltaX);
-      if (absDeltax <= SWIPE_THRESHOLD) {
-        return;
-      }
-      const direction = absDeltax / this.touchDeltaX;
-      this.touchDeltaX = 0;
-      if (!direction) {
-        return;
-      }
-      this._slide(direction > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT);
     }
     _addEventListeners() {
       if (this._config.keyboard) {
-        EventHandler.on(this._element, EVENT_KEYDOWN, (event) => this._keydown(event));
+        EventHandler.on(this._element, EVENT_KEYDOWN$1, (event) => this._keydown(event));
       }
       if (this._config.pause === "hover") {
-        EventHandler.on(this._element, EVENT_MOUSEENTER, (event) => this.pause(event));
-        EventHandler.on(this._element, EVENT_MOUSELEAVE, (event) => this.cycle(event));
+        EventHandler.on(this._element, EVENT_MOUSEENTER$1, () => this.pause());
+        EventHandler.on(this._element, EVENT_MOUSELEAVE$1, () => this._maybeEnableCycle());
       }
-      if (this._config.touch && this._touchSupported) {
+      if (this._config.touch && Swipe.isSupported()) {
         this._addTouchEventListeners();
       }
     }
     _addTouchEventListeners() {
-      const hasPointerPenTouch = (event) => {
-        return this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH);
-      };
-      const start4 = (event) => {
-        if (hasPointerPenTouch(event)) {
-          this.touchStartX = event.clientX;
-        } else if (!this._pointerEvent) {
-          this.touchStartX = event.touches[0].clientX;
-        }
-      };
-      const move = (event) => {
-        this.touchDeltaX = event.touches && event.touches.length > 1 ? 0 : event.touches[0].clientX - this.touchStartX;
-      };
-      const end2 = (event) => {
-        if (hasPointerPenTouch(event)) {
-          this.touchDeltaX = event.clientX - this.touchStartX;
-        }
-        this._handleSwipe();
-        if (this._config.pause === "hover") {
-          this.pause();
-          if (this.touchTimeout) {
-            clearTimeout(this.touchTimeout);
-          }
-          this.touchTimeout = setTimeout((event2) => this.cycle(event2), TOUCHEVENT_COMPAT_WAIT + this._config.interval);
-        }
-      };
-      SelectorEngine.find(SELECTOR_ITEM_IMG, this._element).forEach((itemImg) => {
-        EventHandler.on(itemImg, EVENT_DRAG_START, (event) => event.preventDefault());
-      });
-      if (this._pointerEvent) {
-        EventHandler.on(this._element, EVENT_POINTERDOWN, (event) => start4(event));
-        EventHandler.on(this._element, EVENT_POINTERUP, (event) => end2(event));
-        this._element.classList.add(CLASS_NAME_POINTER_EVENT);
-      } else {
-        EventHandler.on(this._element, EVENT_TOUCHSTART, (event) => start4(event));
-        EventHandler.on(this._element, EVENT_TOUCHMOVE, (event) => move(event));
-        EventHandler.on(this._element, EVENT_TOUCHEND, (event) => end2(event));
+      for (const img of SelectorEngine.find(SELECTOR_ITEM_IMG, this._element)) {
+        EventHandler.on(img, EVENT_DRAG_START, (event) => event.preventDefault());
       }
+      const endCallBack = () => {
+        if (this._config.pause !== "hover") {
+          return;
+        }
+        this.pause();
+        if (this.touchTimeout) {
+          clearTimeout(this.touchTimeout);
+        }
+        this.touchTimeout = setTimeout(() => this._maybeEnableCycle(), TOUCHEVENT_COMPAT_WAIT + this._config.interval);
+      };
+      const swipeConfig = {
+        leftCallback: () => this._slide(this._directionToOrder(DIRECTION_LEFT)),
+        rightCallback: () => this._slide(this._directionToOrder(DIRECTION_RIGHT)),
+        endCallback: endCallBack
+      };
+      this._swipeHelper = new Swipe(this._element, swipeConfig);
     }
     _keydown(event) {
       if (/input|textarea/i.test(event.target.tagName)) {
@@ -14101,209 +14238,162 @@
       const direction = KEY_TO_DIRECTION[event.key];
       if (direction) {
         event.preventDefault();
-        this._slide(direction);
+        this._slide(this._directionToOrder(direction));
       }
     }
     _getItemIndex(element) {
-      this._items = element && element.parentNode ? SelectorEngine.find(SELECTOR_ITEM, element.parentNode) : [];
-      return this._items.indexOf(element);
+      return this._getItems().indexOf(element);
     }
-    _getItemByOrder(order2, activeElement) {
-      const isNext = order2 === ORDER_NEXT;
-      return getNextActiveElement(this._items, activeElement, isNext, this._config.wrap);
-    }
-    _triggerSlideEvent(relatedTarget, eventDirectionName) {
-      const targetIndex = this._getItemIndex(relatedTarget);
-      const fromIndex = this._getItemIndex(SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element));
-      return EventHandler.trigger(this._element, EVENT_SLIDE, {
-        relatedTarget,
-        direction: eventDirectionName,
-        from: fromIndex,
-        to: targetIndex
-      });
-    }
-    _setActiveIndicatorElement(element) {
-      if (this._indicatorsElement) {
-        const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE$1, this._indicatorsElement);
-        activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
-        activeIndicator.removeAttribute("aria-current");
-        const indicators = SelectorEngine.find(SELECTOR_INDICATOR, this._indicatorsElement);
-        for (let i = 0; i < indicators.length; i++) {
-          if (Number.parseInt(indicators[i].getAttribute("data-bs-slide-to"), 10) === this._getItemIndex(element)) {
-            indicators[i].classList.add(CLASS_NAME_ACTIVE$2);
-            indicators[i].setAttribute("aria-current", "true");
-            break;
-          }
-        }
+    _setActiveIndicatorElement(index) {
+      if (!this._indicatorsElement) {
+        return;
+      }
+      const activeIndicator = SelectorEngine.findOne(SELECTOR_ACTIVE, this._indicatorsElement);
+      activeIndicator.classList.remove(CLASS_NAME_ACTIVE$2);
+      activeIndicator.removeAttribute("aria-current");
+      const newActiveIndicator = SelectorEngine.findOne(`[data-bs-slide-to="${index}"]`, this._indicatorsElement);
+      if (newActiveIndicator) {
+        newActiveIndicator.classList.add(CLASS_NAME_ACTIVE$2);
+        newActiveIndicator.setAttribute("aria-current", "true");
       }
     }
     _updateInterval() {
-      const element = this._activeElement || SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element);
+      const element = this._activeElement || this._getActive();
       if (!element) {
         return;
       }
       const elementInterval = Number.parseInt(element.getAttribute("data-bs-interval"), 10);
-      if (elementInterval) {
-        this._config.defaultInterval = this._config.defaultInterval || this._config.interval;
-        this._config.interval = elementInterval;
-      } else {
-        this._config.interval = this._config.defaultInterval || this._config.interval;
-      }
+      this._config.interval = elementInterval || this._config.defaultInterval;
     }
-    _slide(directionOrOrder, element) {
-      const order2 = this._directionToOrder(directionOrOrder);
-      const activeElement = SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element);
-      const activeElementIndex = this._getItemIndex(activeElement);
-      const nextElement = element || this._getItemByOrder(order2, activeElement);
-      const nextElementIndex = this._getItemIndex(nextElement);
-      const isCycling = Boolean(this._interval);
-      const isNext = order2 === ORDER_NEXT;
-      const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END;
-      const orderClassName = isNext ? CLASS_NAME_NEXT : CLASS_NAME_PREV;
-      const eventDirectionName = this._orderToDirection(order2);
-      if (nextElement && nextElement.classList.contains(CLASS_NAME_ACTIVE$2)) {
-        this._isSliding = false;
-        return;
-      }
+    _slide(order2, element = null) {
       if (this._isSliding) {
         return;
       }
-      const slideEvent = this._triggerSlideEvent(nextElement, eventDirectionName);
+      const activeElement = this._getActive();
+      const isNext = order2 === ORDER_NEXT;
+      const nextElement = element || getNextActiveElement(this._getItems(), activeElement, isNext, this._config.wrap);
+      if (nextElement === activeElement) {
+        return;
+      }
+      const nextElementIndex = this._getItemIndex(nextElement);
+      const triggerEvent3 = (eventName) => {
+        return EventHandler.trigger(this._element, eventName, {
+          relatedTarget: nextElement,
+          direction: this._orderToDirection(order2),
+          from: this._getItemIndex(activeElement),
+          to: nextElementIndex
+        });
+      };
+      const slideEvent = triggerEvent3(EVENT_SLIDE);
       if (slideEvent.defaultPrevented) {
         return;
       }
       if (!activeElement || !nextElement) {
         return;
       }
+      const isCycling = Boolean(this._interval);
+      this.pause();
       this._isSliding = true;
-      if (isCycling) {
-        this.pause();
-      }
-      this._setActiveIndicatorElement(nextElement);
+      this._setActiveIndicatorElement(nextElementIndex);
       this._activeElement = nextElement;
-      const triggerSlidEvent = () => {
-        EventHandler.trigger(this._element, EVENT_SLID, {
-          relatedTarget: nextElement,
-          direction: eventDirectionName,
-          from: activeElementIndex,
-          to: nextElementIndex
-        });
-      };
-      if (this._element.classList.contains(CLASS_NAME_SLIDE)) {
-        nextElement.classList.add(orderClassName);
-        reflow(nextElement);
-        activeElement.classList.add(directionalClassName);
-        nextElement.classList.add(directionalClassName);
-        const completeCallBack = () => {
-          nextElement.classList.remove(directionalClassName, orderClassName);
-          nextElement.classList.add(CLASS_NAME_ACTIVE$2);
-          activeElement.classList.remove(CLASS_NAME_ACTIVE$2, orderClassName, directionalClassName);
-          this._isSliding = false;
-          setTimeout(triggerSlidEvent, 0);
-        };
-        this._queueCallback(completeCallBack, activeElement, true);
-      } else {
-        activeElement.classList.remove(CLASS_NAME_ACTIVE$2);
+      const directionalClassName = isNext ? CLASS_NAME_START : CLASS_NAME_END;
+      const orderClassName = isNext ? CLASS_NAME_NEXT : CLASS_NAME_PREV;
+      nextElement.classList.add(orderClassName);
+      reflow(nextElement);
+      activeElement.classList.add(directionalClassName);
+      nextElement.classList.add(directionalClassName);
+      const completeCallBack = () => {
+        nextElement.classList.remove(directionalClassName, orderClassName);
         nextElement.classList.add(CLASS_NAME_ACTIVE$2);
+        activeElement.classList.remove(CLASS_NAME_ACTIVE$2, orderClassName, directionalClassName);
         this._isSliding = false;
-        triggerSlidEvent();
-      }
+        triggerEvent3(EVENT_SLID);
+      };
+      this._queueCallback(completeCallBack, activeElement, this._isAnimated());
       if (isCycling) {
         this.cycle();
       }
     }
-    _directionToOrder(direction) {
-      if (![DIRECTION_RIGHT, DIRECTION_LEFT].includes(direction)) {
-        return direction;
+    _isAnimated() {
+      return this._element.classList.contains(CLASS_NAME_SLIDE);
+    }
+    _getActive() {
+      return SelectorEngine.findOne(SELECTOR_ACTIVE_ITEM, this._element);
+    }
+    _getItems() {
+      return SelectorEngine.find(SELECTOR_ITEM, this._element);
+    }
+    _clearInterval() {
+      if (this._interval) {
+        clearInterval(this._interval);
+        this._interval = null;
       }
+    }
+    _directionToOrder(direction) {
       if (isRTL()) {
         return direction === DIRECTION_LEFT ? ORDER_PREV : ORDER_NEXT;
       }
       return direction === DIRECTION_LEFT ? ORDER_NEXT : ORDER_PREV;
     }
     _orderToDirection(order2) {
-      if (![ORDER_NEXT, ORDER_PREV].includes(order2)) {
-        return order2;
-      }
       if (isRTL()) {
         return order2 === ORDER_PREV ? DIRECTION_LEFT : DIRECTION_RIGHT;
       }
       return order2 === ORDER_PREV ? DIRECTION_RIGHT : DIRECTION_LEFT;
     }
-    static carouselInterface(element, config2) {
-      const data = Carousel.getOrCreateInstance(element, config2);
-      let {
-        _config
-      } = data;
-      if (typeof config2 === "object") {
-        _config = {
-          ..._config,
-          ...config2
-        };
-      }
-      const action = typeof config2 === "string" ? config2 : _config.slide;
-      if (typeof config2 === "number") {
-        data.to(config2);
-      } else if (typeof action === "string") {
-        if (typeof data[action] === "undefined") {
-          throw new TypeError(`No method named "${action}"`);
-        }
-        data[action]();
-      } else if (_config.interval && _config.ride) {
-        data.pause();
-        data.cycle();
-      }
-    }
     static jQueryInterface(config2) {
       return this.each(function() {
-        Carousel.carouselInterface(this, config2);
+        const data = Carousel.getOrCreateInstance(this, config2);
+        if (typeof config2 === "number") {
+          data.to(config2);
+          return;
+        }
+        if (typeof config2 === "string") {
+          if (data[config2] === void 0 || config2.startsWith("_") || config2 === "constructor") {
+            throw new TypeError(`No method named "${config2}"`);
+          }
+          data[config2]();
+        }
       });
     }
-    static dataApiClickHandler(event) {
-      const target = getElementFromSelector(this);
-      if (!target || !target.classList.contains(CLASS_NAME_CAROUSEL)) {
-        return;
-      }
-      const config2 = {
-        ...Manipulator.getDataAttributes(target),
-        ...Manipulator.getDataAttributes(this)
-      };
-      const slideIndex = this.getAttribute("data-bs-slide-to");
-      if (slideIndex) {
-        config2.interval = false;
-      }
-      Carousel.carouselInterface(target, config2);
-      if (slideIndex) {
-        Carousel.getInstance(target).to(slideIndex);
-      }
-      event.preventDefault();
-    }
   };
-  EventHandler.on(document, EVENT_CLICK_DATA_API$5, SELECTOR_DATA_SLIDE, Carousel.dataApiClickHandler);
-  EventHandler.on(window, EVENT_LOAD_DATA_API$2, () => {
+  EventHandler.on(document, EVENT_CLICK_DATA_API$5, SELECTOR_DATA_SLIDE, function(event) {
+    const target = SelectorEngine.getElementFromSelector(this);
+    if (!target || !target.classList.contains(CLASS_NAME_CAROUSEL)) {
+      return;
+    }
+    event.preventDefault();
+    const carousel = Carousel.getOrCreateInstance(target);
+    const slideIndex = this.getAttribute("data-bs-slide-to");
+    if (slideIndex) {
+      carousel.to(slideIndex);
+      carousel._maybeEnableCycle();
+      return;
+    }
+    if (Manipulator.getDataAttribute(this, "slide") === "next") {
+      carousel.next();
+      carousel._maybeEnableCycle();
+      return;
+    }
+    carousel.prev();
+    carousel._maybeEnableCycle();
+  });
+  EventHandler.on(window, EVENT_LOAD_DATA_API$3, () => {
     const carousels = SelectorEngine.find(SELECTOR_DATA_RIDE);
-    for (let i = 0, len = carousels.length; i < len; i++) {
-      Carousel.carouselInterface(carousels[i], Carousel.getInstance(carousels[i]));
+    for (const carousel of carousels) {
+      Carousel.getOrCreateInstance(carousel);
     }
   });
   defineJQueryPlugin(Carousel);
-  var NAME$a = "collapse";
-  var DATA_KEY$9 = "bs.collapse";
-  var EVENT_KEY$9 = `.${DATA_KEY$9}`;
-  var DATA_API_KEY$5 = ".data-api";
-  var Default$9 = {
-    toggle: true,
-    parent: null
-  };
-  var DefaultType$9 = {
-    toggle: "boolean",
-    parent: "(null|element)"
-  };
-  var EVENT_SHOW$5 = `show${EVENT_KEY$9}`;
-  var EVENT_SHOWN$5 = `shown${EVENT_KEY$9}`;
-  var EVENT_HIDE$5 = `hide${EVENT_KEY$9}`;
-  var EVENT_HIDDEN$5 = `hidden${EVENT_KEY$9}`;
-  var EVENT_CLICK_DATA_API$4 = `click${EVENT_KEY$9}${DATA_API_KEY$5}`;
+  var NAME$b = "collapse";
+  var DATA_KEY$7 = "bs.collapse";
+  var EVENT_KEY$7 = `.${DATA_KEY$7}`;
+  var DATA_API_KEY$4 = ".data-api";
+  var EVENT_SHOW$6 = `show${EVENT_KEY$7}`;
+  var EVENT_SHOWN$6 = `shown${EVENT_KEY$7}`;
+  var EVENT_HIDE$6 = `hide${EVENT_KEY$7}`;
+  var EVENT_HIDDEN$6 = `hidden${EVENT_KEY$7}`;
+  var EVENT_CLICK_DATA_API$4 = `click${EVENT_KEY$7}${DATA_API_KEY$4}`;
   var CLASS_NAME_SHOW$7 = "show";
   var CLASS_NAME_COLLAPSE = "collapse";
   var CLASS_NAME_COLLAPSING = "collapsing";
@@ -14314,19 +14404,24 @@
   var HEIGHT = "height";
   var SELECTOR_ACTIVES = ".collapse.show, .collapse.collapsing";
   var SELECTOR_DATA_TOGGLE$4 = '[data-bs-toggle="collapse"]';
+  var Default$a = {
+    parent: null,
+    toggle: true
+  };
+  var DefaultType$a = {
+    parent: "(null|element)",
+    toggle: "boolean"
+  };
   var Collapse = class extends BaseComponent {
     constructor(element, config2) {
-      super(element);
+      super(element, config2);
       this._isTransitioning = false;
-      this._config = this._getConfig(config2);
       this._triggerArray = [];
       const toggleList = SelectorEngine.find(SELECTOR_DATA_TOGGLE$4);
-      for (let i = 0, len = toggleList.length; i < len; i++) {
-        const elem = toggleList[i];
-        const selector = getSelectorFromElement(elem);
-        const filterElement = SelectorEngine.find(selector).filter((foundElem) => foundElem === this._element);
+      for (const elem of toggleList) {
+        const selector = SelectorEngine.getSelectorFromElement(elem);
+        const filterElement = SelectorEngine.find(selector).filter((foundElement) => foundElement === this._element);
         if (selector !== null && filterElement.length) {
-          this._selector = selector;
           this._triggerArray.push(elem);
         }
       }
@@ -14339,10 +14434,13 @@
       }
     }
     static get Default() {
-      return Default$9;
+      return Default$a;
+    }
+    static get DefaultType() {
+      return DefaultType$a;
     }
     static get NAME() {
-      return NAME$a;
+      return NAME$b;
     }
     toggle() {
       if (this._isShown()) {
@@ -14355,34 +14453,22 @@
       if (this._isTransitioning || this._isShown()) {
         return;
       }
-      let actives = [];
-      let activesData;
+      let activeChildren = [];
       if (this._config.parent) {
-        const children = SelectorEngine.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
-        actives = SelectorEngine.find(SELECTOR_ACTIVES, this._config.parent).filter((elem) => !children.includes(elem));
+        activeChildren = this._getFirstLevelChildren(SELECTOR_ACTIVES).filter((element) => element !== this._element).map((element) => Collapse.getOrCreateInstance(element, {
+          toggle: false
+        }));
       }
-      const container = SelectorEngine.findOne(this._selector);
-      if (actives.length) {
-        const tempActiveData = actives.find((elem) => container !== elem);
-        activesData = tempActiveData ? Collapse.getInstance(tempActiveData) : null;
-        if (activesData && activesData._isTransitioning) {
-          return;
-        }
+      if (activeChildren.length && activeChildren[0]._isTransitioning) {
+        return;
       }
-      const startEvent = EventHandler.trigger(this._element, EVENT_SHOW$5);
+      const startEvent = EventHandler.trigger(this._element, EVENT_SHOW$6);
       if (startEvent.defaultPrevented) {
         return;
       }
-      actives.forEach((elemActive) => {
-        if (container !== elemActive) {
-          Collapse.getOrCreateInstance(elemActive, {
-            toggle: false
-          }).hide();
-        }
-        if (!activesData) {
-          Data.set(elemActive, DATA_KEY$9, null);
-        }
-      });
+      for (const activeInstance of activeChildren) {
+        activeInstance.hide();
+      }
       const dimension = this._getDimension();
       this._element.classList.remove(CLASS_NAME_COLLAPSE);
       this._element.classList.add(CLASS_NAME_COLLAPSING);
@@ -14394,7 +14480,7 @@
         this._element.classList.remove(CLASS_NAME_COLLAPSING);
         this._element.classList.add(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW$7);
         this._element.style[dimension] = "";
-        EventHandler.trigger(this._element, EVENT_SHOWN$5);
+        EventHandler.trigger(this._element, EVENT_SHOWN$6);
       };
       const capitalizedDimension = dimension[0].toUpperCase() + dimension.slice(1);
       const scrollSize = `scroll${capitalizedDimension}`;
@@ -14405,7 +14491,7 @@
       if (this._isTransitioning || !this._isShown()) {
         return;
       }
-      const startEvent = EventHandler.trigger(this._element, EVENT_HIDE$5);
+      const startEvent = EventHandler.trigger(this._element, EVENT_HIDE$6);
       if (startEvent.defaultPrevented) {
         return;
       }
@@ -14414,11 +14500,9 @@
       reflow(this._element);
       this._element.classList.add(CLASS_NAME_COLLAPSING);
       this._element.classList.remove(CLASS_NAME_COLLAPSE, CLASS_NAME_SHOW$7);
-      const triggerArrayLength = this._triggerArray.length;
-      for (let i = 0; i < triggerArrayLength; i++) {
-        const trigger = this._triggerArray[i];
-        const elem = getElementFromSelector(trigger);
-        if (elem && !this._isShown(elem)) {
+      for (const trigger of this._triggerArray) {
+        const element = SelectorEngine.getElementFromSelector(trigger);
+        if (element && !this._isShown(element)) {
           this._addAriaAndCollapsedClass([trigger], false);
         }
       }
@@ -14427,7 +14511,7 @@
         this._isTransitioning = false;
         this._element.classList.remove(CLASS_NAME_COLLAPSING);
         this._element.classList.add(CLASS_NAME_COLLAPSE);
-        EventHandler.trigger(this._element, EVENT_HIDDEN$5);
+        EventHandler.trigger(this._element, EVENT_HIDDEN$6);
       };
       this._element.style[dimension] = "";
       this._queueCallback(complete, this._element, true);
@@ -14435,15 +14519,9 @@
     _isShown(element = this._element) {
       return element.classList.contains(CLASS_NAME_SHOW$7);
     }
-    _getConfig(config2) {
-      config2 = {
-        ...Default$9,
-        ...Manipulator.getDataAttributes(this._element),
-        ...config2
-      };
+    _configAfterMerge(config2) {
       config2.toggle = Boolean(config2.toggle);
       config2.parent = getElement(config2.parent);
-      typeCheckConfig(NAME$a, config2, DefaultType$9);
       return config2;
     }
     _getDimension() {
@@ -14453,33 +14531,33 @@
       if (!this._config.parent) {
         return;
       }
-      const children = SelectorEngine.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
-      SelectorEngine.find(SELECTOR_DATA_TOGGLE$4, this._config.parent).filter((elem) => !children.includes(elem)).forEach((element) => {
-        const selected = getElementFromSelector(element);
+      const children = this._getFirstLevelChildren(SELECTOR_DATA_TOGGLE$4);
+      for (const element of children) {
+        const selected = SelectorEngine.getElementFromSelector(element);
         if (selected) {
           this._addAriaAndCollapsedClass([element], this._isShown(selected));
         }
-      });
+      }
+    }
+    _getFirstLevelChildren(selector) {
+      const children = SelectorEngine.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
+      return SelectorEngine.find(selector, this._config.parent).filter((element) => !children.includes(element));
     }
     _addAriaAndCollapsedClass(triggerArray, isOpen) {
       if (!triggerArray.length) {
         return;
       }
-      triggerArray.forEach((elem) => {
-        if (isOpen) {
-          elem.classList.remove(CLASS_NAME_COLLAPSED);
-        } else {
-          elem.classList.add(CLASS_NAME_COLLAPSED);
-        }
-        elem.setAttribute("aria-expanded", isOpen);
-      });
+      for (const element of triggerArray) {
+        element.classList.toggle(CLASS_NAME_COLLAPSED, !isOpen);
+        element.setAttribute("aria-expanded", isOpen);
+      }
     }
     static jQueryInterface(config2) {
+      const _config = {};
+      if (typeof config2 === "string" && /show|hide/.test(config2)) {
+        _config.toggle = false;
+      }
       return this.each(function() {
-        const _config = {};
-        if (typeof config2 === "string" && /show|hide/.test(config2)) {
-          _config.toggle = false;
-        }
         const data = Collapse.getOrCreateInstance(this, _config);
         if (typeof config2 === "string") {
           if (typeof data[config2] === "undefined") {
@@ -14494,40 +14572,39 @@
     if (event.target.tagName === "A" || event.delegateTarget && event.delegateTarget.tagName === "A") {
       event.preventDefault();
     }
-    const selector = getSelectorFromElement(this);
-    const selectorElements = SelectorEngine.find(selector);
-    selectorElements.forEach((element) => {
+    for (const element of SelectorEngine.getMultipleElementsFromSelector(this)) {
       Collapse.getOrCreateInstance(element, {
         toggle: false
       }).toggle();
-    });
+    }
   });
   defineJQueryPlugin(Collapse);
-  var NAME$9 = "dropdown";
-  var DATA_KEY$8 = "bs.dropdown";
-  var EVENT_KEY$8 = `.${DATA_KEY$8}`;
-  var DATA_API_KEY$4 = ".data-api";
+  var NAME$a = "dropdown";
+  var DATA_KEY$6 = "bs.dropdown";
+  var EVENT_KEY$6 = `.${DATA_KEY$6}`;
+  var DATA_API_KEY$3 = ".data-api";
   var ESCAPE_KEY$2 = "Escape";
-  var SPACE_KEY = "Space";
   var TAB_KEY$1 = "Tab";
-  var ARROW_UP_KEY = "ArrowUp";
-  var ARROW_DOWN_KEY = "ArrowDown";
+  var ARROW_UP_KEY$1 = "ArrowUp";
+  var ARROW_DOWN_KEY$1 = "ArrowDown";
   var RIGHT_MOUSE_BUTTON = 2;
-  var REGEXP_KEYDOWN = new RegExp(`${ARROW_UP_KEY}|${ARROW_DOWN_KEY}|${ESCAPE_KEY$2}`);
-  var EVENT_HIDE$4 = `hide${EVENT_KEY$8}`;
-  var EVENT_HIDDEN$4 = `hidden${EVENT_KEY$8}`;
-  var EVENT_SHOW$4 = `show${EVENT_KEY$8}`;
-  var EVENT_SHOWN$4 = `shown${EVENT_KEY$8}`;
-  var EVENT_CLICK_DATA_API$3 = `click${EVENT_KEY$8}${DATA_API_KEY$4}`;
-  var EVENT_KEYDOWN_DATA_API = `keydown${EVENT_KEY$8}${DATA_API_KEY$4}`;
-  var EVENT_KEYUP_DATA_API = `keyup${EVENT_KEY$8}${DATA_API_KEY$4}`;
+  var EVENT_HIDE$5 = `hide${EVENT_KEY$6}`;
+  var EVENT_HIDDEN$5 = `hidden${EVENT_KEY$6}`;
+  var EVENT_SHOW$5 = `show${EVENT_KEY$6}`;
+  var EVENT_SHOWN$5 = `shown${EVENT_KEY$6}`;
+  var EVENT_CLICK_DATA_API$3 = `click${EVENT_KEY$6}${DATA_API_KEY$3}`;
+  var EVENT_KEYDOWN_DATA_API = `keydown${EVENT_KEY$6}${DATA_API_KEY$3}`;
+  var EVENT_KEYUP_DATA_API = `keyup${EVENT_KEY$6}${DATA_API_KEY$3}`;
   var CLASS_NAME_SHOW$6 = "show";
   var CLASS_NAME_DROPUP = "dropup";
   var CLASS_NAME_DROPEND = "dropend";
   var CLASS_NAME_DROPSTART = "dropstart";
-  var CLASS_NAME_NAVBAR = "navbar";
-  var SELECTOR_DATA_TOGGLE$3 = '[data-bs-toggle="dropdown"]';
+  var CLASS_NAME_DROPUP_CENTER = "dropup-center";
+  var CLASS_NAME_DROPDOWN_CENTER = "dropdown-center";
+  var SELECTOR_DATA_TOGGLE$3 = '[data-bs-toggle="dropdown"]:not(.disabled):not(:disabled)';
+  var SELECTOR_DATA_TOGGLE_SHOWN = `${SELECTOR_DATA_TOGGLE$3}.${CLASS_NAME_SHOW$6}`;
   var SELECTOR_MENU = ".dropdown-menu";
+  var SELECTOR_NAVBAR = ".navbar";
   var SELECTOR_NAVBAR_NAV = ".navbar-nav";
   var SELECTOR_VISIBLE_ITEMS = ".dropdown-menu .dropdown-item:not(.disabled):not(:disabled)";
   var PLACEMENT_TOP = isRTL() ? "top-end" : "top-start";
@@ -14536,70 +14613,69 @@
   var PLACEMENT_BOTTOMEND = isRTL() ? "bottom-start" : "bottom-end";
   var PLACEMENT_RIGHT = isRTL() ? "left-start" : "right-start";
   var PLACEMENT_LEFT = isRTL() ? "right-start" : "left-start";
-  var Default$8 = {
-    offset: [0, 2],
+  var PLACEMENT_TOPCENTER = "top";
+  var PLACEMENT_BOTTOMCENTER = "bottom";
+  var Default$9 = {
+    autoClose: true,
     boundary: "clippingParents",
-    reference: "toggle",
     display: "dynamic",
+    offset: [0, 2],
     popperConfig: null,
-    autoClose: true
+    reference: "toggle"
   };
-  var DefaultType$8 = {
-    offset: "(array|string|function)",
+  var DefaultType$9 = {
+    autoClose: "(boolean|string)",
     boundary: "(string|element)",
-    reference: "(string|element|object)",
     display: "string",
+    offset: "(array|string|function)",
     popperConfig: "(null|object|function)",
-    autoClose: "(boolean|string)"
+    reference: "(string|element|object)"
   };
   var Dropdown = class extends BaseComponent {
     constructor(element, config2) {
-      super(element);
+      super(element, config2);
       this._popper = null;
-      this._config = this._getConfig(config2);
-      this._menu = this._getMenuElement();
+      this._parent = this._element.parentNode;
+      this._menu = SelectorEngine.next(this._element, SELECTOR_MENU)[0] || SelectorEngine.prev(this._element, SELECTOR_MENU)[0] || SelectorEngine.findOne(SELECTOR_MENU, this._parent);
       this._inNavbar = this._detectNavbar();
     }
     static get Default() {
-      return Default$8;
+      return Default$9;
     }
     static get DefaultType() {
-      return DefaultType$8;
+      return DefaultType$9;
     }
     static get NAME() {
-      return NAME$9;
+      return NAME$a;
     }
     toggle() {
       return this._isShown() ? this.hide() : this.show();
     }
     show() {
-      if (isDisabled(this._element) || this._isShown(this._menu)) {
+      if (isDisabled(this._element) || this._isShown()) {
         return;
       }
       const relatedTarget = {
         relatedTarget: this._element
       };
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$4, relatedTarget);
+      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$5, relatedTarget);
       if (showEvent.defaultPrevented) {
         return;
       }
-      const parent = Dropdown.getParentFromElement(this._element);
-      if (this._inNavbar) {
-        Manipulator.setDataAttribute(this._menu, "popper", "none");
-      } else {
-        this._createPopper(parent);
-      }
-      if ("ontouchstart" in document.documentElement && !parent.closest(SELECTOR_NAVBAR_NAV)) {
-        [].concat(...document.body.children).forEach((elem) => EventHandler.on(elem, "mouseover", noop));
+      this._createPopper();
+      if ("ontouchstart" in document.documentElement && !this._parent.closest(SELECTOR_NAVBAR_NAV)) {
+        for (const element of [].concat(...document.body.children)) {
+          EventHandler.on(element, "mouseover", noop);
+        }
       }
       this._element.focus();
       this._element.setAttribute("aria-expanded", true);
       this._menu.classList.add(CLASS_NAME_SHOW$6);
       this._element.classList.add(CLASS_NAME_SHOW$6);
-      EventHandler.trigger(this._element, EVENT_SHOWN$4, relatedTarget);
+      EventHandler.trigger(this._element, EVENT_SHOWN$5, relatedTarget);
     }
     hide() {
-      if (isDisabled(this._element) || !this._isShown(this._menu)) {
+      if (isDisabled(this._element) || !this._isShown()) {
         return;
       }
       const relatedTarget = {
@@ -14620,12 +14696,14 @@
       }
     }
     _completeHide(relatedTarget) {
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$4, relatedTarget);
+      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$5, relatedTarget);
       if (hideEvent.defaultPrevented) {
         return;
       }
       if ("ontouchstart" in document.documentElement) {
-        [].concat(...document.body.children).forEach((elem) => EventHandler.off(elem, "mouseover", noop));
+        for (const element of [].concat(...document.body.children)) {
+          EventHandler.off(element, "mouseover", noop);
+        }
       }
       if (this._popper) {
         this._popper.destroy();
@@ -14634,52 +14712,46 @@
       this._element.classList.remove(CLASS_NAME_SHOW$6);
       this._element.setAttribute("aria-expanded", "false");
       Manipulator.removeDataAttribute(this._menu, "popper");
-      EventHandler.trigger(this._element, EVENT_HIDDEN$4, relatedTarget);
+      EventHandler.trigger(this._element, EVENT_HIDDEN$5, relatedTarget);
     }
     _getConfig(config2) {
-      config2 = {
-        ...this.constructor.Default,
-        ...Manipulator.getDataAttributes(this._element),
-        ...config2
-      };
-      typeCheckConfig(NAME$9, config2, this.constructor.DefaultType);
+      config2 = super._getConfig(config2);
       if (typeof config2.reference === "object" && !isElement2(config2.reference) && typeof config2.reference.getBoundingClientRect !== "function") {
-        throw new TypeError(`${NAME$9.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
+        throw new TypeError(`${NAME$a.toUpperCase()}: Option "reference" provided type "object" without a required "getBoundingClientRect" method.`);
       }
       return config2;
     }
-    _createPopper(parent) {
+    _createPopper() {
       if (typeof lib_exports === "undefined") {
         throw new TypeError("Bootstrap's dropdowns require Popper (https://popper.js.org)");
       }
       let referenceElement = this._element;
       if (this._config.reference === "parent") {
-        referenceElement = parent;
+        referenceElement = this._parent;
       } else if (isElement2(this._config.reference)) {
         referenceElement = getElement(this._config.reference);
       } else if (typeof this._config.reference === "object") {
         referenceElement = this._config.reference;
       }
       const popperConfig = this._getPopperConfig();
-      const isDisplayStatic = popperConfig.modifiers.find((modifier) => modifier.name === "applyStyles" && modifier.enabled === false);
       this._popper = createPopper3(referenceElement, this._menu, popperConfig);
-      if (isDisplayStatic) {
-        Manipulator.setDataAttribute(this._menu, "popper", "static");
-      }
     }
-    _isShown(element = this._element) {
-      return element.classList.contains(CLASS_NAME_SHOW$6);
-    }
-    _getMenuElement() {
-      return SelectorEngine.next(this._element, SELECTOR_MENU)[0];
+    _isShown() {
+      return this._menu.classList.contains(CLASS_NAME_SHOW$6);
     }
     _getPlacement() {
-      const parentDropdown = this._element.parentNode;
+      const parentDropdown = this._parent;
       if (parentDropdown.classList.contains(CLASS_NAME_DROPEND)) {
         return PLACEMENT_RIGHT;
       }
       if (parentDropdown.classList.contains(CLASS_NAME_DROPSTART)) {
         return PLACEMENT_LEFT;
+      }
+      if (parentDropdown.classList.contains(CLASS_NAME_DROPUP_CENTER)) {
+        return PLACEMENT_TOPCENTER;
+      }
+      if (parentDropdown.classList.contains(CLASS_NAME_DROPDOWN_CENTER)) {
+        return PLACEMENT_BOTTOMCENTER;
       }
       const isEnd = getComputedStyle(this._menu).getPropertyValue("--bs-position").trim() === "end";
       if (parentDropdown.classList.contains(CLASS_NAME_DROPUP)) {
@@ -14688,14 +14760,14 @@
       return isEnd ? PLACEMENT_BOTTOMEND : PLACEMENT_BOTTOM;
     }
     _detectNavbar() {
-      return this._element.closest(`.${CLASS_NAME_NAVBAR}`) !== null;
+      return this._element.closest(SELECTOR_NAVBAR) !== null;
     }
     _getOffset() {
       const {
         offset: offset2
       } = this._config;
       if (typeof offset2 === "string") {
-        return offset2.split(",").map((val) => Number.parseInt(val, 10));
+        return offset2.split(",").map((value) => Number.parseInt(value, 10));
       }
       if (typeof offset2 === "function") {
         return (popperData) => offset2(popperData, this._element);
@@ -14717,7 +14789,8 @@
           }
         }]
       };
-      if (this._config.display === "static") {
+      if (this._inNavbar || this._config.display === "static") {
+        Manipulator.setDataAttribute(this._menu, "popper", "static");
         defaultBsPopperConfig.modifiers = [{
           name: "applyStyles",
           enabled: false
@@ -14725,18 +14798,18 @@
       }
       return {
         ...defaultBsPopperConfig,
-        ...typeof this._config.popperConfig === "function" ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig
+        ...execute(this._config.popperConfig, [defaultBsPopperConfig])
       };
     }
     _selectMenuItem({
       key,
       target
     }) {
-      const items = SelectorEngine.find(SELECTOR_VISIBLE_ITEMS, this._menu).filter(isVisible);
+      const items = SelectorEngine.find(SELECTOR_VISIBLE_ITEMS, this._menu).filter((element) => isVisible(element));
       if (!items.length) {
         return;
       }
-      getNextActiveElement(items, target, key === ARROW_DOWN_KEY, !items.includes(target)).focus();
+      getNextActiveElement(items, target, key === ARROW_DOWN_KEY$1, !items.includes(target)).focus();
     }
     static jQueryInterface(config2) {
       return this.each(function() {
@@ -14751,68 +14824,55 @@
       });
     }
     static clearMenus(event) {
-      if (event && (event.button === RIGHT_MOUSE_BUTTON || event.type === "keyup" && event.key !== TAB_KEY$1)) {
+      if (event.button === RIGHT_MOUSE_BUTTON || event.type === "keyup" && event.key !== TAB_KEY$1) {
         return;
       }
-      const toggles = SelectorEngine.find(SELECTOR_DATA_TOGGLE$3);
-      for (let i = 0, len = toggles.length; i < len; i++) {
-        const context = Dropdown.getInstance(toggles[i]);
+      const openToggles = SelectorEngine.find(SELECTOR_DATA_TOGGLE_SHOWN);
+      for (const toggle of openToggles) {
+        const context = Dropdown.getInstance(toggle);
         if (!context || context._config.autoClose === false) {
           continue;
         }
-        if (!context._isShown()) {
+        const composedPath = event.composedPath();
+        const isMenuTarget = composedPath.includes(context._menu);
+        if (composedPath.includes(context._element) || context._config.autoClose === "inside" && !isMenuTarget || context._config.autoClose === "outside" && isMenuTarget) {
+          continue;
+        }
+        if (context._menu.contains(event.target) && (event.type === "keyup" && event.key === TAB_KEY$1 || /input|select|option|textarea|form/i.test(event.target.tagName))) {
           continue;
         }
         const relatedTarget = {
           relatedTarget: context._element
         };
-        if (event) {
-          const composedPath = event.composedPath();
-          const isMenuTarget = composedPath.includes(context._menu);
-          if (composedPath.includes(context._element) || context._config.autoClose === "inside" && !isMenuTarget || context._config.autoClose === "outside" && isMenuTarget) {
-            continue;
-          }
-          if (context._menu.contains(event.target) && (event.type === "keyup" && event.key === TAB_KEY$1 || /input|select|option|textarea|form/i.test(event.target.tagName))) {
-            continue;
-          }
-          if (event.type === "click") {
-            relatedTarget.clickEvent = event;
-          }
+        if (event.type === "click") {
+          relatedTarget.clickEvent = event;
         }
         context._completeHide(relatedTarget);
       }
     }
-    static getParentFromElement(element) {
-      return getElementFromSelector(element) || element.parentNode;
-    }
     static dataApiKeydownHandler(event) {
-      if (/input|textarea/i.test(event.target.tagName) ? event.key === SPACE_KEY || event.key !== ESCAPE_KEY$2 && (event.key !== ARROW_DOWN_KEY && event.key !== ARROW_UP_KEY || event.target.closest(SELECTOR_MENU)) : !REGEXP_KEYDOWN.test(event.key)) {
+      const isInput = /input|textarea/i.test(event.target.tagName);
+      const isEscapeEvent = event.key === ESCAPE_KEY$2;
+      const isUpOrDownEvent = [ARROW_UP_KEY$1, ARROW_DOWN_KEY$1].includes(event.key);
+      if (!isUpOrDownEvent && !isEscapeEvent) {
         return;
       }
-      const isActive = this.classList.contains(CLASS_NAME_SHOW$6);
-      if (!isActive && event.key === ESCAPE_KEY$2) {
+      if (isInput && !isEscapeEvent) {
         return;
       }
       event.preventDefault();
-      event.stopPropagation();
-      if (isDisabled(this)) {
-        return;
-      }
-      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0];
+      const getToggleButton = this.matches(SELECTOR_DATA_TOGGLE$3) ? this : SelectorEngine.prev(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.next(this, SELECTOR_DATA_TOGGLE$3)[0] || SelectorEngine.findOne(SELECTOR_DATA_TOGGLE$3, event.delegateTarget.parentNode);
       const instance = Dropdown.getOrCreateInstance(getToggleButton);
-      if (event.key === ESCAPE_KEY$2) {
-        instance.hide();
-        return;
-      }
-      if (event.key === ARROW_UP_KEY || event.key === ARROW_DOWN_KEY) {
-        if (!isActive) {
-          instance.show();
-        }
+      if (isUpOrDownEvent) {
+        event.stopPropagation();
+        instance.show();
         instance._selectMenuItem(event);
         return;
       }
-      if (!isActive || event.key === SPACE_KEY) {
-        Dropdown.clearMenus();
+      if (instance._isShown()) {
+        event.stopPropagation();
+        instance.hide();
+        getToggleButton.focus();
       }
     }
   };
@@ -14825,97 +14885,39 @@
     Dropdown.getOrCreateInstance(this).toggle();
   });
   defineJQueryPlugin(Dropdown);
-  var SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
-  var SELECTOR_STICKY_CONTENT = ".sticky-top";
-  var ScrollBarHelper = class {
-    constructor() {
-      this._element = document.body;
-    }
-    getWidth() {
-      const documentWidth = document.documentElement.clientWidth;
-      return Math.abs(window.innerWidth - documentWidth);
-    }
-    hide() {
-      const width = this.getWidth();
-      this._disableOverFlow();
-      this._setElementAttributes(this._element, "paddingRight", (calculatedValue) => calculatedValue + width);
-      this._setElementAttributes(SELECTOR_FIXED_CONTENT, "paddingRight", (calculatedValue) => calculatedValue + width);
-      this._setElementAttributes(SELECTOR_STICKY_CONTENT, "marginRight", (calculatedValue) => calculatedValue - width);
-    }
-    _disableOverFlow() {
-      this._saveInitialAttribute(this._element, "overflow");
-      this._element.style.overflow = "hidden";
-    }
-    _setElementAttributes(selector, styleProp, callback) {
-      const scrollbarWidth = this.getWidth();
-      const manipulationCallBack = (element) => {
-        if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
-          return;
-        }
-        this._saveInitialAttribute(element, styleProp);
-        const calculatedValue = window.getComputedStyle(element)[styleProp];
-        element.style[styleProp] = `${callback(Number.parseFloat(calculatedValue))}px`;
-      };
-      this._applyManipulationCallback(selector, manipulationCallBack);
-    }
-    reset() {
-      this._resetElementAttributes(this._element, "overflow");
-      this._resetElementAttributes(this._element, "paddingRight");
-      this._resetElementAttributes(SELECTOR_FIXED_CONTENT, "paddingRight");
-      this._resetElementAttributes(SELECTOR_STICKY_CONTENT, "marginRight");
-    }
-    _saveInitialAttribute(element, styleProp) {
-      const actualValue = element.style[styleProp];
-      if (actualValue) {
-        Manipulator.setDataAttribute(element, styleProp, actualValue);
-      }
-    }
-    _resetElementAttributes(selector, styleProp) {
-      const manipulationCallBack = (element) => {
-        const value = Manipulator.getDataAttribute(element, styleProp);
-        if (typeof value === "undefined") {
-          element.style.removeProperty(styleProp);
-        } else {
-          Manipulator.removeDataAttribute(element, styleProp);
-          element.style[styleProp] = value;
-        }
-      };
-      this._applyManipulationCallback(selector, manipulationCallBack);
-    }
-    _applyManipulationCallback(selector, callBack) {
-      if (isElement2(selector)) {
-        callBack(selector);
-      } else {
-        SelectorEngine.find(selector, this._element).forEach(callBack);
-      }
-    }
-    isOverflowing() {
-      return this.getWidth() > 0;
-    }
-  };
-  var Default$7 = {
-    className: "modal-backdrop",
-    isVisible: true,
-    isAnimated: false,
-    rootElement: "body",
-    clickCallback: null
-  };
-  var DefaultType$7 = {
-    className: "string",
-    isVisible: "boolean",
-    isAnimated: "boolean",
-    rootElement: "(element|string)",
-    clickCallback: "(function|null)"
-  };
-  var NAME$8 = "backdrop";
+  var NAME$9 = "backdrop";
   var CLASS_NAME_FADE$4 = "fade";
   var CLASS_NAME_SHOW$5 = "show";
-  var EVENT_MOUSEDOWN = `mousedown.bs.${NAME$8}`;
-  var Backdrop = class {
+  var EVENT_MOUSEDOWN = `mousedown.bs.${NAME$9}`;
+  var Default$8 = {
+    className: "modal-backdrop",
+    clickCallback: null,
+    isAnimated: false,
+    isVisible: true,
+    rootElement: "body"
+  };
+  var DefaultType$8 = {
+    className: "string",
+    clickCallback: "(function|null)",
+    isAnimated: "boolean",
+    isVisible: "boolean",
+    rootElement: "(element|string)"
+  };
+  var Backdrop = class extends Config {
     constructor(config2) {
+      super();
       this._config = this._getConfig(config2);
       this._isAppended = false;
       this._element = null;
+    }
+    static get Default() {
+      return Default$8;
+    }
+    static get DefaultType() {
+      return DefaultType$8;
+    }
+    static get NAME() {
+      return NAME$9;
     }
     show(callback) {
       if (!this._config.isVisible) {
@@ -14923,10 +14925,11 @@
         return;
       }
       this._append();
+      const element = this._getElement();
       if (this._config.isAnimated) {
-        reflow(this._getElement());
+        reflow(element);
       }
-      this._getElement().classList.add(CLASS_NAME_SHOW$5);
+      element.classList.add(CLASS_NAME_SHOW$5);
       this._emulateAnimation(() => {
         execute(callback);
       });
@@ -14942,6 +14945,14 @@
         execute(callback);
       });
     }
+    dispose() {
+      if (!this._isAppended) {
+        return;
+      }
+      EventHandler.off(this._element, EVENT_MOUSEDOWN);
+      this._element.remove();
+      this._isAppended = false;
+    }
     _getElement() {
       if (!this._element) {
         const backdrop = document.createElement("div");
@@ -14953,72 +14964,66 @@
       }
       return this._element;
     }
-    _getConfig(config2) {
-      config2 = {
-        ...Default$7,
-        ...typeof config2 === "object" ? config2 : {}
-      };
+    _configAfterMerge(config2) {
       config2.rootElement = getElement(config2.rootElement);
-      typeCheckConfig(NAME$8, config2, DefaultType$7);
       return config2;
     }
     _append() {
       if (this._isAppended) {
         return;
       }
-      this._config.rootElement.append(this._getElement());
-      EventHandler.on(this._getElement(), EVENT_MOUSEDOWN, () => {
+      const element = this._getElement();
+      this._config.rootElement.append(element);
+      EventHandler.on(element, EVENT_MOUSEDOWN, () => {
         execute(this._config.clickCallback);
       });
       this._isAppended = true;
-    }
-    dispose() {
-      if (!this._isAppended) {
-        return;
-      }
-      EventHandler.off(this._element, EVENT_MOUSEDOWN);
-      this._element.remove();
-      this._isAppended = false;
     }
     _emulateAnimation(callback) {
       executeAfterTransition(callback, this._getElement(), this._config.isAnimated);
     }
   };
-  var Default$6 = {
-    trapElement: null,
-    autofocus: true
-  };
-  var DefaultType$6 = {
-    trapElement: "element",
-    autofocus: "boolean"
-  };
-  var NAME$7 = "focustrap";
-  var DATA_KEY$7 = "bs.focustrap";
-  var EVENT_KEY$7 = `.${DATA_KEY$7}`;
-  var EVENT_FOCUSIN$1 = `focusin${EVENT_KEY$7}`;
-  var EVENT_KEYDOWN_TAB = `keydown.tab${EVENT_KEY$7}`;
+  var NAME$8 = "focustrap";
+  var DATA_KEY$5 = "bs.focustrap";
+  var EVENT_KEY$5 = `.${DATA_KEY$5}`;
+  var EVENT_FOCUSIN$2 = `focusin${EVENT_KEY$5}`;
+  var EVENT_KEYDOWN_TAB = `keydown.tab${EVENT_KEY$5}`;
   var TAB_KEY = "Tab";
   var TAB_NAV_FORWARD = "forward";
   var TAB_NAV_BACKWARD = "backward";
-  var FocusTrap = class {
+  var Default$7 = {
+    autofocus: true,
+    trapElement: null
+  };
+  var DefaultType$7 = {
+    autofocus: "boolean",
+    trapElement: "element"
+  };
+  var FocusTrap = class extends Config {
     constructor(config2) {
+      super();
       this._config = this._getConfig(config2);
       this._isActive = false;
       this._lastTabNavDirection = null;
     }
+    static get Default() {
+      return Default$7;
+    }
+    static get DefaultType() {
+      return DefaultType$7;
+    }
+    static get NAME() {
+      return NAME$8;
+    }
     activate() {
-      const {
-        trapElement,
-        autofocus: autofocus2
-      } = this._config;
       if (this._isActive) {
         return;
       }
-      if (autofocus2) {
-        trapElement.focus();
+      if (this._config.autofocus) {
+        this._config.trapElement.focus();
       }
-      EventHandler.off(document, EVENT_KEY$7);
-      EventHandler.on(document, EVENT_FOCUSIN$1, (event) => this._handleFocusin(event));
+      EventHandler.off(document, EVENT_KEY$5);
+      EventHandler.on(document, EVENT_FOCUSIN$2, (event) => this._handleFocusin(event));
       EventHandler.on(document, EVENT_KEYDOWN_TAB, (event) => this._handleKeydown(event));
       this._isActive = true;
     }
@@ -15027,16 +15032,13 @@
         return;
       }
       this._isActive = false;
-      EventHandler.off(document, EVENT_KEY$7);
+      EventHandler.off(document, EVENT_KEY$5);
     }
     _handleFocusin(event) {
       const {
-        target
-      } = event;
-      const {
         trapElement
       } = this._config;
-      if (target === document || target === trapElement || trapElement.contains(target)) {
+      if (event.target === document || event.target === trapElement || trapElement.contains(event.target)) {
         return;
       }
       const elements = SelectorEngine.focusableChildren(trapElement);
@@ -15054,41 +15056,94 @@
       }
       this._lastTabNavDirection = event.shiftKey ? TAB_NAV_BACKWARD : TAB_NAV_FORWARD;
     }
-    _getConfig(config2) {
-      config2 = {
-        ...Default$6,
-        ...typeof config2 === "object" ? config2 : {}
+  };
+  var SELECTOR_FIXED_CONTENT = ".fixed-top, .fixed-bottom, .is-fixed, .sticky-top";
+  var SELECTOR_STICKY_CONTENT = ".sticky-top";
+  var PROPERTY_PADDING = "padding-right";
+  var PROPERTY_MARGIN = "margin-right";
+  var ScrollBarHelper = class {
+    constructor() {
+      this._element = document.body;
+    }
+    getWidth() {
+      const documentWidth = document.documentElement.clientWidth;
+      return Math.abs(window.innerWidth - documentWidth);
+    }
+    hide() {
+      const width = this.getWidth();
+      this._disableOverFlow();
+      this._setElementAttributes(this._element, PROPERTY_PADDING, (calculatedValue) => calculatedValue + width);
+      this._setElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING, (calculatedValue) => calculatedValue + width);
+      this._setElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN, (calculatedValue) => calculatedValue - width);
+    }
+    reset() {
+      this._resetElementAttributes(this._element, "overflow");
+      this._resetElementAttributes(this._element, PROPERTY_PADDING);
+      this._resetElementAttributes(SELECTOR_FIXED_CONTENT, PROPERTY_PADDING);
+      this._resetElementAttributes(SELECTOR_STICKY_CONTENT, PROPERTY_MARGIN);
+    }
+    isOverflowing() {
+      return this.getWidth() > 0;
+    }
+    _disableOverFlow() {
+      this._saveInitialAttribute(this._element, "overflow");
+      this._element.style.overflow = "hidden";
+    }
+    _setElementAttributes(selector, styleProperty, callback) {
+      const scrollbarWidth = this.getWidth();
+      const manipulationCallBack = (element) => {
+        if (element !== this._element && window.innerWidth > element.clientWidth + scrollbarWidth) {
+          return;
+        }
+        this._saveInitialAttribute(element, styleProperty);
+        const calculatedValue = window.getComputedStyle(element).getPropertyValue(styleProperty);
+        element.style.setProperty(styleProperty, `${callback(Number.parseFloat(calculatedValue))}px`);
       };
-      typeCheckConfig(NAME$7, config2, DefaultType$6);
-      return config2;
+      this._applyManipulationCallback(selector, manipulationCallBack);
+    }
+    _saveInitialAttribute(element, styleProperty) {
+      const actualValue = element.style.getPropertyValue(styleProperty);
+      if (actualValue) {
+        Manipulator.setDataAttribute(element, styleProperty, actualValue);
+      }
+    }
+    _resetElementAttributes(selector, styleProperty) {
+      const manipulationCallBack = (element) => {
+        const value = Manipulator.getDataAttribute(element, styleProperty);
+        if (value === null) {
+          element.style.removeProperty(styleProperty);
+          return;
+        }
+        Manipulator.removeDataAttribute(element, styleProperty);
+        element.style.setProperty(styleProperty, value);
+      };
+      this._applyManipulationCallback(selector, manipulationCallBack);
+    }
+    _applyManipulationCallback(selector, callBack) {
+      if (isElement2(selector)) {
+        callBack(selector);
+        return;
+      }
+      for (const sel of SelectorEngine.find(selector, this._element)) {
+        callBack(sel);
+      }
     }
   };
-  var NAME$6 = "modal";
-  var DATA_KEY$6 = "bs.modal";
-  var EVENT_KEY$6 = `.${DATA_KEY$6}`;
-  var DATA_API_KEY$3 = ".data-api";
+  var NAME$7 = "modal";
+  var DATA_KEY$4 = "bs.modal";
+  var EVENT_KEY$4 = `.${DATA_KEY$4}`;
+  var DATA_API_KEY$2 = ".data-api";
   var ESCAPE_KEY$1 = "Escape";
-  var Default$5 = {
-    backdrop: true,
-    keyboard: true,
-    focus: true
-  };
-  var DefaultType$5 = {
-    backdrop: "(boolean|string)",
-    keyboard: "boolean",
-    focus: "boolean"
-  };
-  var EVENT_HIDE$3 = `hide${EVENT_KEY$6}`;
-  var EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY$6}`;
-  var EVENT_HIDDEN$3 = `hidden${EVENT_KEY$6}`;
-  var EVENT_SHOW$3 = `show${EVENT_KEY$6}`;
-  var EVENT_SHOWN$3 = `shown${EVENT_KEY$6}`;
-  var EVENT_RESIZE = `resize${EVENT_KEY$6}`;
-  var EVENT_CLICK_DISMISS = `click.dismiss${EVENT_KEY$6}`;
-  var EVENT_KEYDOWN_DISMISS$1 = `keydown.dismiss${EVENT_KEY$6}`;
-  var EVENT_MOUSEUP_DISMISS = `mouseup.dismiss${EVENT_KEY$6}`;
-  var EVENT_MOUSEDOWN_DISMISS = `mousedown.dismiss${EVENT_KEY$6}`;
-  var EVENT_CLICK_DATA_API$2 = `click${EVENT_KEY$6}${DATA_API_KEY$3}`;
+  var EVENT_HIDE$4 = `hide${EVENT_KEY$4}`;
+  var EVENT_HIDE_PREVENTED$1 = `hidePrevented${EVENT_KEY$4}`;
+  var EVENT_HIDDEN$4 = `hidden${EVENT_KEY$4}`;
+  var EVENT_SHOW$4 = `show${EVENT_KEY$4}`;
+  var EVENT_SHOWN$4 = `shown${EVENT_KEY$4}`;
+  var EVENT_RESIZE$1 = `resize${EVENT_KEY$4}`;
+  var EVENT_CLICK_DISMISS = `click.dismiss${EVENT_KEY$4}`;
+  var EVENT_MOUSEDOWN_DISMISS = `mousedown.dismiss${EVENT_KEY$4}`;
+  var EVENT_KEYDOWN_DISMISS$1 = `keydown.dismiss${EVENT_KEY$4}`;
+  var EVENT_CLICK_DATA_API$2 = `click${EVENT_KEY$4}${DATA_API_KEY$2}`;
   var CLASS_NAME_OPEN = "modal-open";
   var CLASS_NAME_FADE$3 = "fade";
   var CLASS_NAME_SHOW$4 = "show";
@@ -15097,23 +15152,35 @@
   var SELECTOR_DIALOG = ".modal-dialog";
   var SELECTOR_MODAL_BODY = ".modal-body";
   var SELECTOR_DATA_TOGGLE$2 = '[data-bs-toggle="modal"]';
+  var Default$6 = {
+    backdrop: true,
+    focus: true,
+    keyboard: true
+  };
+  var DefaultType$6 = {
+    backdrop: "(boolean|string)",
+    focus: "boolean",
+    keyboard: "boolean"
+  };
   var Modal = class extends BaseComponent {
     constructor(element, config2) {
-      super(element);
-      this._config = this._getConfig(config2);
+      super(element, config2);
       this._dialog = SelectorEngine.findOne(SELECTOR_DIALOG, this._element);
       this._backdrop = this._initializeBackDrop();
       this._focustrap = this._initializeFocusTrap();
       this._isShown = false;
-      this._ignoreBackdropClick = false;
       this._isTransitioning = false;
       this._scrollBar = new ScrollBarHelper();
+      this._addEventListeners();
     }
     static get Default() {
-      return Default$5;
+      return Default$6;
+    }
+    static get DefaultType() {
+      return DefaultType$6;
     }
     static get NAME() {
-      return NAME$6;
+      return NAME$7;
     }
     toggle(relatedTarget) {
       return this._isShown ? this.hide() : this.show(relatedTarget);
@@ -15122,53 +15189,36 @@
       if (this._isShown || this._isTransitioning) {
         return;
       }
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$3, {
+      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$4, {
         relatedTarget
       });
       if (showEvent.defaultPrevented) {
         return;
       }
       this._isShown = true;
-      if (this._isAnimated()) {
-        this._isTransitioning = true;
-      }
+      this._isTransitioning = true;
       this._scrollBar.hide();
       document.body.classList.add(CLASS_NAME_OPEN);
       this._adjustDialog();
-      this._setEscapeEvent();
-      this._setResizeEvent();
-      EventHandler.on(this._dialog, EVENT_MOUSEDOWN_DISMISS, () => {
-        EventHandler.one(this._element, EVENT_MOUSEUP_DISMISS, (event) => {
-          if (event.target === this._element) {
-            this._ignoreBackdropClick = true;
-          }
-        });
-      });
-      this._showBackdrop(() => this._showElement(relatedTarget));
+      this._backdrop.show(() => this._showElement(relatedTarget));
     }
     hide() {
       if (!this._isShown || this._isTransitioning) {
         return;
       }
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$3);
+      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$4);
       if (hideEvent.defaultPrevented) {
         return;
       }
       this._isShown = false;
-      const isAnimated = this._isAnimated();
-      if (isAnimated) {
-        this._isTransitioning = true;
-      }
-      this._setEscapeEvent();
-      this._setResizeEvent();
+      this._isTransitioning = true;
       this._focustrap.deactivate();
       this._element.classList.remove(CLASS_NAME_SHOW$4);
-      EventHandler.off(this._element, EVENT_CLICK_DISMISS);
-      EventHandler.off(this._dialog, EVENT_MOUSEDOWN_DISMISS);
-      this._queueCallback(() => this._hideModal(), this._element, isAnimated);
+      this._queueCallback(() => this._hideModal(), this._element, this._isAnimated());
     }
     dispose() {
-      [window, this._dialog].forEach((htmlElement) => EventHandler.off(htmlElement, EVENT_KEY$6));
+      EventHandler.off(window, EVENT_KEY$4);
+      EventHandler.off(this._dialog, EVENT_KEY$4);
       this._backdrop.dispose();
       this._focustrap.deactivate();
       super.dispose();
@@ -15187,19 +15237,8 @@
         trapElement: this._element
       });
     }
-    _getConfig(config2) {
-      config2 = {
-        ...Default$5,
-        ...Manipulator.getDataAttributes(this._element),
-        ...typeof config2 === "object" ? config2 : {}
-      };
-      typeCheckConfig(NAME$6, config2, DefaultType$5);
-      return config2;
-    }
     _showElement(relatedTarget) {
-      const isAnimated = this._isAnimated();
-      const modalBody = SelectorEngine.findOne(SELECTOR_MODAL_BODY, this._dialog);
-      if (!this._element.parentNode || this._element.parentNode.nodeType !== Node.ELEMENT_NODE) {
+      if (!document.body.contains(this._element)) {
         document.body.append(this._element);
       }
       this._element.style.display = "block";
@@ -15207,44 +15246,53 @@
       this._element.setAttribute("aria-modal", true);
       this._element.setAttribute("role", "dialog");
       this._element.scrollTop = 0;
+      const modalBody = SelectorEngine.findOne(SELECTOR_MODAL_BODY, this._dialog);
       if (modalBody) {
         modalBody.scrollTop = 0;
       }
-      if (isAnimated) {
-        reflow(this._element);
-      }
+      reflow(this._element);
       this._element.classList.add(CLASS_NAME_SHOW$4);
       const transitionComplete = () => {
         if (this._config.focus) {
           this._focustrap.activate();
         }
         this._isTransitioning = false;
-        EventHandler.trigger(this._element, EVENT_SHOWN$3, {
+        EventHandler.trigger(this._element, EVENT_SHOWN$4, {
           relatedTarget
         });
       };
-      this._queueCallback(transitionComplete, this._dialog, isAnimated);
+      this._queueCallback(transitionComplete, this._dialog, this._isAnimated());
     }
-    _setEscapeEvent() {
-      if (this._isShown) {
-        EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS$1, (event) => {
-          if (this._config.keyboard && event.key === ESCAPE_KEY$1) {
-            event.preventDefault();
-            this.hide();
-          } else if (!this._config.keyboard && event.key === ESCAPE_KEY$1) {
+    _addEventListeners() {
+      EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS$1, (event) => {
+        if (event.key !== ESCAPE_KEY$1) {
+          return;
+        }
+        if (this._config.keyboard) {
+          this.hide();
+          return;
+        }
+        this._triggerBackdropTransition();
+      });
+      EventHandler.on(window, EVENT_RESIZE$1, () => {
+        if (this._isShown && !this._isTransitioning) {
+          this._adjustDialog();
+        }
+      });
+      EventHandler.on(this._element, EVENT_MOUSEDOWN_DISMISS, (event) => {
+        EventHandler.one(this._element, EVENT_CLICK_DISMISS, (event2) => {
+          if (this._element !== event.target || this._element !== event2.target) {
+            return;
+          }
+          if (this._config.backdrop === "static") {
             this._triggerBackdropTransition();
+            return;
+          }
+          if (this._config.backdrop) {
+            this.hide();
           }
         });
-      } else {
-        EventHandler.off(this._element, EVENT_KEYDOWN_DISMISS$1);
-      }
-    }
-    _setResizeEvent() {
-      if (this._isShown) {
-        EventHandler.on(window, EVENT_RESIZE, () => this._adjustDialog());
-      } else {
-        EventHandler.off(window, EVENT_RESIZE);
-      }
+      });
     }
     _hideModal() {
       this._element.style.display = "none";
@@ -15256,54 +15304,31 @@
         document.body.classList.remove(CLASS_NAME_OPEN);
         this._resetAdjustments();
         this._scrollBar.reset();
-        EventHandler.trigger(this._element, EVENT_HIDDEN$3);
+        EventHandler.trigger(this._element, EVENT_HIDDEN$4);
       });
-    }
-    _showBackdrop(callback) {
-      EventHandler.on(this._element, EVENT_CLICK_DISMISS, (event) => {
-        if (this._ignoreBackdropClick) {
-          this._ignoreBackdropClick = false;
-          return;
-        }
-        if (event.target !== event.currentTarget) {
-          return;
-        }
-        if (this._config.backdrop === true) {
-          this.hide();
-        } else if (this._config.backdrop === "static") {
-          this._triggerBackdropTransition();
-        }
-      });
-      this._backdrop.show(callback);
     }
     _isAnimated() {
       return this._element.classList.contains(CLASS_NAME_FADE$3);
     }
     _triggerBackdropTransition() {
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED$1);
       if (hideEvent.defaultPrevented) {
         return;
       }
-      const {
-        classList,
-        scrollHeight,
-        style
-      } = this._element;
-      const isModalOverflowing = scrollHeight > document.documentElement.clientHeight;
-      if (!isModalOverflowing && style.overflowY === "hidden" || classList.contains(CLASS_NAME_STATIC)) {
+      const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
+      const initialOverflowY = this._element.style.overflowY;
+      if (initialOverflowY === "hidden" || this._element.classList.contains(CLASS_NAME_STATIC)) {
         return;
       }
       if (!isModalOverflowing) {
-        style.overflowY = "hidden";
+        this._element.style.overflowY = "hidden";
       }
-      classList.add(CLASS_NAME_STATIC);
+      this._element.classList.add(CLASS_NAME_STATIC);
       this._queueCallback(() => {
-        classList.remove(CLASS_NAME_STATIC);
-        if (!isModalOverflowing) {
-          this._queueCallback(() => {
-            style.overflowY = "";
-          }, this._dialog);
-        }
+        this._element.classList.remove(CLASS_NAME_STATIC);
+        this._queueCallback(() => {
+          this._element.style.overflowY = initialOverflowY;
+        }, this._dialog);
       }, this._dialog);
       this._element.focus();
     }
@@ -15311,11 +15336,13 @@
       const isModalOverflowing = this._element.scrollHeight > document.documentElement.clientHeight;
       const scrollbarWidth = this._scrollBar.getWidth();
       const isBodyOverflowing = scrollbarWidth > 0;
-      if (!isBodyOverflowing && isModalOverflowing && !isRTL() || isBodyOverflowing && !isModalOverflowing && isRTL()) {
-        this._element.style.paddingLeft = `${scrollbarWidth}px`;
+      if (isBodyOverflowing && !isModalOverflowing) {
+        const property = isRTL() ? "paddingLeft" : "paddingRight";
+        this._element.style[property] = `${scrollbarWidth}px`;
       }
-      if (isBodyOverflowing && !isModalOverflowing && !isRTL() || !isBodyOverflowing && isModalOverflowing && isRTL()) {
-        this._element.style.paddingRight = `${scrollbarWidth}px`;
+      if (!isBodyOverflowing && isModalOverflowing) {
+        const property = isRTL() ? "paddingRight" : "paddingLeft";
+        this._element.style[property] = `${scrollbarWidth}px`;
       }
     }
     _resetAdjustments() {
@@ -15336,69 +15363,75 @@
     }
   };
   EventHandler.on(document, EVENT_CLICK_DATA_API$2, SELECTOR_DATA_TOGGLE$2, function(event) {
-    const target = getElementFromSelector(this);
+    const target = SelectorEngine.getElementFromSelector(this);
     if (["A", "AREA"].includes(this.tagName)) {
       event.preventDefault();
     }
-    EventHandler.one(target, EVENT_SHOW$3, (showEvent) => {
+    EventHandler.one(target, EVENT_SHOW$4, (showEvent) => {
       if (showEvent.defaultPrevented) {
         return;
       }
-      EventHandler.one(target, EVENT_HIDDEN$3, () => {
+      EventHandler.one(target, EVENT_HIDDEN$4, () => {
         if (isVisible(this)) {
           this.focus();
         }
       });
     });
-    const allReadyOpen = SelectorEngine.findOne(OPEN_SELECTOR$1);
-    if (allReadyOpen) {
-      Modal.getInstance(allReadyOpen).hide();
+    const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR$1);
+    if (alreadyOpen) {
+      Modal.getInstance(alreadyOpen).hide();
     }
     const data = Modal.getOrCreateInstance(target);
     data.toggle(this);
   });
   enableDismissTrigger(Modal);
   defineJQueryPlugin(Modal);
-  var NAME$5 = "offcanvas";
-  var DATA_KEY$5 = "bs.offcanvas";
-  var EVENT_KEY$5 = `.${DATA_KEY$5}`;
-  var DATA_API_KEY$2 = ".data-api";
-  var EVENT_LOAD_DATA_API$1 = `load${EVENT_KEY$5}${DATA_API_KEY$2}`;
+  var NAME$6 = "offcanvas";
+  var DATA_KEY$3 = "bs.offcanvas";
+  var EVENT_KEY$3 = `.${DATA_KEY$3}`;
+  var DATA_API_KEY$1 = ".data-api";
+  var EVENT_LOAD_DATA_API$2 = `load${EVENT_KEY$3}${DATA_API_KEY$1}`;
   var ESCAPE_KEY = "Escape";
-  var Default$4 = {
+  var CLASS_NAME_SHOW$3 = "show";
+  var CLASS_NAME_SHOWING$1 = "showing";
+  var CLASS_NAME_HIDING = "hiding";
+  var CLASS_NAME_BACKDROP = "offcanvas-backdrop";
+  var OPEN_SELECTOR = ".offcanvas.show";
+  var EVENT_SHOW$3 = `show${EVENT_KEY$3}`;
+  var EVENT_SHOWN$3 = `shown${EVENT_KEY$3}`;
+  var EVENT_HIDE$3 = `hide${EVENT_KEY$3}`;
+  var EVENT_HIDE_PREVENTED = `hidePrevented${EVENT_KEY$3}`;
+  var EVENT_HIDDEN$3 = `hidden${EVENT_KEY$3}`;
+  var EVENT_RESIZE = `resize${EVENT_KEY$3}`;
+  var EVENT_CLICK_DATA_API$1 = `click${EVENT_KEY$3}${DATA_API_KEY$1}`;
+  var EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY$3}`;
+  var SELECTOR_DATA_TOGGLE$1 = '[data-bs-toggle="offcanvas"]';
+  var Default$5 = {
     backdrop: true,
     keyboard: true,
     scroll: false
   };
-  var DefaultType$4 = {
-    backdrop: "boolean",
+  var DefaultType$5 = {
+    backdrop: "(boolean|string)",
     keyboard: "boolean",
     scroll: "boolean"
   };
-  var CLASS_NAME_SHOW$3 = "show";
-  var CLASS_NAME_BACKDROP = "offcanvas-backdrop";
-  var OPEN_SELECTOR = ".offcanvas.show";
-  var EVENT_SHOW$2 = `show${EVENT_KEY$5}`;
-  var EVENT_SHOWN$2 = `shown${EVENT_KEY$5}`;
-  var EVENT_HIDE$2 = `hide${EVENT_KEY$5}`;
-  var EVENT_HIDDEN$2 = `hidden${EVENT_KEY$5}`;
-  var EVENT_CLICK_DATA_API$1 = `click${EVENT_KEY$5}${DATA_API_KEY$2}`;
-  var EVENT_KEYDOWN_DISMISS = `keydown.dismiss${EVENT_KEY$5}`;
-  var SELECTOR_DATA_TOGGLE$1 = '[data-bs-toggle="offcanvas"]';
   var Offcanvas = class extends BaseComponent {
     constructor(element, config2) {
-      super(element);
-      this._config = this._getConfig(config2);
+      super(element, config2);
       this._isShown = false;
       this._backdrop = this._initializeBackDrop();
       this._focustrap = this._initializeFocusTrap();
       this._addEventListeners();
     }
-    static get NAME() {
-      return NAME$5;
-    }
     static get Default() {
-      return Default$4;
+      return Default$5;
+    }
+    static get DefaultType() {
+      return DefaultType$5;
+    }
+    static get NAME() {
+      return NAME$6;
     }
     toggle(relatedTarget) {
       return this._isShown ? this.hide() : this.show(relatedTarget);
@@ -15407,27 +15440,27 @@
       if (this._isShown) {
         return;
       }
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$2, {
+      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$3, {
         relatedTarget
       });
       if (showEvent.defaultPrevented) {
         return;
       }
       this._isShown = true;
-      this._element.style.visibility = "visible";
       this._backdrop.show();
       if (!this._config.scroll) {
         new ScrollBarHelper().hide();
       }
-      this._element.removeAttribute("aria-hidden");
       this._element.setAttribute("aria-modal", true);
       this._element.setAttribute("role", "dialog");
-      this._element.classList.add(CLASS_NAME_SHOW$3);
+      this._element.classList.add(CLASS_NAME_SHOWING$1);
       const completeCallBack = () => {
-        if (!this._config.scroll) {
+        if (!this._config.scroll || this._config.backdrop) {
           this._focustrap.activate();
         }
-        EventHandler.trigger(this._element, EVENT_SHOWN$2, {
+        this._element.classList.add(CLASS_NAME_SHOW$3);
+        this._element.classList.remove(CLASS_NAME_SHOWING$1);
+        EventHandler.trigger(this._element, EVENT_SHOWN$3, {
           relatedTarget
         });
       };
@@ -15437,24 +15470,23 @@
       if (!this._isShown) {
         return;
       }
-      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$2);
+      const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE$3);
       if (hideEvent.defaultPrevented) {
         return;
       }
       this._focustrap.deactivate();
       this._element.blur();
       this._isShown = false;
-      this._element.classList.remove(CLASS_NAME_SHOW$3);
+      this._element.classList.add(CLASS_NAME_HIDING);
       this._backdrop.hide();
       const completeCallback = () => {
-        this._element.setAttribute("aria-hidden", true);
+        this._element.classList.remove(CLASS_NAME_SHOW$3, CLASS_NAME_HIDING);
         this._element.removeAttribute("aria-modal");
         this._element.removeAttribute("role");
-        this._element.style.visibility = "hidden";
         if (!this._config.scroll) {
           new ScrollBarHelper().reset();
         }
-        EventHandler.trigger(this._element, EVENT_HIDDEN$2);
+        EventHandler.trigger(this._element, EVENT_HIDDEN$3);
       };
       this._queueCallback(completeCallback, this._element, true);
     }
@@ -15463,22 +15495,21 @@
       this._focustrap.deactivate();
       super.dispose();
     }
-    _getConfig(config2) {
-      config2 = {
-        ...Default$4,
-        ...Manipulator.getDataAttributes(this._element),
-        ...typeof config2 === "object" ? config2 : {}
-      };
-      typeCheckConfig(NAME$5, config2, DefaultType$4);
-      return config2;
-    }
     _initializeBackDrop() {
+      const clickCallback = () => {
+        if (this._config.backdrop === "static") {
+          EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
+          return;
+        }
+        this.hide();
+      };
+      const isVisible2 = Boolean(this._config.backdrop);
       return new Backdrop({
         className: CLASS_NAME_BACKDROP,
-        isVisible: this._config.backdrop,
+        isVisible: isVisible2,
         isAnimated: true,
         rootElement: this._element.parentNode,
-        clickCallback: () => this.hide()
+        clickCallback: isVisible2 ? clickCallback : null
       });
     }
     _initializeFocusTrap() {
@@ -15488,9 +15519,14 @@
     }
     _addEventListeners() {
       EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS, (event) => {
-        if (this._config.keyboard && event.key === ESCAPE_KEY) {
-          this.hide();
+        if (event.key !== ESCAPE_KEY) {
+          return;
         }
+        if (this._config.keyboard) {
+          this.hide();
+          return;
+        }
+        EventHandler.trigger(this._element, EVENT_HIDE_PREVENTED);
       });
     }
     static jQueryInterface(config2) {
@@ -15507,48 +15543,40 @@
     }
   };
   EventHandler.on(document, EVENT_CLICK_DATA_API$1, SELECTOR_DATA_TOGGLE$1, function(event) {
-    const target = getElementFromSelector(this);
+    const target = SelectorEngine.getElementFromSelector(this);
     if (["A", "AREA"].includes(this.tagName)) {
       event.preventDefault();
     }
     if (isDisabled(this)) {
       return;
     }
-    EventHandler.one(target, EVENT_HIDDEN$2, () => {
+    EventHandler.one(target, EVENT_HIDDEN$3, () => {
       if (isVisible(this)) {
         this.focus();
       }
     });
-    const allReadyOpen = SelectorEngine.findOne(OPEN_SELECTOR);
-    if (allReadyOpen && allReadyOpen !== target) {
-      Offcanvas.getInstance(allReadyOpen).hide();
+    const alreadyOpen = SelectorEngine.findOne(OPEN_SELECTOR);
+    if (alreadyOpen && alreadyOpen !== target) {
+      Offcanvas.getInstance(alreadyOpen).hide();
     }
     const data = Offcanvas.getOrCreateInstance(target);
     data.toggle(this);
   });
-  EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => SelectorEngine.find(OPEN_SELECTOR).forEach((el) => Offcanvas.getOrCreateInstance(el).show()));
+  EventHandler.on(window, EVENT_LOAD_DATA_API$2, () => {
+    for (const selector of SelectorEngine.find(OPEN_SELECTOR)) {
+      Offcanvas.getOrCreateInstance(selector).show();
+    }
+  });
+  EventHandler.on(window, EVENT_RESIZE, () => {
+    for (const element of SelectorEngine.find("[aria-modal][class*=show][class*=offcanvas-]")) {
+      if (getComputedStyle(element).position !== "fixed") {
+        Offcanvas.getOrCreateInstance(element).hide();
+      }
+    }
+  });
   enableDismissTrigger(Offcanvas);
   defineJQueryPlugin(Offcanvas);
-  var uriAttributes = /* @__PURE__ */ new Set(["background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href"]);
   var ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
-  var SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
-  var DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
-  var allowedAttribute = (attribute, allowedAttributeList) => {
-    const attributeName = attribute.nodeName.toLowerCase();
-    if (allowedAttributeList.includes(attributeName)) {
-      if (uriAttributes.has(attributeName)) {
-        return Boolean(SAFE_URL_PATTERN.test(attribute.nodeValue) || DATA_URL_PATTERN.test(attribute.nodeValue));
-      }
-      return true;
-    }
-    const regExp = allowedAttributeList.filter((attributeRegex) => attributeRegex instanceof RegExp);
-    for (let i = 0, len = regExp.length; i < len; i++) {
-      if (regExp[i].test(attributeName)) {
-        return true;
-      }
-    }
-    return false;
-  };
   var DefaultAllowlist = {
     "*": ["class", "dir", "id", "lang", "role", ARIA_ATTRIBUTE_PATTERN],
     a: ["target", "href", "title", "rel"],
@@ -15557,7 +15585,10 @@
     br: [],
     col: [],
     code: [],
+    dd: [],
     div: [],
+    dl: [],
+    dt: [],
     em: [],
     hr: [],
     h1: [],
@@ -15581,18 +15612,29 @@
     u: [],
     ul: []
   };
-  function sanitizeHtml(unsafeHtml, allowList, sanitizeFn) {
+  var uriAttributes = /* @__PURE__ */ new Set(["background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href"]);
+  var SAFE_URL_PATTERN = /^(?!javascript:)(?:[a-z0-9+.-]+:|[^&:/?#]*(?:[/?#]|$))/i;
+  var allowedAttribute = (attribute, allowedAttributeList) => {
+    const attributeName = attribute.nodeName.toLowerCase();
+    if (allowedAttributeList.includes(attributeName)) {
+      if (uriAttributes.has(attributeName)) {
+        return Boolean(SAFE_URL_PATTERN.test(attribute.nodeValue));
+      }
+      return true;
+    }
+    return allowedAttributeList.filter((attributeRegex) => attributeRegex instanceof RegExp).some((regex) => regex.test(attributeName));
+  };
+  function sanitizeHtml(unsafeHtml, allowList, sanitizeFunction) {
     if (!unsafeHtml.length) {
       return unsafeHtml;
     }
-    if (sanitizeFn && typeof sanitizeFn === "function") {
-      return sanitizeFn(unsafeHtml);
+    if (sanitizeFunction && typeof sanitizeFunction === "function") {
+      return sanitizeFunction(unsafeHtml);
     }
     const domParser = new window.DOMParser();
     const createdDocument = domParser.parseFromString(unsafeHtml, "text/html");
     const elements = [].concat(...createdDocument.body.querySelectorAll("*"));
-    for (let i = 0, len = elements.length; i < len; i++) {
-      const element = elements[i];
+    for (const element of elements) {
       const elementName = element.nodeName.toLowerCase();
       if (!Object.keys(allowList).includes(elementName)) {
         element.remove();
@@ -15600,38 +15642,147 @@
       }
       const attributeList = [].concat(...element.attributes);
       const allowedAttributes = [].concat(allowList["*"] || [], allowList[elementName] || []);
-      attributeList.forEach((attribute) => {
+      for (const attribute of attributeList) {
         if (!allowedAttribute(attribute, allowedAttributes)) {
           element.removeAttribute(attribute.nodeName);
         }
-      });
+      }
     }
     return createdDocument.body.innerHTML;
   }
-  var NAME$4 = "tooltip";
-  var DATA_KEY$4 = "bs.tooltip";
-  var EVENT_KEY$4 = `.${DATA_KEY$4}`;
-  var CLASS_PREFIX$1 = "bs-tooltip";
-  var DISALLOWED_ATTRIBUTES = /* @__PURE__ */ new Set(["sanitize", "allowList", "sanitizeFn"]);
-  var DefaultType$3 = {
-    animation: "boolean",
-    template: "string",
-    title: "(string|element|function)",
-    trigger: "string",
-    delay: "(number|object)",
+  var NAME$5 = "TemplateFactory";
+  var Default$4 = {
+    allowList: DefaultAllowlist,
+    content: {},
+    extraClass: "",
+    html: false,
+    sanitize: true,
+    sanitizeFn: null,
+    template: "<div></div>"
+  };
+  var DefaultType$4 = {
+    allowList: "object",
+    content: "object",
+    extraClass: "(string|function)",
     html: "boolean",
-    selector: "(string|boolean)",
-    placement: "(string|function)",
-    offset: "(array|string|function)",
-    container: "(string|element|boolean)",
-    fallbackPlacements: "array",
-    boundary: "(string|element)",
-    customClass: "(string|function)",
     sanitize: "boolean",
     sanitizeFn: "(null|function)",
-    allowList: "object",
-    popperConfig: "(null|object|function)"
+    template: "string"
   };
+  var DefaultContentType = {
+    entry: "(string|element|function|null)",
+    selector: "(string|element)"
+  };
+  var TemplateFactory = class extends Config {
+    constructor(config2) {
+      super();
+      this._config = this._getConfig(config2);
+    }
+    static get Default() {
+      return Default$4;
+    }
+    static get DefaultType() {
+      return DefaultType$4;
+    }
+    static get NAME() {
+      return NAME$5;
+    }
+    getContent() {
+      return Object.values(this._config.content).map((config2) => this._resolvePossibleFunction(config2)).filter(Boolean);
+    }
+    hasContent() {
+      return this.getContent().length > 0;
+    }
+    changeContent(content) {
+      this._checkContent(content);
+      this._config.content = {
+        ...this._config.content,
+        ...content
+      };
+      return this;
+    }
+    toHtml() {
+      const templateWrapper = document.createElement("div");
+      templateWrapper.innerHTML = this._maybeSanitize(this._config.template);
+      for (const [selector, text] of Object.entries(this._config.content)) {
+        this._setContent(templateWrapper, text, selector);
+      }
+      const template = templateWrapper.children[0];
+      const extraClass = this._resolvePossibleFunction(this._config.extraClass);
+      if (extraClass) {
+        template.classList.add(...extraClass.split(" "));
+      }
+      return template;
+    }
+    _typeCheckConfig(config2) {
+      super._typeCheckConfig(config2);
+      this._checkContent(config2.content);
+    }
+    _checkContent(arg) {
+      for (const [selector, content] of Object.entries(arg)) {
+        super._typeCheckConfig({
+          selector,
+          entry: content
+        }, DefaultContentType);
+      }
+    }
+    _setContent(template, content, selector) {
+      const templateElement = SelectorEngine.findOne(selector, template);
+      if (!templateElement) {
+        return;
+      }
+      content = this._resolvePossibleFunction(content);
+      if (!content) {
+        templateElement.remove();
+        return;
+      }
+      if (isElement2(content)) {
+        this._putElementInTemplate(getElement(content), templateElement);
+        return;
+      }
+      if (this._config.html) {
+        templateElement.innerHTML = this._maybeSanitize(content);
+        return;
+      }
+      templateElement.textContent = content;
+    }
+    _maybeSanitize(arg) {
+      return this._config.sanitize ? sanitizeHtml(arg, this._config.allowList, this._config.sanitizeFn) : arg;
+    }
+    _resolvePossibleFunction(arg) {
+      return execute(arg, [this]);
+    }
+    _putElementInTemplate(element, templateElement) {
+      if (this._config.html) {
+        templateElement.innerHTML = "";
+        templateElement.append(element);
+        return;
+      }
+      templateElement.textContent = element.textContent;
+    }
+  };
+  var NAME$4 = "tooltip";
+  var DISALLOWED_ATTRIBUTES = /* @__PURE__ */ new Set(["sanitize", "allowList", "sanitizeFn"]);
+  var CLASS_NAME_FADE$2 = "fade";
+  var CLASS_NAME_MODAL = "modal";
+  var CLASS_NAME_SHOW$2 = "show";
+  var SELECTOR_TOOLTIP_INNER = ".tooltip-inner";
+  var SELECTOR_MODAL = `.${CLASS_NAME_MODAL}`;
+  var EVENT_MODAL_HIDE = "hide.bs.modal";
+  var TRIGGER_HOVER = "hover";
+  var TRIGGER_FOCUS = "focus";
+  var TRIGGER_CLICK = "click";
+  var TRIGGER_MANUAL = "manual";
+  var EVENT_HIDE$2 = "hide";
+  var EVENT_HIDDEN$2 = "hidden";
+  var EVENT_SHOW$2 = "show";
+  var EVENT_SHOWN$2 = "shown";
+  var EVENT_INSERTED = "inserted";
+  var EVENT_CLICK$1 = "click";
+  var EVENT_FOCUSIN$1 = "focusin";
+  var EVENT_FOCUSOUT$1 = "focusout";
+  var EVENT_MOUSEENTER = "mouseenter";
+  var EVENT_MOUSELEAVE = "mouseleave";
   var AttachmentMap = {
     AUTO: "auto",
     TOP: "top",
@@ -15640,74 +15791,70 @@
     LEFT: isRTL() ? "right" : "left"
   };
   var Default$3 = {
+    allowList: DefaultAllowlist,
     animation: true,
-    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
-    trigger: "hover focus",
-    title: "",
-    delay: 0,
-    html: false,
-    selector: false,
-    placement: "top",
-    offset: [0, 0],
-    container: false,
-    fallbackPlacements: ["top", "right", "bottom", "left"],
     boundary: "clippingParents",
+    container: false,
     customClass: "",
+    delay: 0,
+    fallbackPlacements: ["top", "right", "bottom", "left"],
+    html: false,
+    offset: [0, 6],
+    placement: "top",
+    popperConfig: null,
     sanitize: true,
     sanitizeFn: null,
-    allowList: DefaultAllowlist,
-    popperConfig: null
+    selector: false,
+    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>',
+    title: "",
+    trigger: "hover focus"
   };
-  var Event$2 = {
-    HIDE: `hide${EVENT_KEY$4}`,
-    HIDDEN: `hidden${EVENT_KEY$4}`,
-    SHOW: `show${EVENT_KEY$4}`,
-    SHOWN: `shown${EVENT_KEY$4}`,
-    INSERTED: `inserted${EVENT_KEY$4}`,
-    CLICK: `click${EVENT_KEY$4}`,
-    FOCUSIN: `focusin${EVENT_KEY$4}`,
-    FOCUSOUT: `focusout${EVENT_KEY$4}`,
-    MOUSEENTER: `mouseenter${EVENT_KEY$4}`,
-    MOUSELEAVE: `mouseleave${EVENT_KEY$4}`
+  var DefaultType$3 = {
+    allowList: "object",
+    animation: "boolean",
+    boundary: "(string|element)",
+    container: "(string|element|boolean)",
+    customClass: "(string|function)",
+    delay: "(number|object)",
+    fallbackPlacements: "array",
+    html: "boolean",
+    offset: "(array|string|function)",
+    placement: "(string|function)",
+    popperConfig: "(null|object|function)",
+    sanitize: "boolean",
+    sanitizeFn: "(null|function)",
+    selector: "(string|boolean)",
+    template: "string",
+    title: "(string|element|function)",
+    trigger: "string"
   };
-  var CLASS_NAME_FADE$2 = "fade";
-  var CLASS_NAME_MODAL = "modal";
-  var CLASS_NAME_SHOW$2 = "show";
-  var HOVER_STATE_SHOW = "show";
-  var HOVER_STATE_OUT = "out";
-  var SELECTOR_TOOLTIP_INNER = ".tooltip-inner";
-  var SELECTOR_MODAL = `.${CLASS_NAME_MODAL}`;
-  var EVENT_MODAL_HIDE = "hide.bs.modal";
-  var TRIGGER_HOVER = "hover";
-  var TRIGGER_FOCUS = "focus";
-  var TRIGGER_CLICK = "click";
-  var TRIGGER_MANUAL = "manual";
   var Tooltip = class extends BaseComponent {
     constructor(element, config2) {
       if (typeof lib_exports === "undefined") {
         throw new TypeError("Bootstrap's tooltips require Popper (https://popper.js.org)");
       }
-      super(element);
+      super(element, config2);
       this._isEnabled = true;
       this._timeout = 0;
-      this._hoverState = "";
+      this._isHovered = null;
       this._activeTrigger = {};
       this._popper = null;
-      this._config = this._getConfig(config2);
+      this._templateFactory = null;
+      this._newContent = null;
       this.tip = null;
       this._setListeners();
+      if (!this._config.selector) {
+        this._fixTitle();
+      }
     }
     static get Default() {
       return Default$3;
     }
-    static get NAME() {
-      return NAME$4;
-    }
-    static get Event() {
-      return Event$2;
-    }
     static get DefaultType() {
       return DefaultType$3;
+    }
+    static get NAME() {
+      return NAME$4;
     }
     enable() {
       this._isEnabled = true;
@@ -15718,31 +15865,22 @@
     toggleEnabled() {
       this._isEnabled = !this._isEnabled;
     }
-    toggle(event) {
+    toggle() {
       if (!this._isEnabled) {
         return;
       }
-      if (event) {
-        const context = this._initializeOnDelegatedTarget(event);
-        context._activeTrigger.click = !context._activeTrigger.click;
-        if (context._isWithActiveTrigger()) {
-          context._enter(null, context);
-        } else {
-          context._leave(null, context);
-        }
-      } else {
-        if (this.getTipElement().classList.contains(CLASS_NAME_SHOW$2)) {
-          this._leave(null, this);
-          return;
-        }
-        this._enter(null, this);
+      this._activeTrigger.click = !this._activeTrigger.click;
+      if (this._isShown()) {
+        this._leave();
+        return;
       }
+      this._enter();
     }
     dispose() {
       clearTimeout(this._timeout);
       EventHandler.off(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
-      if (this.tip) {
-        this.tip.remove();
+      if (this._element.getAttribute("data-bs-original-title")) {
+        this._element.setAttribute("title", this._element.getAttribute("data-bs-original-title"));
       }
       this._disposePopper();
       super.dispose();
@@ -15751,182 +15889,155 @@
       if (this._element.style.display === "none") {
         throw new Error("Please use show on visible elements");
       }
-      if (!(this.isWithContent() && this._isEnabled)) {
+      if (!(this._isWithContent() && this._isEnabled)) {
         return;
       }
-      const showEvent = EventHandler.trigger(this._element, this.constructor.Event.SHOW);
+      const showEvent = EventHandler.trigger(this._element, this.constructor.eventName(EVENT_SHOW$2));
       const shadowRoot = findShadowRoot(this._element);
-      const isInTheDom = shadowRoot === null ? this._element.ownerDocument.documentElement.contains(this._element) : shadowRoot.contains(this._element);
+      const isInTheDom = (shadowRoot || this._element.ownerDocument.documentElement).contains(this._element);
       if (showEvent.defaultPrevented || !isInTheDom) {
         return;
       }
-      if (this.constructor.NAME === "tooltip" && this.tip && this.getTitle() !== this.tip.querySelector(SELECTOR_TOOLTIP_INNER).innerHTML) {
-        this._disposePopper();
-        this.tip.remove();
-        this.tip = null;
-      }
-      const tip = this.getTipElement();
-      const tipId = getUID(this.constructor.NAME);
-      tip.setAttribute("id", tipId);
-      this._element.setAttribute("aria-describedby", tipId);
-      if (this._config.animation) {
-        tip.classList.add(CLASS_NAME_FADE$2);
-      }
-      const placement = typeof this._config.placement === "function" ? this._config.placement.call(this, tip, this._element) : this._config.placement;
-      const attachment = this._getAttachment(placement);
-      this._addAttachmentClass(attachment);
+      this._disposePopper();
+      const tip = this._getTipElement();
+      this._element.setAttribute("aria-describedby", tip.getAttribute("id"));
       const {
         container
       } = this._config;
-      Data.set(tip, this.constructor.DATA_KEY, this);
       if (!this._element.ownerDocument.documentElement.contains(this.tip)) {
         container.append(tip);
-        EventHandler.trigger(this._element, this.constructor.Event.INSERTED);
+        EventHandler.trigger(this._element, this.constructor.eventName(EVENT_INSERTED));
       }
-      if (this._popper) {
-        this._popper.update();
-      } else {
-        this._popper = createPopper3(this._element, tip, this._getPopperConfig(attachment));
-      }
+      this._popper = this._createPopper(tip);
       tip.classList.add(CLASS_NAME_SHOW$2);
-      const customClass = this._resolvePossibleFunction(this._config.customClass);
-      if (customClass) {
-        tip.classList.add(...customClass.split(" "));
-      }
       if ("ontouchstart" in document.documentElement) {
-        [].concat(...document.body.children).forEach((element) => {
+        for (const element of [].concat(...document.body.children)) {
           EventHandler.on(element, "mouseover", noop);
-        });
+        }
       }
       const complete = () => {
-        const prevHoverState = this._hoverState;
-        this._hoverState = null;
-        EventHandler.trigger(this._element, this.constructor.Event.SHOWN);
-        if (prevHoverState === HOVER_STATE_OUT) {
-          this._leave(null, this);
+        EventHandler.trigger(this._element, this.constructor.eventName(EVENT_SHOWN$2));
+        if (this._isHovered === false) {
+          this._leave();
         }
+        this._isHovered = false;
       };
-      const isAnimated = this.tip.classList.contains(CLASS_NAME_FADE$2);
-      this._queueCallback(complete, this.tip, isAnimated);
+      this._queueCallback(complete, this.tip, this._isAnimated());
     }
     hide() {
-      if (!this._popper) {
+      if (!this._isShown()) {
         return;
       }
-      const tip = this.getTipElement();
-      const complete = () => {
-        if (this._isWithActiveTrigger()) {
-          return;
-        }
-        if (this._hoverState !== HOVER_STATE_SHOW) {
-          tip.remove();
-        }
-        this._cleanTipClass();
-        this._element.removeAttribute("aria-describedby");
-        EventHandler.trigger(this._element, this.constructor.Event.HIDDEN);
-        this._disposePopper();
-      };
-      const hideEvent = EventHandler.trigger(this._element, this.constructor.Event.HIDE);
+      const hideEvent = EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIDE$2));
       if (hideEvent.defaultPrevented) {
         return;
       }
+      const tip = this._getTipElement();
       tip.classList.remove(CLASS_NAME_SHOW$2);
       if ("ontouchstart" in document.documentElement) {
-        [].concat(...document.body.children).forEach((element) => EventHandler.off(element, "mouseover", noop));
+        for (const element of [].concat(...document.body.children)) {
+          EventHandler.off(element, "mouseover", noop);
+        }
       }
       this._activeTrigger[TRIGGER_CLICK] = false;
       this._activeTrigger[TRIGGER_FOCUS] = false;
       this._activeTrigger[TRIGGER_HOVER] = false;
-      const isAnimated = this.tip.classList.contains(CLASS_NAME_FADE$2);
-      this._queueCallback(complete, this.tip, isAnimated);
-      this._hoverState = "";
+      this._isHovered = null;
+      const complete = () => {
+        if (this._isWithActiveTrigger()) {
+          return;
+        }
+        if (!this._isHovered) {
+          this._disposePopper();
+        }
+        this._element.removeAttribute("aria-describedby");
+        EventHandler.trigger(this._element, this.constructor.eventName(EVENT_HIDDEN$2));
+      };
+      this._queueCallback(complete, this.tip, this._isAnimated());
     }
     update() {
-      if (this._popper !== null) {
+      if (this._popper) {
         this._popper.update();
       }
     }
-    isWithContent() {
-      return Boolean(this.getTitle());
+    _isWithContent() {
+      return Boolean(this._getTitle());
     }
-    getTipElement() {
-      if (this.tip) {
-        return this.tip;
+    _getTipElement() {
+      if (!this.tip) {
+        this.tip = this._createTipElement(this._newContent || this._getContentForTemplate());
       }
-      const element = document.createElement("div");
-      element.innerHTML = this._config.template;
-      const tip = element.children[0];
-      this.setContent(tip);
-      tip.classList.remove(CLASS_NAME_FADE$2, CLASS_NAME_SHOW$2);
-      this.tip = tip;
       return this.tip;
     }
-    setContent(tip) {
-      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_TOOLTIP_INNER);
+    _createTipElement(content) {
+      const tip = this._getTemplateFactory(content).toHtml();
+      if (!tip) {
+        return null;
+      }
+      tip.classList.remove(CLASS_NAME_FADE$2, CLASS_NAME_SHOW$2);
+      tip.classList.add(`bs-${this.constructor.NAME}-auto`);
+      const tipId = getUID(this.constructor.NAME).toString();
+      tip.setAttribute("id", tipId);
+      if (this._isAnimated()) {
+        tip.classList.add(CLASS_NAME_FADE$2);
+      }
+      return tip;
     }
-    _sanitizeAndSetContent(template, content, selector) {
-      const templateElement = SelectorEngine.findOne(selector, template);
-      if (!content && templateElement) {
-        templateElement.remove();
-        return;
+    setContent(content) {
+      this._newContent = content;
+      if (this._isShown()) {
+        this._disposePopper();
+        this.show();
       }
-      this.setElementContent(templateElement, content);
     }
-    setElementContent(element, content) {
-      if (element === null) {
-        return;
-      }
-      if (isElement2(content)) {
-        content = getElement(content);
-        if (this._config.html) {
-          if (content.parentNode !== element) {
-            element.innerHTML = "";
-            element.append(content);
-          }
-        } else {
-          element.textContent = content.textContent;
-        }
-        return;
-      }
-      if (this._config.html) {
-        if (this._config.sanitize) {
-          content = sanitizeHtml(content, this._config.allowList, this._config.sanitizeFn);
-        }
-        element.innerHTML = content;
+    _getTemplateFactory(content) {
+      if (this._templateFactory) {
+        this._templateFactory.changeContent(content);
       } else {
-        element.textContent = content;
+        this._templateFactory = new TemplateFactory({
+          ...this._config,
+          content,
+          extraClass: this._resolvePossibleFunction(this._config.customClass)
+        });
       }
+      return this._templateFactory;
     }
-    getTitle() {
-      const title = this._element.getAttribute("data-bs-original-title") || this._config.title;
-      return this._resolvePossibleFunction(title);
+    _getContentForTemplate() {
+      return {
+        [SELECTOR_TOOLTIP_INNER]: this._getTitle()
+      };
     }
-    updateAttachment(attachment) {
-      if (attachment === "right") {
-        return "end";
-      }
-      if (attachment === "left") {
-        return "start";
-      }
-      return attachment;
+    _getTitle() {
+      return this._resolvePossibleFunction(this._config.title) || this._element.getAttribute("data-bs-original-title");
     }
-    _initializeOnDelegatedTarget(event, context) {
-      return context || this.constructor.getOrCreateInstance(event.delegateTarget, this._getDelegateConfig());
+    _initializeOnDelegatedTarget(event) {
+      return this.constructor.getOrCreateInstance(event.delegateTarget, this._getDelegateConfig());
+    }
+    _isAnimated() {
+      return this._config.animation || this.tip && this.tip.classList.contains(CLASS_NAME_FADE$2);
+    }
+    _isShown() {
+      return this.tip && this.tip.classList.contains(CLASS_NAME_SHOW$2);
+    }
+    _createPopper(tip) {
+      const placement = execute(this._config.placement, [this, tip, this._element]);
+      const attachment = AttachmentMap[placement.toUpperCase()];
+      return createPopper3(this._element, tip, this._getPopperConfig(attachment));
     }
     _getOffset() {
       const {
         offset: offset2
       } = this._config;
       if (typeof offset2 === "string") {
-        return offset2.split(",").map((val) => Number.parseInt(val, 10));
+        return offset2.split(",").map((value) => Number.parseInt(value, 10));
       }
       if (typeof offset2 === "function") {
         return (popperData) => offset2(popperData, this._element);
       }
       return offset2;
     }
-    _resolvePossibleFunction(content) {
-      return typeof content === "function" ? content.call(this._element) : content;
+    _resolvePossibleFunction(arg) {
+      return execute(arg, [this._element]);
     }
     _getPopperConfig(attachment) {
       const defaultBsPopperConfig = {
@@ -15952,128 +16063,107 @@
             element: `.${this.constructor.NAME}-arrow`
           }
         }, {
-          name: "onChange",
+          name: "preSetPlacement",
           enabled: true,
-          phase: "afterWrite",
-          fn: (data) => this._handlePopperPlacementChange(data)
-        }],
-        onFirstUpdate: (data) => {
-          if (data.options.placement !== data.placement) {
-            this._handlePopperPlacementChange(data);
+          phase: "beforeMain",
+          fn: (data) => {
+            this._getTipElement().setAttribute("data-popper-placement", data.state.placement);
           }
-        }
+        }]
       };
       return {
         ...defaultBsPopperConfig,
-        ...typeof this._config.popperConfig === "function" ? this._config.popperConfig(defaultBsPopperConfig) : this._config.popperConfig
+        ...execute(this._config.popperConfig, [defaultBsPopperConfig])
       };
-    }
-    _addAttachmentClass(attachment) {
-      this.getTipElement().classList.add(`${this._getBasicClassPrefix()}-${this.updateAttachment(attachment)}`);
-    }
-    _getAttachment(placement) {
-      return AttachmentMap[placement.toUpperCase()];
     }
     _setListeners() {
       const triggers = this._config.trigger.split(" ");
-      triggers.forEach((trigger) => {
+      for (const trigger of triggers) {
         if (trigger === "click") {
-          EventHandler.on(this._element, this.constructor.Event.CLICK, this._config.selector, (event) => this.toggle(event));
+          EventHandler.on(this._element, this.constructor.eventName(EVENT_CLICK$1), this._config.selector, (event) => {
+            const context = this._initializeOnDelegatedTarget(event);
+            context.toggle();
+          });
         } else if (trigger !== TRIGGER_MANUAL) {
-          const eventIn = trigger === TRIGGER_HOVER ? this.constructor.Event.MOUSEENTER : this.constructor.Event.FOCUSIN;
-          const eventOut = trigger === TRIGGER_HOVER ? this.constructor.Event.MOUSELEAVE : this.constructor.Event.FOCUSOUT;
-          EventHandler.on(this._element, eventIn, this._config.selector, (event) => this._enter(event));
-          EventHandler.on(this._element, eventOut, this._config.selector, (event) => this._leave(event));
+          const eventIn = trigger === TRIGGER_HOVER ? this.constructor.eventName(EVENT_MOUSEENTER) : this.constructor.eventName(EVENT_FOCUSIN$1);
+          const eventOut = trigger === TRIGGER_HOVER ? this.constructor.eventName(EVENT_MOUSELEAVE) : this.constructor.eventName(EVENT_FOCUSOUT$1);
+          EventHandler.on(this._element, eventIn, this._config.selector, (event) => {
+            const context = this._initializeOnDelegatedTarget(event);
+            context._activeTrigger[event.type === "focusin" ? TRIGGER_FOCUS : TRIGGER_HOVER] = true;
+            context._enter();
+          });
+          EventHandler.on(this._element, eventOut, this._config.selector, (event) => {
+            const context = this._initializeOnDelegatedTarget(event);
+            context._activeTrigger[event.type === "focusout" ? TRIGGER_FOCUS : TRIGGER_HOVER] = context._element.contains(event.relatedTarget);
+            context._leave();
+          });
         }
-      });
+      }
       this._hideModalHandler = () => {
         if (this._element) {
           this.hide();
         }
       };
       EventHandler.on(this._element.closest(SELECTOR_MODAL), EVENT_MODAL_HIDE, this._hideModalHandler);
-      if (this._config.selector) {
-        this._config = {
-          ...this._config,
-          trigger: "manual",
-          selector: ""
-        };
-      } else {
-        this._fixTitle();
-      }
     }
     _fixTitle() {
       const title = this._element.getAttribute("title");
-      const originalTitleType = typeof this._element.getAttribute("data-bs-original-title");
-      if (title || originalTitleType !== "string") {
-        this._element.setAttribute("data-bs-original-title", title || "");
-        if (title && !this._element.getAttribute("aria-label") && !this._element.textContent) {
-          this._element.setAttribute("aria-label", title);
-        }
-        this._element.setAttribute("title", "");
+      if (!title) {
+        return;
       }
+      if (!this._element.getAttribute("aria-label") && !this._element.textContent.trim()) {
+        this._element.setAttribute("aria-label", title);
+      }
+      this._element.setAttribute("data-bs-original-title", title);
+      this._element.removeAttribute("title");
     }
-    _enter(event, context) {
-      context = this._initializeOnDelegatedTarget(event, context);
-      if (event) {
-        context._activeTrigger[event.type === "focusin" ? TRIGGER_FOCUS : TRIGGER_HOVER] = true;
-      }
-      if (context.getTipElement().classList.contains(CLASS_NAME_SHOW$2) || context._hoverState === HOVER_STATE_SHOW) {
-        context._hoverState = HOVER_STATE_SHOW;
+    _enter() {
+      if (this._isShown() || this._isHovered) {
+        this._isHovered = true;
         return;
       }
-      clearTimeout(context._timeout);
-      context._hoverState = HOVER_STATE_SHOW;
-      if (!context._config.delay || !context._config.delay.show) {
-        context.show();
-        return;
-      }
-      context._timeout = setTimeout(() => {
-        if (context._hoverState === HOVER_STATE_SHOW) {
-          context.show();
+      this._isHovered = true;
+      this._setTimeout(() => {
+        if (this._isHovered) {
+          this.show();
         }
-      }, context._config.delay.show);
+      }, this._config.delay.show);
     }
-    _leave(event, context) {
-      context = this._initializeOnDelegatedTarget(event, context);
-      if (event) {
-        context._activeTrigger[event.type === "focusout" ? TRIGGER_FOCUS : TRIGGER_HOVER] = context._element.contains(event.relatedTarget);
-      }
-      if (context._isWithActiveTrigger()) {
+    _leave() {
+      if (this._isWithActiveTrigger()) {
         return;
       }
-      clearTimeout(context._timeout);
-      context._hoverState = HOVER_STATE_OUT;
-      if (!context._config.delay || !context._config.delay.hide) {
-        context.hide();
-        return;
-      }
-      context._timeout = setTimeout(() => {
-        if (context._hoverState === HOVER_STATE_OUT) {
-          context.hide();
+      this._isHovered = false;
+      this._setTimeout(() => {
+        if (!this._isHovered) {
+          this.hide();
         }
-      }, context._config.delay.hide);
+      }, this._config.delay.hide);
+    }
+    _setTimeout(handler, timeout2) {
+      clearTimeout(this._timeout);
+      this._timeout = setTimeout(handler, timeout2);
     }
     _isWithActiveTrigger() {
-      for (const trigger in this._activeTrigger) {
-        if (this._activeTrigger[trigger]) {
-          return true;
-        }
-      }
-      return false;
+      return Object.values(this._activeTrigger).includes(true);
     }
     _getConfig(config2) {
       const dataAttributes = Manipulator.getDataAttributes(this._element);
-      Object.keys(dataAttributes).forEach((dataAttr) => {
-        if (DISALLOWED_ATTRIBUTES.has(dataAttr)) {
-          delete dataAttributes[dataAttr];
+      for (const dataAttribute of Object.keys(dataAttributes)) {
+        if (DISALLOWED_ATTRIBUTES.has(dataAttribute)) {
+          delete dataAttributes[dataAttribute];
         }
-      });
+      }
       config2 = {
-        ...this.constructor.Default,
         ...dataAttributes,
         ...typeof config2 === "object" && config2 ? config2 : {}
       };
+      config2 = this._mergeConfigObj(config2);
+      config2 = this._configAfterMerge(config2);
+      this._typeCheckConfig(config2);
+      return config2;
+    }
+    _configAfterMerge(config2) {
       config2.container = config2.container === false ? document.body : getElement(config2.container);
       if (typeof config2.delay === "number") {
         config2.delay = {
@@ -16087,277 +16177,32 @@
       if (typeof config2.content === "number") {
         config2.content = config2.content.toString();
       }
-      typeCheckConfig(NAME$4, config2, this.constructor.DefaultType);
-      if (config2.sanitize) {
-        config2.template = sanitizeHtml(config2.template, config2.allowList, config2.sanitizeFn);
-      }
       return config2;
     }
     _getDelegateConfig() {
       const config2 = {};
-      for (const key in this._config) {
-        if (this.constructor.Default[key] !== this._config[key]) {
-          config2[key] = this._config[key];
+      for (const [key, value] of Object.entries(this._config)) {
+        if (this.constructor.Default[key] !== value) {
+          config2[key] = value;
         }
       }
+      config2.selector = false;
+      config2.trigger = "manual";
       return config2;
-    }
-    _cleanTipClass() {
-      const tip = this.getTipElement();
-      const basicClassPrefixRegex = new RegExp(`(^|\\s)${this._getBasicClassPrefix()}\\S+`, "g");
-      const tabClass = tip.getAttribute("class").match(basicClassPrefixRegex);
-      if (tabClass !== null && tabClass.length > 0) {
-        tabClass.map((token) => token.trim()).forEach((tClass) => tip.classList.remove(tClass));
-      }
-    }
-    _getBasicClassPrefix() {
-      return CLASS_PREFIX$1;
-    }
-    _handlePopperPlacementChange(popperData) {
-      const {
-        state
-      } = popperData;
-      if (!state) {
-        return;
-      }
-      this.tip = state.elements.popper;
-      this._cleanTipClass();
-      this._addAttachmentClass(this._getAttachment(state.placement));
     }
     _disposePopper() {
       if (this._popper) {
         this._popper.destroy();
         this._popper = null;
       }
+      if (this.tip) {
+        this.tip.remove();
+        this.tip = null;
+      }
     }
     static jQueryInterface(config2) {
       return this.each(function() {
         const data = Tooltip.getOrCreateInstance(this, config2);
-        if (typeof config2 === "string") {
-          if (typeof data[config2] === "undefined") {
-            throw new TypeError(`No method named "${config2}"`);
-          }
-          data[config2]();
-        }
-      });
-    }
-  };
-  defineJQueryPlugin(Tooltip);
-  var NAME$3 = "popover";
-  var DATA_KEY$3 = "bs.popover";
-  var EVENT_KEY$3 = `.${DATA_KEY$3}`;
-  var CLASS_PREFIX = "bs-popover";
-  var Default$2 = {
-    ...Tooltip.Default,
-    placement: "right",
-    offset: [0, 8],
-    trigger: "click",
-    content: "",
-    template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
-  };
-  var DefaultType$2 = {
-    ...Tooltip.DefaultType,
-    content: "(string|element|function)"
-  };
-  var Event$1 = {
-    HIDE: `hide${EVENT_KEY$3}`,
-    HIDDEN: `hidden${EVENT_KEY$3}`,
-    SHOW: `show${EVENT_KEY$3}`,
-    SHOWN: `shown${EVENT_KEY$3}`,
-    INSERTED: `inserted${EVENT_KEY$3}`,
-    CLICK: `click${EVENT_KEY$3}`,
-    FOCUSIN: `focusin${EVENT_KEY$3}`,
-    FOCUSOUT: `focusout${EVENT_KEY$3}`,
-    MOUSEENTER: `mouseenter${EVENT_KEY$3}`,
-    MOUSELEAVE: `mouseleave${EVENT_KEY$3}`
-  };
-  var SELECTOR_TITLE = ".popover-header";
-  var SELECTOR_CONTENT = ".popover-body";
-  var Popover = class extends Tooltip {
-    static get Default() {
-      return Default$2;
-    }
-    static get NAME() {
-      return NAME$3;
-    }
-    static get Event() {
-      return Event$1;
-    }
-    static get DefaultType() {
-      return DefaultType$2;
-    }
-    isWithContent() {
-      return this.getTitle() || this._getContent();
-    }
-    setContent(tip) {
-      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_TITLE);
-      this._sanitizeAndSetContent(tip, this._getContent(), SELECTOR_CONTENT);
-    }
-    _getContent() {
-      return this._resolvePossibleFunction(this._config.content);
-    }
-    _getBasicClassPrefix() {
-      return CLASS_PREFIX;
-    }
-    static jQueryInterface(config2) {
-      return this.each(function() {
-        const data = Popover.getOrCreateInstance(this, config2);
-        if (typeof config2 === "string") {
-          if (typeof data[config2] === "undefined") {
-            throw new TypeError(`No method named "${config2}"`);
-          }
-          data[config2]();
-        }
-      });
-    }
-  };
-  defineJQueryPlugin(Popover);
-  var NAME$2 = "scrollspy";
-  var DATA_KEY$2 = "bs.scrollspy";
-  var EVENT_KEY$2 = `.${DATA_KEY$2}`;
-  var DATA_API_KEY$1 = ".data-api";
-  var Default$1 = {
-    offset: 10,
-    method: "auto",
-    target: ""
-  };
-  var DefaultType$1 = {
-    offset: "number",
-    method: "string",
-    target: "(string|element)"
-  };
-  var EVENT_ACTIVATE = `activate${EVENT_KEY$2}`;
-  var EVENT_SCROLL = `scroll${EVENT_KEY$2}`;
-  var EVENT_LOAD_DATA_API = `load${EVENT_KEY$2}${DATA_API_KEY$1}`;
-  var CLASS_NAME_DROPDOWN_ITEM = "dropdown-item";
-  var CLASS_NAME_ACTIVE$1 = "active";
-  var SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
-  var SELECTOR_NAV_LIST_GROUP$1 = ".nav, .list-group";
-  var SELECTOR_NAV_LINKS = ".nav-link";
-  var SELECTOR_NAV_ITEMS = ".nav-item";
-  var SELECTOR_LIST_ITEMS = ".list-group-item";
-  var SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}, .${CLASS_NAME_DROPDOWN_ITEM}`;
-  var SELECTOR_DROPDOWN$1 = ".dropdown";
-  var SELECTOR_DROPDOWN_TOGGLE$1 = ".dropdown-toggle";
-  var METHOD_OFFSET = "offset";
-  var METHOD_POSITION = "position";
-  var ScrollSpy = class extends BaseComponent {
-    constructor(element, config2) {
-      super(element);
-      this._scrollElement = this._element.tagName === "BODY" ? window : this._element;
-      this._config = this._getConfig(config2);
-      this._offsets = [];
-      this._targets = [];
-      this._activeTarget = null;
-      this._scrollHeight = 0;
-      EventHandler.on(this._scrollElement, EVENT_SCROLL, () => this._process());
-      this.refresh();
-      this._process();
-    }
-    static get Default() {
-      return Default$1;
-    }
-    static get NAME() {
-      return NAME$2;
-    }
-    refresh() {
-      const autoMethod = this._scrollElement === this._scrollElement.window ? METHOD_OFFSET : METHOD_POSITION;
-      const offsetMethod = this._config.method === "auto" ? autoMethod : this._config.method;
-      const offsetBase = offsetMethod === METHOD_POSITION ? this._getScrollTop() : 0;
-      this._offsets = [];
-      this._targets = [];
-      this._scrollHeight = this._getScrollHeight();
-      const targets = SelectorEngine.find(SELECTOR_LINK_ITEMS, this._config.target);
-      targets.map((element) => {
-        const targetSelector = getSelectorFromElement(element);
-        const target = targetSelector ? SelectorEngine.findOne(targetSelector) : null;
-        if (target) {
-          const targetBCR = target.getBoundingClientRect();
-          if (targetBCR.width || targetBCR.height) {
-            return [Manipulator[offsetMethod](target).top + offsetBase, targetSelector];
-          }
-        }
-        return null;
-      }).filter((item) => item).sort((a, b) => a[0] - b[0]).forEach((item) => {
-        this._offsets.push(item[0]);
-        this._targets.push(item[1]);
-      });
-    }
-    dispose() {
-      EventHandler.off(this._scrollElement, EVENT_KEY$2);
-      super.dispose();
-    }
-    _getConfig(config2) {
-      config2 = {
-        ...Default$1,
-        ...Manipulator.getDataAttributes(this._element),
-        ...typeof config2 === "object" && config2 ? config2 : {}
-      };
-      config2.target = getElement(config2.target) || document.documentElement;
-      typeCheckConfig(NAME$2, config2, DefaultType$1);
-      return config2;
-    }
-    _getScrollTop() {
-      return this._scrollElement === window ? this._scrollElement.pageYOffset : this._scrollElement.scrollTop;
-    }
-    _getScrollHeight() {
-      return this._scrollElement.scrollHeight || Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
-    }
-    _getOffsetHeight() {
-      return this._scrollElement === window ? window.innerHeight : this._scrollElement.getBoundingClientRect().height;
-    }
-    _process() {
-      const scrollTop = this._getScrollTop() + this._config.offset;
-      const scrollHeight = this._getScrollHeight();
-      const maxScroll = this._config.offset + scrollHeight - this._getOffsetHeight();
-      if (this._scrollHeight !== scrollHeight) {
-        this.refresh();
-      }
-      if (scrollTop >= maxScroll) {
-        const target = this._targets[this._targets.length - 1];
-        if (this._activeTarget !== target) {
-          this._activate(target);
-        }
-        return;
-      }
-      if (this._activeTarget && scrollTop < this._offsets[0] && this._offsets[0] > 0) {
-        this._activeTarget = null;
-        this._clear();
-        return;
-      }
-      for (let i = this._offsets.length; i--; ) {
-        const isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === "undefined" || scrollTop < this._offsets[i + 1]);
-        if (isActiveTarget) {
-          this._activate(this._targets[i]);
-        }
-      }
-    }
-    _activate(target) {
-      this._activeTarget = target;
-      this._clear();
-      const queries = SELECTOR_LINK_ITEMS.split(",").map((selector) => `${selector}[data-bs-target="${target}"],${selector}[href="${target}"]`);
-      const link = SelectorEngine.findOne(queries.join(","), this._config.target);
-      link.classList.add(CLASS_NAME_ACTIVE$1);
-      if (link.classList.contains(CLASS_NAME_DROPDOWN_ITEM)) {
-        SelectorEngine.findOne(SELECTOR_DROPDOWN_TOGGLE$1, link.closest(SELECTOR_DROPDOWN$1)).classList.add(CLASS_NAME_ACTIVE$1);
-      } else {
-        SelectorEngine.parents(link, SELECTOR_NAV_LIST_GROUP$1).forEach((listGroup) => {
-          SelectorEngine.prev(listGroup, `${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`).forEach((item) => item.classList.add(CLASS_NAME_ACTIVE$1));
-          SelectorEngine.prev(listGroup, SELECTOR_NAV_ITEMS).forEach((navItem) => {
-            SelectorEngine.children(navItem, SELECTOR_NAV_LINKS).forEach((item) => item.classList.add(CLASS_NAME_ACTIVE$1));
-          });
-        });
-      }
-      EventHandler.trigger(this._scrollElement, EVENT_ACTIVATE, {
-        relatedTarget: target
-      });
-    }
-    _clear() {
-      SelectorEngine.find(SELECTOR_LINK_ITEMS, this._config.target).filter((node) => node.classList.contains(CLASS_NAME_ACTIVE$1)).forEach((node) => node.classList.remove(CLASS_NAME_ACTIVE$1));
-    }
-    static jQueryInterface(config2) {
-      return this.each(function() {
-        const data = ScrollSpy.getOrCreateInstance(this, config2);
         if (typeof config2 !== "string") {
           return;
         }
@@ -16368,125 +16213,456 @@
       });
     }
   };
-  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
-    SelectorEngine.find(SELECTOR_DATA_SPY).forEach((spy) => new ScrollSpy(spy));
+  defineJQueryPlugin(Tooltip);
+  var NAME$3 = "popover";
+  var SELECTOR_TITLE = ".popover-header";
+  var SELECTOR_CONTENT = ".popover-body";
+  var Default$2 = {
+    ...Tooltip.Default,
+    content: "",
+    offset: [0, 8],
+    placement: "right",
+    template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+    trigger: "click"
+  };
+  var DefaultType$2 = {
+    ...Tooltip.DefaultType,
+    content: "(null|string|element|function)"
+  };
+  var Popover = class extends Tooltip {
+    static get Default() {
+      return Default$2;
+    }
+    static get DefaultType() {
+      return DefaultType$2;
+    }
+    static get NAME() {
+      return NAME$3;
+    }
+    _isWithContent() {
+      return this._getTitle() || this._getContent();
+    }
+    _getContentForTemplate() {
+      return {
+        [SELECTOR_TITLE]: this._getTitle(),
+        [SELECTOR_CONTENT]: this._getContent()
+      };
+    }
+    _getContent() {
+      return this._resolvePossibleFunction(this._config.content);
+    }
+    static jQueryInterface(config2) {
+      return this.each(function() {
+        const data = Popover.getOrCreateInstance(this, config2);
+        if (typeof config2 !== "string") {
+          return;
+        }
+        if (typeof data[config2] === "undefined") {
+          throw new TypeError(`No method named "${config2}"`);
+        }
+        data[config2]();
+      });
+    }
+  };
+  defineJQueryPlugin(Popover);
+  var NAME$2 = "scrollspy";
+  var DATA_KEY$2 = "bs.scrollspy";
+  var EVENT_KEY$2 = `.${DATA_KEY$2}`;
+  var DATA_API_KEY = ".data-api";
+  var EVENT_ACTIVATE = `activate${EVENT_KEY$2}`;
+  var EVENT_CLICK = `click${EVENT_KEY$2}`;
+  var EVENT_LOAD_DATA_API$1 = `load${EVENT_KEY$2}${DATA_API_KEY}`;
+  var CLASS_NAME_DROPDOWN_ITEM = "dropdown-item";
+  var CLASS_NAME_ACTIVE$1 = "active";
+  var SELECTOR_DATA_SPY = '[data-bs-spy="scroll"]';
+  var SELECTOR_TARGET_LINKS = "[href]";
+  var SELECTOR_NAV_LIST_GROUP = ".nav, .list-group";
+  var SELECTOR_NAV_LINKS = ".nav-link";
+  var SELECTOR_NAV_ITEMS = ".nav-item";
+  var SELECTOR_LIST_ITEMS = ".list-group-item";
+  var SELECTOR_LINK_ITEMS = `${SELECTOR_NAV_LINKS}, ${SELECTOR_NAV_ITEMS} > ${SELECTOR_NAV_LINKS}, ${SELECTOR_LIST_ITEMS}`;
+  var SELECTOR_DROPDOWN = ".dropdown";
+  var SELECTOR_DROPDOWN_TOGGLE$1 = ".dropdown-toggle";
+  var Default$1 = {
+    offset: null,
+    rootMargin: "0px 0px -25%",
+    smoothScroll: false,
+    target: null,
+    threshold: [0.1, 0.5, 1]
+  };
+  var DefaultType$1 = {
+    offset: "(number|null)",
+    rootMargin: "string",
+    smoothScroll: "boolean",
+    target: "element",
+    threshold: "array"
+  };
+  var ScrollSpy = class extends BaseComponent {
+    constructor(element, config2) {
+      super(element, config2);
+      this._targetLinks = /* @__PURE__ */ new Map();
+      this._observableSections = /* @__PURE__ */ new Map();
+      this._rootElement = getComputedStyle(this._element).overflowY === "visible" ? null : this._element;
+      this._activeTarget = null;
+      this._observer = null;
+      this._previousScrollData = {
+        visibleEntryTop: 0,
+        parentScrollTop: 0
+      };
+      this.refresh();
+    }
+    static get Default() {
+      return Default$1;
+    }
+    static get DefaultType() {
+      return DefaultType$1;
+    }
+    static get NAME() {
+      return NAME$2;
+    }
+    refresh() {
+      this._initializeTargetsAndObservables();
+      this._maybeEnableSmoothScroll();
+      if (this._observer) {
+        this._observer.disconnect();
+      } else {
+        this._observer = this._getNewObserver();
+      }
+      for (const section of this._observableSections.values()) {
+        this._observer.observe(section);
+      }
+    }
+    dispose() {
+      this._observer.disconnect();
+      super.dispose();
+    }
+    _configAfterMerge(config2) {
+      config2.target = getElement(config2.target) || document.body;
+      config2.rootMargin = config2.offset ? `${config2.offset}px 0px -30%` : config2.rootMargin;
+      if (typeof config2.threshold === "string") {
+        config2.threshold = config2.threshold.split(",").map((value) => Number.parseFloat(value));
+      }
+      return config2;
+    }
+    _maybeEnableSmoothScroll() {
+      if (!this._config.smoothScroll) {
+        return;
+      }
+      EventHandler.off(this._config.target, EVENT_CLICK);
+      EventHandler.on(this._config.target, EVENT_CLICK, SELECTOR_TARGET_LINKS, (event) => {
+        const observableSection = this._observableSections.get(event.target.hash);
+        if (observableSection) {
+          event.preventDefault();
+          const root = this._rootElement || window;
+          const height = observableSection.offsetTop - this._element.offsetTop;
+          if (root.scrollTo) {
+            root.scrollTo({
+              top: height,
+              behavior: "smooth"
+            });
+            return;
+          }
+          root.scrollTop = height;
+        }
+      });
+    }
+    _getNewObserver() {
+      const options2 = {
+        root: this._rootElement,
+        threshold: this._config.threshold,
+        rootMargin: this._config.rootMargin
+      };
+      return new IntersectionObserver((entries) => this._observerCallback(entries), options2);
+    }
+    _observerCallback(entries) {
+      const targetElement = (entry) => this._targetLinks.get(`#${entry.target.id}`);
+      const activate = (entry) => {
+        this._previousScrollData.visibleEntryTop = entry.target.offsetTop;
+        this._process(targetElement(entry));
+      };
+      const parentScrollTop = (this._rootElement || document.documentElement).scrollTop;
+      const userScrollsDown = parentScrollTop >= this._previousScrollData.parentScrollTop;
+      this._previousScrollData.parentScrollTop = parentScrollTop;
+      for (const entry of entries) {
+        if (!entry.isIntersecting) {
+          this._activeTarget = null;
+          this._clearActiveClass(targetElement(entry));
+          continue;
+        }
+        const entryIsLowerThanPrevious = entry.target.offsetTop >= this._previousScrollData.visibleEntryTop;
+        if (userScrollsDown && entryIsLowerThanPrevious) {
+          activate(entry);
+          if (!parentScrollTop) {
+            return;
+          }
+          continue;
+        }
+        if (!userScrollsDown && !entryIsLowerThanPrevious) {
+          activate(entry);
+        }
+      }
+    }
+    _initializeTargetsAndObservables() {
+      this._targetLinks = /* @__PURE__ */ new Map();
+      this._observableSections = /* @__PURE__ */ new Map();
+      const targetLinks = SelectorEngine.find(SELECTOR_TARGET_LINKS, this._config.target);
+      for (const anchor of targetLinks) {
+        if (!anchor.hash || isDisabled(anchor)) {
+          continue;
+        }
+        const observableSection = SelectorEngine.findOne(decodeURI(anchor.hash), this._element);
+        if (isVisible(observableSection)) {
+          this._targetLinks.set(decodeURI(anchor.hash), anchor);
+          this._observableSections.set(anchor.hash, observableSection);
+        }
+      }
+    }
+    _process(target) {
+      if (this._activeTarget === target) {
+        return;
+      }
+      this._clearActiveClass(this._config.target);
+      this._activeTarget = target;
+      target.classList.add(CLASS_NAME_ACTIVE$1);
+      this._activateParents(target);
+      EventHandler.trigger(this._element, EVENT_ACTIVATE, {
+        relatedTarget: target
+      });
+    }
+    _activateParents(target) {
+      if (target.classList.contains(CLASS_NAME_DROPDOWN_ITEM)) {
+        SelectorEngine.findOne(SELECTOR_DROPDOWN_TOGGLE$1, target.closest(SELECTOR_DROPDOWN)).classList.add(CLASS_NAME_ACTIVE$1);
+        return;
+      }
+      for (const listGroup of SelectorEngine.parents(target, SELECTOR_NAV_LIST_GROUP)) {
+        for (const item of SelectorEngine.prev(listGroup, SELECTOR_LINK_ITEMS)) {
+          item.classList.add(CLASS_NAME_ACTIVE$1);
+        }
+      }
+    }
+    _clearActiveClass(parent) {
+      parent.classList.remove(CLASS_NAME_ACTIVE$1);
+      const activeNodes = SelectorEngine.find(`${SELECTOR_TARGET_LINKS}.${CLASS_NAME_ACTIVE$1}`, parent);
+      for (const node of activeNodes) {
+        node.classList.remove(CLASS_NAME_ACTIVE$1);
+      }
+    }
+    static jQueryInterface(config2) {
+      return this.each(function() {
+        const data = ScrollSpy.getOrCreateInstance(this, config2);
+        if (typeof config2 !== "string") {
+          return;
+        }
+        if (data[config2] === void 0 || config2.startsWith("_") || config2 === "constructor") {
+          throw new TypeError(`No method named "${config2}"`);
+        }
+        data[config2]();
+      });
+    }
+  };
+  EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => {
+    for (const spy of SelectorEngine.find(SELECTOR_DATA_SPY)) {
+      ScrollSpy.getOrCreateInstance(spy);
+    }
   });
   defineJQueryPlugin(ScrollSpy);
   var NAME$1 = "tab";
   var DATA_KEY$1 = "bs.tab";
   var EVENT_KEY$1 = `.${DATA_KEY$1}`;
-  var DATA_API_KEY = ".data-api";
   var EVENT_HIDE$1 = `hide${EVENT_KEY$1}`;
   var EVENT_HIDDEN$1 = `hidden${EVENT_KEY$1}`;
   var EVENT_SHOW$1 = `show${EVENT_KEY$1}`;
   var EVENT_SHOWN$1 = `shown${EVENT_KEY$1}`;
-  var EVENT_CLICK_DATA_API = `click${EVENT_KEY$1}${DATA_API_KEY}`;
-  var CLASS_NAME_DROPDOWN_MENU = "dropdown-menu";
+  var EVENT_CLICK_DATA_API = `click${EVENT_KEY$1}`;
+  var EVENT_KEYDOWN = `keydown${EVENT_KEY$1}`;
+  var EVENT_LOAD_DATA_API = `load${EVENT_KEY$1}`;
+  var ARROW_LEFT_KEY = "ArrowLeft";
+  var ARROW_RIGHT_KEY = "ArrowRight";
+  var ARROW_UP_KEY = "ArrowUp";
+  var ARROW_DOWN_KEY = "ArrowDown";
+  var HOME_KEY = "Home";
+  var END_KEY = "End";
   var CLASS_NAME_ACTIVE = "active";
   var CLASS_NAME_FADE$1 = "fade";
   var CLASS_NAME_SHOW$1 = "show";
-  var SELECTOR_DROPDOWN = ".dropdown";
-  var SELECTOR_NAV_LIST_GROUP = ".nav, .list-group";
-  var SELECTOR_ACTIVE = ".active";
-  var SELECTOR_ACTIVE_UL = ":scope > li > .active";
-  var SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]';
+  var CLASS_DROPDOWN = "dropdown";
   var SELECTOR_DROPDOWN_TOGGLE = ".dropdown-toggle";
-  var SELECTOR_DROPDOWN_ACTIVE_CHILD = ":scope > .dropdown-menu .active";
+  var SELECTOR_DROPDOWN_MENU = ".dropdown-menu";
+  var NOT_SELECTOR_DROPDOWN_TOGGLE = `:not(${SELECTOR_DROPDOWN_TOGGLE})`;
+  var SELECTOR_TAB_PANEL = '.list-group, .nav, [role="tablist"]';
+  var SELECTOR_OUTER = ".nav-item, .list-group-item";
+  var SELECTOR_INNER = `.nav-link${NOT_SELECTOR_DROPDOWN_TOGGLE}, .list-group-item${NOT_SELECTOR_DROPDOWN_TOGGLE}, [role="tab"]${NOT_SELECTOR_DROPDOWN_TOGGLE}`;
+  var SELECTOR_DATA_TOGGLE = '[data-bs-toggle="tab"], [data-bs-toggle="pill"], [data-bs-toggle="list"]';
+  var SELECTOR_INNER_ELEM = `${SELECTOR_INNER}, ${SELECTOR_DATA_TOGGLE}`;
+  var SELECTOR_DATA_TOGGLE_ACTIVE = `.${CLASS_NAME_ACTIVE}[data-bs-toggle="tab"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="pill"], .${CLASS_NAME_ACTIVE}[data-bs-toggle="list"]`;
   var Tab = class extends BaseComponent {
+    constructor(element) {
+      super(element);
+      this._parent = this._element.closest(SELECTOR_TAB_PANEL);
+      if (!this._parent) {
+        return;
+      }
+      this._setInitialAttributes(this._parent, this._getChildren());
+      EventHandler.on(this._element, EVENT_KEYDOWN, (event) => this._keydown(event));
+    }
     static get NAME() {
       return NAME$1;
     }
     show() {
-      if (this._element.parentNode && this._element.parentNode.nodeType === Node.ELEMENT_NODE && this._element.classList.contains(CLASS_NAME_ACTIVE)) {
+      const innerElem = this._element;
+      if (this._elemIsActive(innerElem)) {
         return;
       }
-      let previous;
-      const target = getElementFromSelector(this._element);
-      const listElement = this._element.closest(SELECTOR_NAV_LIST_GROUP);
-      if (listElement) {
-        const itemSelector = listElement.nodeName === "UL" || listElement.nodeName === "OL" ? SELECTOR_ACTIVE_UL : SELECTOR_ACTIVE;
-        previous = SelectorEngine.find(itemSelector, listElement);
-        previous = previous[previous.length - 1];
-      }
-      const hideEvent = previous ? EventHandler.trigger(previous, EVENT_HIDE$1, {
-        relatedTarget: this._element
+      const active = this._getActiveElem();
+      const hideEvent = active ? EventHandler.trigger(active, EVENT_HIDE$1, {
+        relatedTarget: innerElem
       }) : null;
-      const showEvent = EventHandler.trigger(this._element, EVENT_SHOW$1, {
-        relatedTarget: previous
+      const showEvent = EventHandler.trigger(innerElem, EVENT_SHOW$1, {
+        relatedTarget: active
       });
-      if (showEvent.defaultPrevented || hideEvent !== null && hideEvent.defaultPrevented) {
+      if (showEvent.defaultPrevented || hideEvent && hideEvent.defaultPrevented) {
         return;
       }
-      this._activate(this._element, listElement);
-      const complete = () => {
-        EventHandler.trigger(previous, EVENT_HIDDEN$1, {
-          relatedTarget: this._element
-        });
-        EventHandler.trigger(this._element, EVENT_SHOWN$1, {
-          relatedTarget: previous
-        });
-      };
-      if (target) {
-        this._activate(target, target.parentNode, complete);
-      } else {
-        complete();
-      }
+      this._deactivate(active, innerElem);
+      this._activate(innerElem, active);
     }
-    _activate(element, container, callback) {
-      const activeElements = container && (container.nodeName === "UL" || container.nodeName === "OL") ? SelectorEngine.find(SELECTOR_ACTIVE_UL, container) : SelectorEngine.children(container, SELECTOR_ACTIVE);
-      const active = activeElements[0];
-      const isTransitioning = callback && active && active.classList.contains(CLASS_NAME_FADE$1);
-      const complete = () => this._transitionComplete(element, active, callback);
-      if (active && isTransitioning) {
-        active.classList.remove(CLASS_NAME_SHOW$1);
-        this._queueCallback(complete, element, true);
-      } else {
-        complete();
-      }
-    }
-    _transitionComplete(element, active, callback) {
-      if (active) {
-        active.classList.remove(CLASS_NAME_ACTIVE);
-        const dropdownChild = SelectorEngine.findOne(SELECTOR_DROPDOWN_ACTIVE_CHILD, active.parentNode);
-        if (dropdownChild) {
-          dropdownChild.classList.remove(CLASS_NAME_ACTIVE);
-        }
-        if (active.getAttribute("role") === "tab") {
-          active.setAttribute("aria-selected", false);
-        }
+    _activate(element, relatedElem) {
+      if (!element) {
+        return;
       }
       element.classList.add(CLASS_NAME_ACTIVE);
-      if (element.getAttribute("role") === "tab") {
-        element.setAttribute("aria-selected", true);
-      }
-      reflow(element);
-      if (element.classList.contains(CLASS_NAME_FADE$1)) {
-        element.classList.add(CLASS_NAME_SHOW$1);
-      }
-      let parent = element.parentNode;
-      if (parent && parent.nodeName === "LI") {
-        parent = parent.parentNode;
-      }
-      if (parent && parent.classList.contains(CLASS_NAME_DROPDOWN_MENU)) {
-        const dropdownElement = element.closest(SELECTOR_DROPDOWN);
-        if (dropdownElement) {
-          SelectorEngine.find(SELECTOR_DROPDOWN_TOGGLE, dropdownElement).forEach((dropdown) => dropdown.classList.add(CLASS_NAME_ACTIVE));
+      this._activate(SelectorEngine.getElementFromSelector(element));
+      const complete = () => {
+        if (element.getAttribute("role") !== "tab") {
+          element.classList.add(CLASS_NAME_SHOW$1);
+          return;
         }
-        element.setAttribute("aria-expanded", true);
+        element.removeAttribute("tabindex");
+        element.setAttribute("aria-selected", true);
+        this._toggleDropDown(element, true);
+        EventHandler.trigger(element, EVENT_SHOWN$1, {
+          relatedTarget: relatedElem
+        });
+      };
+      this._queueCallback(complete, element, element.classList.contains(CLASS_NAME_FADE$1));
+    }
+    _deactivate(element, relatedElem) {
+      if (!element) {
+        return;
       }
-      if (callback) {
-        callback();
+      element.classList.remove(CLASS_NAME_ACTIVE);
+      element.blur();
+      this._deactivate(SelectorEngine.getElementFromSelector(element));
+      const complete = () => {
+        if (element.getAttribute("role") !== "tab") {
+          element.classList.remove(CLASS_NAME_SHOW$1);
+          return;
+        }
+        element.setAttribute("aria-selected", false);
+        element.setAttribute("tabindex", "-1");
+        this._toggleDropDown(element, false);
+        EventHandler.trigger(element, EVENT_HIDDEN$1, {
+          relatedTarget: relatedElem
+        });
+      };
+      this._queueCallback(complete, element, element.classList.contains(CLASS_NAME_FADE$1));
+    }
+    _keydown(event) {
+      if (![ARROW_LEFT_KEY, ARROW_RIGHT_KEY, ARROW_UP_KEY, ARROW_DOWN_KEY, HOME_KEY, END_KEY].includes(event.key)) {
+        return;
       }
+      event.stopPropagation();
+      event.preventDefault();
+      const children = this._getChildren().filter((element) => !isDisabled(element));
+      let nextActiveElement;
+      if ([HOME_KEY, END_KEY].includes(event.key)) {
+        nextActiveElement = children[event.key === HOME_KEY ? 0 : children.length - 1];
+      } else {
+        const isNext = [ARROW_RIGHT_KEY, ARROW_DOWN_KEY].includes(event.key);
+        nextActiveElement = getNextActiveElement(children, event.target, isNext, true);
+      }
+      if (nextActiveElement) {
+        nextActiveElement.focus({
+          preventScroll: true
+        });
+        Tab.getOrCreateInstance(nextActiveElement).show();
+      }
+    }
+    _getChildren() {
+      return SelectorEngine.find(SELECTOR_INNER_ELEM, this._parent);
+    }
+    _getActiveElem() {
+      return this._getChildren().find((child) => this._elemIsActive(child)) || null;
+    }
+    _setInitialAttributes(parent, children) {
+      this._setAttributeIfNotExists(parent, "role", "tablist");
+      for (const child of children) {
+        this._setInitialAttributesOnChild(child);
+      }
+    }
+    _setInitialAttributesOnChild(child) {
+      child = this._getInnerElement(child);
+      const isActive = this._elemIsActive(child);
+      const outerElem = this._getOuterElement(child);
+      child.setAttribute("aria-selected", isActive);
+      if (outerElem !== child) {
+        this._setAttributeIfNotExists(outerElem, "role", "presentation");
+      }
+      if (!isActive) {
+        child.setAttribute("tabindex", "-1");
+      }
+      this._setAttributeIfNotExists(child, "role", "tab");
+      this._setInitialAttributesOnTargetPanel(child);
+    }
+    _setInitialAttributesOnTargetPanel(child) {
+      const target = SelectorEngine.getElementFromSelector(child);
+      if (!target) {
+        return;
+      }
+      this._setAttributeIfNotExists(target, "role", "tabpanel");
+      if (child.id) {
+        this._setAttributeIfNotExists(target, "aria-labelledby", `${child.id}`);
+      }
+    }
+    _toggleDropDown(element, open) {
+      const outerElem = this._getOuterElement(element);
+      if (!outerElem.classList.contains(CLASS_DROPDOWN)) {
+        return;
+      }
+      const toggle = (selector, className) => {
+        const element2 = SelectorEngine.findOne(selector, outerElem);
+        if (element2) {
+          element2.classList.toggle(className, open);
+        }
+      };
+      toggle(SELECTOR_DROPDOWN_TOGGLE, CLASS_NAME_ACTIVE);
+      toggle(SELECTOR_DROPDOWN_MENU, CLASS_NAME_SHOW$1);
+      outerElem.setAttribute("aria-expanded", open);
+    }
+    _setAttributeIfNotExists(element, attribute, value) {
+      if (!element.hasAttribute(attribute)) {
+        element.setAttribute(attribute, value);
+      }
+    }
+    _elemIsActive(elem) {
+      return elem.classList.contains(CLASS_NAME_ACTIVE);
+    }
+    _getInnerElement(elem) {
+      return elem.matches(SELECTOR_INNER_ELEM) ? elem : SelectorEngine.findOne(SELECTOR_INNER_ELEM, elem);
+    }
+    _getOuterElement(elem) {
+      return elem.closest(SELECTOR_OUTER) || elem;
     }
     static jQueryInterface(config2) {
       return this.each(function() {
         const data = Tab.getOrCreateInstance(this);
-        if (typeof config2 === "string") {
-          if (typeof data[config2] === "undefined") {
-            throw new TypeError(`No method named "${config2}"`);
-          }
-          data[config2]();
+        if (typeof config2 !== "string") {
+          return;
         }
+        if (data[config2] === void 0 || config2.startsWith("_") || config2 === "constructor") {
+          throw new TypeError(`No method named "${config2}"`);
+        }
+        data[config2]();
       });
     }
   };
@@ -16497,8 +16673,12 @@
     if (isDisabled(this)) {
       return;
     }
-    const data = Tab.getOrCreateInstance(this);
-    data.show();
+    Tab.getOrCreateInstance(this).show();
+  });
+  EventHandler.on(window, EVENT_LOAD_DATA_API, () => {
+    for (const element of SelectorEngine.find(SELECTOR_DATA_TOGGLE_ACTIVE)) {
+      Tab.getOrCreateInstance(element);
+    }
   });
   defineJQueryPlugin(Tab);
   var NAME = "toast";
@@ -16528,18 +16708,17 @@
   };
   var Toast = class extends BaseComponent {
     constructor(element, config2) {
-      super(element);
-      this._config = this._getConfig(config2);
+      super(element, config2);
       this._timeout = null;
       this._hasMouseInteraction = false;
       this._hasKeyboardInteraction = false;
       this._setListeners();
     }
-    static get DefaultType() {
-      return DefaultType;
-    }
     static get Default() {
       return Default;
+    }
+    static get DefaultType() {
+      return DefaultType;
     }
     static get NAME() {
       return NAME;
@@ -16560,12 +16739,11 @@
       };
       this._element.classList.remove(CLASS_NAME_HIDE);
       reflow(this._element);
-      this._element.classList.add(CLASS_NAME_SHOW);
-      this._element.classList.add(CLASS_NAME_SHOWING);
+      this._element.classList.add(CLASS_NAME_SHOW, CLASS_NAME_SHOWING);
       this._queueCallback(complete, this._element, this._config.animation);
     }
     hide() {
-      if (!this._element.classList.contains(CLASS_NAME_SHOW)) {
+      if (!this.isShown()) {
         return;
       }
       const hideEvent = EventHandler.trigger(this._element, EVENT_HIDE);
@@ -16574,8 +16752,7 @@
       }
       const complete = () => {
         this._element.classList.add(CLASS_NAME_HIDE);
-        this._element.classList.remove(CLASS_NAME_SHOWING);
-        this._element.classList.remove(CLASS_NAME_SHOW);
+        this._element.classList.remove(CLASS_NAME_SHOWING, CLASS_NAME_SHOW);
         EventHandler.trigger(this._element, EVENT_HIDDEN);
       };
       this._element.classList.add(CLASS_NAME_SHOWING);
@@ -16583,19 +16760,13 @@
     }
     dispose() {
       this._clearTimeout();
-      if (this._element.classList.contains(CLASS_NAME_SHOW)) {
+      if (this.isShown()) {
         this._element.classList.remove(CLASS_NAME_SHOW);
       }
       super.dispose();
     }
-    _getConfig(config2) {
-      config2 = {
-        ...Default,
-        ...Manipulator.getDataAttributes(this._element),
-        ...typeof config2 === "object" && config2 ? config2 : {}
-      };
-      typeCheckConfig(NAME, config2, this.constructor.DefaultType);
-      return config2;
+    isShown() {
+      return this._element.classList.contains(CLASS_NAME_SHOW);
     }
     _maybeScheduleHide() {
       if (!this._config.autohide) {
@@ -16611,13 +16782,15 @@
     _onInteraction(event, isInteracting) {
       switch (event.type) {
         case "mouseover":
-        case "mouseout":
+        case "mouseout": {
           this._hasMouseInteraction = isInteracting;
           break;
+        }
         case "focusin":
-        case "focusout":
+        case "focusout": {
           this._hasKeyboardInteraction = isInteracting;
           break;
+        }
       }
       if (isInteracting) {
         this._clearTimeout();
@@ -16829,7 +17002,7 @@
       matchingSelector,
       withCallback,
       inPhase,
-      preventDefault,
+      preventDefault: preventDefault7,
       times
     } = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
     const element = onElement ? onElement : html;
@@ -16844,7 +17017,7 @@
       });
       if (target != null) {
         withCallback === null || withCallback === void 0 ? void 0 : withCallback.call(target, event, target);
-        if (preventDefault) {
+        if (preventDefault7) {
           event.preventDefault();
         }
       }
@@ -27082,7 +27255,7 @@
                       config2.get("list").onMouseOverEvent();
                     }).mouseout(function() {
                       config2.get("list").onMouseOutEvent();
-                    }).html(template.build(highlight(elementsValue, phrase), listData[j]));
+                    }).html(template.build(highlight2(elementsValue, phrase), listData[j]));
                   })();
                   $listContainer.append($item);
                   elementsList.push(listData[i]);
@@ -27098,7 +27271,7 @@
         function removeContainer() {
           $field.next("." + consts.getValue("CONTAINER_CLASS")).remove();
         }
-        function highlight(string, phrase) {
+        function highlight2(string, phrase) {
           if (config2.get("highlightPhrase") && phrase !== "") {
             return highlightPhrase(string, phrase);
           } else {
@@ -27384,40 +27557,14 @@
     };
   })(jQuery);
 
-  // src/site-search.js
-  window.addEventListener("turbo:load", function() {
-    $input = $("[data-behavior='autocomplete']");
-    var options2 = {
-      getValue: "name",
-      url: function(phrase) {
-        return "/search.json?q=" + phrase;
-      },
-      categories: [
-        {
-          listLocation: "cases",
-          header: "<strong>Cases:</strong>"
-        },
-        {
-          listLocation: "locations",
-          header: "<strong>Locations</strong>"
-        }
-      ],
-      list: {
-        onChooseEvent: function() {
-          var url = $input.getSelectedItemData().url;
-          $input.val("");
-          window.location = url;
-        }
-      }
-    };
-    $input.easyAutocomplete(options2);
-  });
-
   // src/geeks_table_search.js
   $(document).on("turbo:load", () => {
     $(".table_search").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $(".searchable tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+      $(".searchable .card").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
       });
     });
@@ -27446,10 +27593,3984 @@
     };
     $input.easyAutocomplete(options2);
   });
+
+  // ../../node_modules/tom-select/dist/esm/contrib/microevent.js
+  function forEvents(events, callback) {
+    events.split(/\s+/).forEach((event) => {
+      callback(event);
+    });
+  }
+  var MicroEvent = class {
+    constructor() {
+      this._events = {};
+    }
+    on(events, fct) {
+      forEvents(events, (event) => {
+        const event_array = this._events[event] || [];
+        event_array.push(fct);
+        this._events[event] = event_array;
+      });
+    }
+    off(events, fct) {
+      var n = arguments.length;
+      if (n === 0) {
+        this._events = {};
+        return;
+      }
+      forEvents(events, (event) => {
+        if (n === 1) {
+          delete this._events[event];
+          return;
+        }
+        const event_array = this._events[event];
+        if (event_array === void 0)
+          return;
+        event_array.splice(event_array.indexOf(fct), 1);
+        this._events[event] = event_array;
+      });
+    }
+    trigger(events, ...args) {
+      var self2 = this;
+      forEvents(events, (event) => {
+        const event_array = self2._events[event];
+        if (event_array === void 0)
+          return;
+        event_array.forEach((fct) => {
+          fct.apply(self2, args);
+        });
+      });
+    }
+  };
+
+  // ../../node_modules/tom-select/dist/esm/contrib/microplugin.js
+  function MicroPlugin(Interface) {
+    Interface.plugins = {};
+    return class extends Interface {
+      constructor() {
+        super(...arguments);
+        this.plugins = {
+          names: [],
+          settings: {},
+          requested: {},
+          loaded: {}
+        };
+      }
+      static define(name, fn2) {
+        Interface.plugins[name] = {
+          "name": name,
+          "fn": fn2
+        };
+      }
+      initializePlugins(plugins) {
+        var key, name;
+        const self2 = this;
+        const queue = [];
+        if (Array.isArray(plugins)) {
+          plugins.forEach((plugin15) => {
+            if (typeof plugin15 === "string") {
+              queue.push(plugin15);
+            } else {
+              self2.plugins.settings[plugin15.name] = plugin15.options;
+              queue.push(plugin15.name);
+            }
+          });
+        } else if (plugins) {
+          for (key in plugins) {
+            if (plugins.hasOwnProperty(key)) {
+              self2.plugins.settings[key] = plugins[key];
+              queue.push(key);
+            }
+          }
+        }
+        while (name = queue.shift()) {
+          self2.require(name);
+        }
+      }
+      loadPlugin(name) {
+        var self2 = this;
+        var plugins = self2.plugins;
+        var plugin15 = Interface.plugins[name];
+        if (!Interface.plugins.hasOwnProperty(name)) {
+          throw new Error('Unable to find "' + name + '" plugin');
+        }
+        plugins.requested[name] = true;
+        plugins.loaded[name] = plugin15.fn.apply(self2, [self2.plugins.settings[name] || {}]);
+        plugins.names.push(name);
+      }
+      require(name) {
+        var self2 = this;
+        var plugins = self2.plugins;
+        if (!self2.plugins.loaded.hasOwnProperty(name)) {
+          if (plugins.requested[name]) {
+            throw new Error('Plugin has circular dependency ("' + name + '")');
+          }
+          self2.loadPlugin(name);
+        }
+        return plugins.loaded[name];
+      }
+    };
+  }
+
+  // ../../node_modules/@orchidjs/unicode-variants/dist/esm/regex.js
+  var arrayToPattern = (chars) => {
+    chars = chars.filter(Boolean);
+    if (chars.length < 2) {
+      return chars[0] || "";
+    }
+    return maxValueLength(chars) == 1 ? "[" + chars.join("") + "]" : "(?:" + chars.join("|") + ")";
+  };
+  var sequencePattern = (array) => {
+    if (!hasDuplicates(array)) {
+      return array.join("");
+    }
+    let pattern = "";
+    let prev_char_count = 0;
+    const prev_pattern = () => {
+      if (prev_char_count > 1) {
+        pattern += "{" + prev_char_count + "}";
+      }
+    };
+    array.forEach((char, i) => {
+      if (char === array[i - 1]) {
+        prev_char_count++;
+        return;
+      }
+      prev_pattern();
+      pattern += char;
+      prev_char_count = 1;
+    });
+    prev_pattern();
+    return pattern;
+  };
+  var setToPattern = (chars) => {
+    let array = Array.from(chars);
+    return arrayToPattern(array);
+  };
+  var hasDuplicates = (array) => {
+    return new Set(array).size !== array.length;
+  };
+  var escape_regex = (str) => {
+    return (str + "").replace(/([\$\(\)\*\+\.\?\[\]\^\{\|\}\\])/gu, "\\$1");
+  };
+  var maxValueLength = (array) => {
+    return array.reduce((longest, value) => Math.max(longest, unicodeLength(value)), 0);
+  };
+  var unicodeLength = (str) => {
+    return Array.from(str).length;
+  };
+
+  // ../../node_modules/@orchidjs/unicode-variants/dist/esm/strings.js
+  var allSubstrings = (input2) => {
+    if (input2.length === 1)
+      return [[input2]];
+    let result = [];
+    const start4 = input2.substring(1);
+    const suba = allSubstrings(start4);
+    suba.forEach(function(subresult) {
+      let tmp = subresult.slice(0);
+      tmp[0] = input2.charAt(0) + tmp[0];
+      result.push(tmp);
+      tmp = subresult.slice(0);
+      tmp.unshift(input2.charAt(0));
+      result.push(tmp);
+    });
+    return result;
+  };
+
+  // ../../node_modules/@orchidjs/unicode-variants/dist/esm/index.js
+  var code_points = [[0, 65535]];
+  var accent_pat = "[\u0300-\u036F\xB7\u02BE\u02BC]";
+  var unicode_map;
+  var multi_char_reg;
+  var max_char_length = 3;
+  var latin_convert = {};
+  var latin_condensed = {
+    "/": "\u2044\u2215",
+    "0": "\u07C0",
+    "a": "\u2C65\u0250\u0251",
+    "aa": "\uA733",
+    "ae": "\xE6\u01FD\u01E3",
+    "ao": "\uA735",
+    "au": "\uA737",
+    "av": "\uA739\uA73B",
+    "ay": "\uA73D",
+    "b": "\u0180\u0253\u0183",
+    "c": "\uA73F\u0188\u023C\u2184",
+    "d": "\u0111\u0257\u0256\u1D05\u018C\uABB7\u0501\u0266",
+    "e": "\u025B\u01DD\u1D07\u0247",
+    "f": "\uA77C\u0192",
+    "g": "\u01E5\u0260\uA7A1\u1D79\uA77F\u0262",
+    "h": "\u0127\u2C68\u2C76\u0265",
+    "i": "\u0268\u0131",
+    "j": "\u0249\u0237",
+    "k": "\u0199\u2C6A\uA741\uA743\uA745\uA7A3",
+    "l": "\u0142\u019A\u026B\u2C61\uA749\uA747\uA781\u026D",
+    "m": "\u0271\u026F\u03FB",
+    "n": "\uA7A5\u019E\u0272\uA791\u1D0E\u043B\u0509",
+    "o": "\xF8\u01FF\u0254\u0275\uA74B\uA74D\u1D11",
+    "oe": "\u0153",
+    "oi": "\u01A3",
+    "oo": "\uA74F",
+    "ou": "\u0223",
+    "p": "\u01A5\u1D7D\uA751\uA753\uA755\u03C1",
+    "q": "\uA757\uA759\u024B",
+    "r": "\u024D\u027D\uA75B\uA7A7\uA783",
+    "s": "\xDF\u023F\uA7A9\uA785\u0282",
+    "t": "\u0167\u01AD\u0288\u2C66\uA787",
+    "th": "\xFE",
+    "tz": "\uA729",
+    "u": "\u0289",
+    "v": "\u028B\uA75F\u028C",
+    "vy": "\uA761",
+    "w": "\u2C73",
+    "y": "\u01B4\u024F\u1EFF",
+    "z": "\u01B6\u0225\u0240\u2C6C\uA763",
+    "hv": "\u0195"
+  };
+  for (let latin in latin_condensed) {
+    let unicode = latin_condensed[latin] || "";
+    for (let i = 0; i < unicode.length; i++) {
+      let char = unicode.substring(i, i + 1);
+      latin_convert[char] = latin;
+    }
+  }
+  var convert_pat = new RegExp(Object.keys(latin_convert).join("|") + "|" + accent_pat, "gu");
+  var initialize = (_code_points) => {
+    if (unicode_map !== void 0)
+      return;
+    unicode_map = generateMap(_code_points || code_points);
+  };
+  var normalize = (str, form = "NFKD") => str.normalize(form);
+  var asciifold = (str) => {
+    return Array.from(str).reduce((result, char) => {
+      return result + _asciifold(char);
+    }, "");
+  };
+  var _asciifold = (str) => {
+    str = normalize(str).toLowerCase().replace(convert_pat, (char) => {
+      return latin_convert[char] || "";
+    });
+    return normalize(str, "NFC");
+  };
+  function* generator(code_points2) {
+    for (const [code_point_min, code_point_max] of code_points2) {
+      for (let i = code_point_min; i <= code_point_max; i++) {
+        let composed = String.fromCharCode(i);
+        let folded = asciifold(composed);
+        if (folded == composed.toLowerCase()) {
+          continue;
+        }
+        if (folded.length > max_char_length) {
+          continue;
+        }
+        if (folded.length == 0) {
+          continue;
+        }
+        yield { folded, composed, code_point: i };
+      }
+    }
+  }
+  var generateSets = (code_points2) => {
+    const unicode_sets = {};
+    const addMatching = (folded, to_add) => {
+      const folded_set = unicode_sets[folded] || /* @__PURE__ */ new Set();
+      const patt = new RegExp("^" + setToPattern(folded_set) + "$", "iu");
+      if (to_add.match(patt)) {
+        return;
+      }
+      folded_set.add(escape_regex(to_add));
+      unicode_sets[folded] = folded_set;
+    };
+    for (let value of generator(code_points2)) {
+      addMatching(value.folded, value.folded);
+      addMatching(value.folded, value.composed);
+    }
+    return unicode_sets;
+  };
+  var generateMap = (code_points2) => {
+    const unicode_sets = generateSets(code_points2);
+    const unicode_map2 = {};
+    let multi_char = [];
+    for (let folded in unicode_sets) {
+      let set = unicode_sets[folded];
+      if (set) {
+        unicode_map2[folded] = setToPattern(set);
+      }
+      if (folded.length > 1) {
+        multi_char.push(escape_regex(folded));
+      }
+    }
+    multi_char.sort((a, b) => b.length - a.length);
+    const multi_char_patt = arrayToPattern(multi_char);
+    multi_char_reg = new RegExp("^" + multi_char_patt, "u");
+    return unicode_map2;
+  };
+  var mapSequence = (strings, min_replacement = 1) => {
+    let chars_replaced = 0;
+    strings = strings.map((str) => {
+      if (unicode_map[str]) {
+        chars_replaced += str.length;
+      }
+      return unicode_map[str] || str;
+    });
+    if (chars_replaced >= min_replacement) {
+      return sequencePattern(strings);
+    }
+    return "";
+  };
+  var substringsToPattern = (str, min_replacement = 1) => {
+    min_replacement = Math.max(min_replacement, str.length - 1);
+    return arrayToPattern(allSubstrings(str).map((sub_pat) => {
+      return mapSequence(sub_pat, min_replacement);
+    }));
+  };
+  var sequencesToPattern = (sequences, all = true) => {
+    let min_replacement = sequences.length > 1 ? 1 : 0;
+    return arrayToPattern(sequences.map((sequence) => {
+      let seq = [];
+      const len = all ? sequence.length() : sequence.length() - 1;
+      for (let j = 0; j < len; j++) {
+        seq.push(substringsToPattern(sequence.substrs[j] || "", min_replacement));
+      }
+      return sequencePattern(seq);
+    }));
+  };
+  var inSequences = (needle_seq, sequences) => {
+    for (const seq of sequences) {
+      if (seq.start != needle_seq.start || seq.end != needle_seq.end) {
+        continue;
+      }
+      if (seq.substrs.join("") !== needle_seq.substrs.join("")) {
+        continue;
+      }
+      let needle_parts = needle_seq.parts;
+      const filter = (part) => {
+        for (const needle_part of needle_parts) {
+          if (needle_part.start === part.start && needle_part.substr === part.substr) {
+            return false;
+          }
+          if (part.length == 1 || needle_part.length == 1) {
+            continue;
+          }
+          if (part.start < needle_part.start && part.end > needle_part.start) {
+            return true;
+          }
+          if (needle_part.start < part.start && needle_part.end > part.start) {
+            return true;
+          }
+        }
+        return false;
+      };
+      let filtered = seq.parts.filter(filter);
+      if (filtered.length > 0) {
+        continue;
+      }
+      return true;
+    }
+    return false;
+  };
+  var Sequence = class {
+    parts;
+    substrs;
+    start;
+    end;
+    constructor() {
+      this.parts = [];
+      this.substrs = [];
+      this.start = 0;
+      this.end = 0;
+    }
+    add(part) {
+      if (part) {
+        this.parts.push(part);
+        this.substrs.push(part.substr);
+        this.start = Math.min(part.start, this.start);
+        this.end = Math.max(part.end, this.end);
+      }
+    }
+    last() {
+      return this.parts[this.parts.length - 1];
+    }
+    length() {
+      return this.parts.length;
+    }
+    clone(position, last_piece) {
+      let clone = new Sequence();
+      let parts = JSON.parse(JSON.stringify(this.parts));
+      let last_part = parts.pop();
+      for (const part of parts) {
+        clone.add(part);
+      }
+      let last_substr = last_piece.substr.substring(0, position - last_part.start);
+      let clone_last_len = last_substr.length;
+      clone.add({ start: last_part.start, end: last_part.start + clone_last_len, length: clone_last_len, substr: last_substr });
+      return clone;
+    }
+  };
+  var getPattern = (str) => {
+    initialize();
+    str = asciifold(str);
+    let pattern = "";
+    let sequences = [new Sequence()];
+    for (let i = 0; i < str.length; i++) {
+      let substr = str.substring(i);
+      let match2 = substr.match(multi_char_reg);
+      const char = str.substring(i, i + 1);
+      const match_str = match2 ? match2[0] : null;
+      let overlapping = [];
+      let added_types = /* @__PURE__ */ new Set();
+      for (const sequence of sequences) {
+        const last_piece = sequence.last();
+        if (!last_piece || last_piece.length == 1 || last_piece.end <= i) {
+          if (match_str) {
+            const len = match_str.length;
+            sequence.add({ start: i, end: i + len, length: len, substr: match_str });
+            added_types.add("1");
+          } else {
+            sequence.add({ start: i, end: i + 1, length: 1, substr: char });
+            added_types.add("2");
+          }
+        } else if (match_str) {
+          let clone = sequence.clone(i, last_piece);
+          const len = match_str.length;
+          clone.add({ start: i, end: i + len, length: len, substr: match_str });
+          overlapping.push(clone);
+        } else {
+          added_types.add("3");
+        }
+      }
+      if (overlapping.length > 0) {
+        overlapping = overlapping.sort((a, b) => {
+          return a.length() - b.length();
+        });
+        for (let clone of overlapping) {
+          if (inSequences(clone, sequences)) {
+            continue;
+          }
+          sequences.push(clone);
+        }
+        continue;
+      }
+      if (i > 0 && added_types.size == 1 && !added_types.has("3")) {
+        pattern += sequencesToPattern(sequences, false);
+        let new_seq = new Sequence();
+        const old_seq = sequences[0];
+        if (old_seq) {
+          new_seq.add(old_seq.last());
+        }
+        sequences = [new_seq];
+      }
+    }
+    pattern += sequencesToPattern(sequences, true);
+    return pattern;
+  };
+
+  // ../../node_modules/@orchidjs/sifter/dist/esm/utils.js
+  var getAttr = (obj, name) => {
+    if (!obj)
+      return;
+    return obj[name];
+  };
+  var getAttrNesting = (obj, name) => {
+    if (!obj)
+      return;
+    var part, names = name.split(".");
+    while ((part = names.shift()) && (obj = obj[part]))
+      ;
+    return obj;
+  };
+  var scoreValue = (value, token, weight) => {
+    var score, pos;
+    if (!value)
+      return 0;
+    value = value + "";
+    if (token.regex == null)
+      return 0;
+    pos = value.search(token.regex);
+    if (pos === -1)
+      return 0;
+    score = token.string.length / value.length;
+    if (pos === 0)
+      score += 0.5;
+    return score * weight;
+  };
+  var propToArray = (obj, key) => {
+    var value = obj[key];
+    if (typeof value == "function")
+      return value;
+    if (value && !Array.isArray(value)) {
+      obj[key] = [value];
+    }
+  };
+  var iterate = (object2, callback) => {
+    if (Array.isArray(object2)) {
+      object2.forEach(callback);
+    } else {
+      for (var key in object2) {
+        if (object2.hasOwnProperty(key)) {
+          callback(object2[key], key);
+        }
+      }
+    }
+  };
+  var cmp = (a, b) => {
+    if (typeof a === "number" && typeof b === "number") {
+      return a > b ? 1 : a < b ? -1 : 0;
+    }
+    a = asciifold(a + "").toLowerCase();
+    b = asciifold(b + "").toLowerCase();
+    if (a > b)
+      return 1;
+    if (b > a)
+      return -1;
+    return 0;
+  };
+
+  // ../../node_modules/@orchidjs/sifter/dist/esm/sifter.js
+  var Sifter = class {
+    items;
+    settings;
+    constructor(items, settings) {
+      this.items = items;
+      this.settings = settings || { diacritics: true };
+    }
+    tokenize(query, respect_word_boundaries, weights) {
+      if (!query || !query.length)
+        return [];
+      const tokens = [];
+      const words = query.split(/\s+/);
+      var field_regex;
+      if (weights) {
+        field_regex = new RegExp("^(" + Object.keys(weights).map(escape_regex).join("|") + "):(.*)$");
+      }
+      words.forEach((word) => {
+        let field_match;
+        let field = null;
+        let regex = null;
+        if (field_regex && (field_match = word.match(field_regex))) {
+          field = field_match[1];
+          word = field_match[2];
+        }
+        if (word.length > 0) {
+          if (this.settings.diacritics) {
+            regex = getPattern(word) || null;
+          } else {
+            regex = escape_regex(word);
+          }
+          if (regex && respect_word_boundaries)
+            regex = "\\b" + regex;
+        }
+        tokens.push({
+          string: word,
+          regex: regex ? new RegExp(regex, "iu") : null,
+          field
+        });
+      });
+      return tokens;
+    }
+    getScoreFunction(query, options2) {
+      var search = this.prepareSearch(query, options2);
+      return this._getScoreFunction(search);
+    }
+    _getScoreFunction(search) {
+      const tokens = search.tokens, token_count = tokens.length;
+      if (!token_count) {
+        return function() {
+          return 0;
+        };
+      }
+      const fields = search.options.fields, weights = search.weights, field_count = fields.length, getAttrFn = search.getAttrFn;
+      if (!field_count) {
+        return function() {
+          return 1;
+        };
+      }
+      const scoreObject = function() {
+        if (field_count === 1) {
+          return function(token, data) {
+            const field = fields[0].field;
+            return scoreValue(getAttrFn(data, field), token, weights[field] || 1);
+          };
+        }
+        return function(token, data) {
+          var sum = 0;
+          if (token.field) {
+            const value = getAttrFn(data, token.field);
+            if (!token.regex && value) {
+              sum += 1 / field_count;
+            } else {
+              sum += scoreValue(value, token, 1);
+            }
+          } else {
+            iterate(weights, (weight, field) => {
+              sum += scoreValue(getAttrFn(data, field), token, weight);
+            });
+          }
+          return sum / field_count;
+        };
+      }();
+      if (token_count === 1) {
+        return function(data) {
+          return scoreObject(tokens[0], data);
+        };
+      }
+      if (search.options.conjunction === "and") {
+        return function(data) {
+          var score, sum = 0;
+          for (let token of tokens) {
+            score = scoreObject(token, data);
+            if (score <= 0)
+              return 0;
+            sum += score;
+          }
+          return sum / token_count;
+        };
+      } else {
+        return function(data) {
+          var sum = 0;
+          iterate(tokens, (token) => {
+            sum += scoreObject(token, data);
+          });
+          return sum / token_count;
+        };
+      }
+    }
+    getSortFunction(query, options2) {
+      var search = this.prepareSearch(query, options2);
+      return this._getSortFunction(search);
+    }
+    _getSortFunction(search) {
+      var implicit_score, sort_flds = [];
+      const self2 = this, options2 = search.options, sort = !search.query && options2.sort_empty ? options2.sort_empty : options2.sort;
+      if (typeof sort == "function") {
+        return sort.bind(this);
+      }
+      const get_field = function(name, result) {
+        if (name === "$score")
+          return result.score;
+        return search.getAttrFn(self2.items[result.id], name);
+      };
+      if (sort) {
+        for (let s of sort) {
+          if (search.query || s.field !== "$score") {
+            sort_flds.push(s);
+          }
+        }
+      }
+      if (search.query) {
+        implicit_score = true;
+        for (let fld of sort_flds) {
+          if (fld.field === "$score") {
+            implicit_score = false;
+            break;
+          }
+        }
+        if (implicit_score) {
+          sort_flds.unshift({ field: "$score", direction: "desc" });
+        }
+      } else {
+        sort_flds = sort_flds.filter((fld) => fld.field !== "$score");
+      }
+      const sort_flds_count = sort_flds.length;
+      if (!sort_flds_count) {
+        return null;
+      }
+      return function(a, b) {
+        var result, field;
+        for (let sort_fld of sort_flds) {
+          field = sort_fld.field;
+          let multiplier = sort_fld.direction === "desc" ? -1 : 1;
+          result = multiplier * cmp(get_field(field, a), get_field(field, b));
+          if (result)
+            return result;
+        }
+        return 0;
+      };
+    }
+    prepareSearch(query, optsUser) {
+      const weights = {};
+      var options2 = Object.assign({}, optsUser);
+      propToArray(options2, "sort");
+      propToArray(options2, "sort_empty");
+      if (options2.fields) {
+        propToArray(options2, "fields");
+        const fields = [];
+        options2.fields.forEach((field) => {
+          if (typeof field == "string") {
+            field = { field, weight: 1 };
+          }
+          fields.push(field);
+          weights[field.field] = "weight" in field ? field.weight : 1;
+        });
+        options2.fields = fields;
+      }
+      return {
+        options: options2,
+        query: query.toLowerCase().trim(),
+        tokens: this.tokenize(query, options2.respect_word_boundaries, weights),
+        total: 0,
+        items: [],
+        weights,
+        getAttrFn: options2.nesting ? getAttrNesting : getAttr
+      };
+    }
+    search(query, options2) {
+      var self2 = this, score, search;
+      search = this.prepareSearch(query, options2);
+      options2 = search.options;
+      query = search.query;
+      const fn_score = options2.score || self2._getScoreFunction(search);
+      if (query.length) {
+        iterate(self2.items, (item, id3) => {
+          score = fn_score(item);
+          if (options2.filter === false || score > 0) {
+            search.items.push({ "score": score, "id": id3 });
+          }
+        });
+      } else {
+        iterate(self2.items, (_2, id3) => {
+          search.items.push({ "score": 1, "id": id3 });
+        });
+      }
+      const fn_sort = self2._getSortFunction(search);
+      if (fn_sort)
+        search.items.sort(fn_sort);
+      search.total = search.items.length;
+      if (typeof options2.limit === "number") {
+        search.items = search.items.slice(0, options2.limit);
+      }
+      return search;
+    }
+  };
+
+  // ../../node_modules/tom-select/dist/esm/utils.js
+  var hash_key = (value) => {
+    if (typeof value === "undefined" || value === null)
+      return null;
+    return get_hash(value);
+  };
+  var get_hash = (value) => {
+    if (typeof value === "boolean")
+      return value ? "1" : "0";
+    return value + "";
+  };
+  var escape_html = (str) => {
+    return (str + "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  };
+  var timeout = (fn2, timeout2) => {
+    if (timeout2 > 0) {
+      return window.setTimeout(fn2, timeout2);
+    }
+    fn2.call(null);
+    return null;
+  };
+  var loadDebounce = (fn2, delay) => {
+    var timeout2;
+    return function(value, callback) {
+      var self2 = this;
+      if (timeout2) {
+        self2.loading = Math.max(self2.loading - 1, 0);
+        clearTimeout(timeout2);
+      }
+      timeout2 = setTimeout(function() {
+        timeout2 = null;
+        self2.loadedSearches[value] = true;
+        fn2.call(self2, value, callback);
+      }, delay);
+    };
+  };
+  var debounce_events = (self2, types, fn2) => {
+    var type;
+    var trigger = self2.trigger;
+    var event_args = {};
+    self2.trigger = function() {
+      var type2 = arguments[0];
+      if (types.indexOf(type2) !== -1) {
+        event_args[type2] = arguments;
+      } else {
+        return trigger.apply(self2, arguments);
+      }
+    };
+    fn2.apply(self2, []);
+    self2.trigger = trigger;
+    for (type of types) {
+      if (type in event_args) {
+        trigger.apply(self2, event_args[type]);
+      }
+    }
+  };
+  var getSelection = (input2) => {
+    return {
+      start: input2.selectionStart || 0,
+      length: (input2.selectionEnd || 0) - (input2.selectionStart || 0)
+    };
+  };
+  var preventDefault = (evt, stop = false) => {
+    if (evt) {
+      evt.preventDefault();
+      if (stop) {
+        evt.stopPropagation();
+      }
+    }
+  };
+  var addEvent = (target, type, callback, options2) => {
+    target.addEventListener(type, callback, options2);
+  };
+  var isKeyDown = (key_name, evt) => {
+    if (!evt) {
+      return false;
+    }
+    if (!evt[key_name]) {
+      return false;
+    }
+    var count = (evt.altKey ? 1 : 0) + (evt.ctrlKey ? 1 : 0) + (evt.shiftKey ? 1 : 0) + (evt.metaKey ? 1 : 0);
+    if (count === 1) {
+      return true;
+    }
+    return false;
+  };
+  var getId = (el, id3) => {
+    const existing_id = el.getAttribute("id");
+    if (existing_id) {
+      return existing_id;
+    }
+    el.setAttribute("id", id3);
+    return id3;
+  };
+  var addSlashes = (str) => {
+    return str.replace(/[\\"']/g, "\\$&");
+  };
+  var append = (parent, node) => {
+    if (node)
+      parent.append(node);
+  };
+  var iterate2 = (object2, callback) => {
+    if (Array.isArray(object2)) {
+      object2.forEach(callback);
+    } else {
+      for (var key in object2) {
+        if (object2.hasOwnProperty(key)) {
+          callback(object2[key], key);
+        }
+      }
+    }
+  };
+
+  // ../../node_modules/tom-select/dist/esm/vanilla.js
+  var getDom = (query) => {
+    if (query.jquery) {
+      return query[0];
+    }
+    if (query instanceof HTMLElement) {
+      return query;
+    }
+    if (isHtmlString(query)) {
+      var tpl = document.createElement("template");
+      tpl.innerHTML = query.trim();
+      return tpl.content.firstChild;
+    }
+    return document.querySelector(query);
+  };
+  var isHtmlString = (arg) => {
+    if (typeof arg === "string" && arg.indexOf("<") > -1) {
+      return true;
+    }
+    return false;
+  };
+  var escapeQuery = (query) => {
+    return query.replace(/['"\\]/g, "\\$&");
+  };
+  var triggerEvent2 = (dom_el, event_name) => {
+    var event = document.createEvent("HTMLEvents");
+    event.initEvent(event_name, true, false);
+    dom_el.dispatchEvent(event);
+  };
+  var applyCSS = (dom_el, css2) => {
+    Object.assign(dom_el.style, css2);
+  };
+  var addClasses = (elmts, ...classes) => {
+    var norm_classes = classesArray(classes);
+    elmts = castAsArray(elmts);
+    elmts.map((el) => {
+      norm_classes.map((cls) => {
+        el.classList.add(cls);
+      });
+    });
+  };
+  var removeClasses = (elmts, ...classes) => {
+    var norm_classes = classesArray(classes);
+    elmts = castAsArray(elmts);
+    elmts.map((el) => {
+      norm_classes.map((cls) => {
+        el.classList.remove(cls);
+      });
+    });
+  };
+  var classesArray = (args) => {
+    var classes = [];
+    iterate2(args, (_classes) => {
+      if (typeof _classes === "string") {
+        _classes = _classes.trim().split(/[\t\n\f\r\s]/);
+      }
+      if (Array.isArray(_classes)) {
+        classes = classes.concat(_classes);
+      }
+    });
+    return classes.filter(Boolean);
+  };
+  var castAsArray = (arg) => {
+    if (!Array.isArray(arg)) {
+      arg = [arg];
+    }
+    return arg;
+  };
+  var parentMatch = (target, selector, wrapper) => {
+    if (wrapper && !wrapper.contains(target)) {
+      return;
+    }
+    while (target && target.matches) {
+      if (target.matches(selector)) {
+        return target;
+      }
+      target = target.parentNode;
+    }
+  };
+  var getTail = (list, direction = 0) => {
+    if (direction > 0) {
+      return list[list.length - 1];
+    }
+    return list[0];
+  };
+  var isEmptyObject = (obj) => {
+    return Object.keys(obj).length === 0;
+  };
+  var nodeIndex = (el, amongst) => {
+    if (!el)
+      return -1;
+    amongst = amongst || el.nodeName;
+    var i = 0;
+    while (el = el.previousElementSibling) {
+      if (el.matches(amongst)) {
+        i++;
+      }
+    }
+    return i;
+  };
+  var setAttr = (el, attrs) => {
+    iterate2(attrs, (val, attr) => {
+      if (val == null) {
+        el.removeAttribute(attr);
+      } else {
+        el.setAttribute(attr, "" + val);
+      }
+    });
+  };
+  var replaceNode = (existing, replacement) => {
+    if (existing.parentNode)
+      existing.parentNode.replaceChild(replacement, existing);
+  };
+
+  // ../../node_modules/tom-select/dist/esm/contrib/highlight.js
+  var highlight = (element, regex) => {
+    if (regex === null)
+      return;
+    if (typeof regex === "string") {
+      if (!regex.length)
+        return;
+      regex = new RegExp(regex, "i");
+    }
+    const highlightText = (node) => {
+      var match2 = node.data.match(regex);
+      if (match2 && node.data.length > 0) {
+        var spannode = document.createElement("span");
+        spannode.className = "highlight";
+        var middlebit = node.splitText(match2.index);
+        middlebit.splitText(match2[0].length);
+        var middleclone = middlebit.cloneNode(true);
+        spannode.appendChild(middleclone);
+        replaceNode(middlebit, spannode);
+        return 1;
+      }
+      return 0;
+    };
+    const highlightChildren = (node) => {
+      if (node.nodeType === 1 && node.childNodes && !/(script|style)/i.test(node.tagName) && (node.className !== "highlight" || node.tagName !== "SPAN")) {
+        Array.from(node.childNodes).forEach((element2) => {
+          highlightRecursive(element2);
+        });
+      }
+    };
+    const highlightRecursive = (node) => {
+      if (node.nodeType === 3) {
+        return highlightText(node);
+      }
+      highlightChildren(node);
+      return 0;
+    };
+    highlightRecursive(element);
+  };
+  var removeHighlight = (el) => {
+    var elements = el.querySelectorAll("span.highlight");
+    Array.prototype.forEach.call(elements, function(el2) {
+      var parent = el2.parentNode;
+      parent.replaceChild(el2.firstChild, el2);
+      parent.normalize();
+    });
+  };
+
+  // ../../node_modules/tom-select/dist/esm/constants.js
+  var KEY_A = 65;
+  var KEY_RETURN = 13;
+  var KEY_ESC = 27;
+  var KEY_LEFT = 37;
+  var KEY_UP = 38;
+  var KEY_RIGHT = 39;
+  var KEY_DOWN = 40;
+  var KEY_BACKSPACE = 8;
+  var KEY_DELETE = 46;
+  var KEY_TAB = 9;
+  var IS_MAC = typeof navigator === "undefined" ? false : /Mac/.test(navigator.userAgent);
+  var KEY_SHORTCUT = IS_MAC ? "metaKey" : "ctrlKey";
+
+  // ../../node_modules/tom-select/dist/esm/defaults.js
+  var defaults_default = {
+    options: [],
+    optgroups: [],
+    plugins: [],
+    delimiter: ",",
+    splitOn: null,
+    persist: true,
+    diacritics: true,
+    create: null,
+    createOnBlur: false,
+    createFilter: null,
+    clearAfterSelect: false,
+    highlight: true,
+    openOnFocus: true,
+    shouldOpen: null,
+    maxOptions: 50,
+    maxItems: null,
+    hideSelected: null,
+    duplicates: false,
+    addPrecedence: false,
+    selectOnTab: false,
+    preload: null,
+    allowEmptyOption: false,
+    refreshThrottle: 300,
+    loadThrottle: 300,
+    loadingClass: "loading",
+    dataAttr: null,
+    optgroupField: "optgroup",
+    valueField: "value",
+    labelField: "text",
+    disabledField: "disabled",
+    optgroupLabelField: "label",
+    optgroupValueField: "value",
+    lockOptgroupOrder: false,
+    sortField: "$order",
+    searchField: ["text"],
+    searchConjunction: "and",
+    mode: null,
+    wrapperClass: "ts-wrapper",
+    controlClass: "ts-control",
+    dropdownClass: "ts-dropdown",
+    dropdownContentClass: "ts-dropdown-content",
+    itemClass: "item",
+    optionClass: "option",
+    dropdownParent: null,
+    controlInput: '<input type="text" autocomplete="off" size="1" />',
+    copyClassesToDropdown: false,
+    placeholder: null,
+    hidePlaceholder: null,
+    shouldLoad: function(query) {
+      return query.length > 0;
+    },
+    render: {}
+  };
+
+  // ../../node_modules/tom-select/dist/esm/getSettings.js
+  function getSettings(input2, settings_user) {
+    var settings = Object.assign({}, defaults_default, settings_user);
+    var attr_data = settings.dataAttr;
+    var field_label = settings.labelField;
+    var field_value = settings.valueField;
+    var field_disabled = settings.disabledField;
+    var field_optgroup = settings.optgroupField;
+    var field_optgroup_label = settings.optgroupLabelField;
+    var field_optgroup_value = settings.optgroupValueField;
+    var tag_name = input2.tagName.toLowerCase();
+    var placeholder = input2.getAttribute("placeholder") || input2.getAttribute("data-placeholder");
+    if (!placeholder && !settings.allowEmptyOption) {
+      let option = input2.querySelector('option[value=""]');
+      if (option) {
+        placeholder = option.textContent;
+      }
+    }
+    var settings_element = {
+      placeholder,
+      options: [],
+      optgroups: [],
+      items: [],
+      maxItems: null
+    };
+    var init_select = () => {
+      var tagName2;
+      var options2 = settings_element.options;
+      var optionsMap = {};
+      var group_count = 1;
+      let $order = 0;
+      var readData = (el) => {
+        var data = Object.assign({}, el.dataset);
+        var json = attr_data && data[attr_data];
+        if (typeof json === "string" && json.length) {
+          data = Object.assign(data, JSON.parse(json));
+        }
+        return data;
+      };
+      var addOption = (option, group) => {
+        var value = hash_key(option.value);
+        if (value == null)
+          return;
+        if (!value && !settings.allowEmptyOption)
+          return;
+        if (optionsMap.hasOwnProperty(value)) {
+          if (group) {
+            var arr = optionsMap[value][field_optgroup];
+            if (!arr) {
+              optionsMap[value][field_optgroup] = group;
+            } else if (!Array.isArray(arr)) {
+              optionsMap[value][field_optgroup] = [arr, group];
+            } else {
+              arr.push(group);
+            }
+          }
+        } else {
+          var option_data = readData(option);
+          option_data[field_label] = option_data[field_label] || option.textContent;
+          option_data[field_value] = option_data[field_value] || value;
+          option_data[field_disabled] = option_data[field_disabled] || option.disabled;
+          option_data[field_optgroup] = option_data[field_optgroup] || group;
+          option_data.$option = option;
+          option_data.$order = option_data.$order || ++$order;
+          optionsMap[value] = option_data;
+          options2.push(option_data);
+        }
+        if (option.selected) {
+          settings_element.items.push(value);
+        }
+      };
+      var addGroup = (optgroup) => {
+        var id3, optgroup_data;
+        optgroup_data = readData(optgroup);
+        optgroup_data[field_optgroup_label] = optgroup_data[field_optgroup_label] || optgroup.getAttribute("label") || "";
+        optgroup_data[field_optgroup_value] = optgroup_data[field_optgroup_value] || group_count++;
+        optgroup_data[field_disabled] = optgroup_data[field_disabled] || optgroup.disabled;
+        optgroup_data.$order = optgroup_data.$order || ++$order;
+        settings_element.optgroups.push(optgroup_data);
+        id3 = optgroup_data[field_optgroup_value];
+        iterate2(optgroup.children, (option) => {
+          addOption(option, id3);
+        });
+      };
+      settings_element.maxItems = input2.hasAttribute("multiple") ? null : 1;
+      iterate2(input2.children, (child) => {
+        tagName2 = child.tagName.toLowerCase();
+        if (tagName2 === "optgroup") {
+          addGroup(child);
+        } else if (tagName2 === "option") {
+          addOption(child);
+        }
+      });
+    };
+    var init_textbox = () => {
+      var _a, _b;
+      const data_raw = input2.getAttribute(attr_data);
+      if (!data_raw) {
+        var value = (_b = (_a = input2 === null || input2 === void 0 ? void 0 : input2.value) === null || _a === void 0 ? void 0 : _a.trim()) !== null && _b !== void 0 ? _b : "";
+        if (!settings.allowEmptyOption && !value.length)
+          return;
+        const values = value.split(settings.delimiter);
+        iterate2(values, (value2) => {
+          const option = {};
+          option[field_label] = value2;
+          option[field_value] = value2;
+          settings_element.options.push(option);
+        });
+        settings_element.items = values;
+      } else {
+        settings_element.options = JSON.parse(data_raw);
+        iterate2(settings_element.options, (opt) => {
+          settings_element.items.push(opt[field_value]);
+        });
+      }
+    };
+    if (tag_name === "select") {
+      init_select();
+    } else {
+      init_textbox();
+    }
+    return Object.assign({}, defaults_default, settings_element, settings_user);
+  }
+
+  // ../../node_modules/tom-select/dist/esm/tom-select.js
+  var instance_i = 0;
+  var TomSelect = class extends MicroPlugin(MicroEvent) {
+    constructor(input_arg, user_settings) {
+      super();
+      this.order = 0;
+      this.isOpen = false;
+      this.isDisabled = false;
+      this.isReadOnly = false;
+      this.isInvalid = false;
+      this.isValid = true;
+      this.isLocked = false;
+      this.isFocused = false;
+      this.isInputHidden = false;
+      this.isSetup = false;
+      this.isDropdownContentStale = true;
+      this.ignoreFocus = false;
+      this.ignoreHover = false;
+      this.hasOptions = false;
+      this.lastValue = "";
+      this.caretPos = 0;
+      this.loading = 0;
+      this.loadedSearches = {};
+      this.activeOption = null;
+      this.activeItems = [];
+      this.optgroups = {};
+      this.options = {};
+      this.userOptions = {};
+      this.items = [];
+      this.refreshTimeout = null;
+      instance_i++;
+      var dir;
+      var input2 = getDom(input_arg);
+      if (input2.tomselect) {
+        throw new Error("Tom Select already initialized on this element");
+      }
+      input2.tomselect = this;
+      var computedStyle = window.getComputedStyle && window.getComputedStyle(input2, null);
+      dir = computedStyle.getPropertyValue("direction");
+      const settings = getSettings(input2, user_settings);
+      this.settings = settings;
+      this.input = input2;
+      this.tabIndex = input2.tabIndex || 0;
+      this.is_select_tag = input2.tagName.toLowerCase() === "select";
+      this.rtl = /rtl/i.test(dir);
+      this.inputId = getId(input2, "tomselect-" + instance_i);
+      this.isRequired = input2.required;
+      this.sifter = new Sifter(this.options, { diacritics: settings.diacritics });
+      settings.mode = settings.mode || (settings.maxItems === 1 ? "single" : "multi");
+      if (typeof settings.hideSelected !== "boolean") {
+        settings.hideSelected = settings.mode === "multi";
+      }
+      if (typeof settings.hidePlaceholder !== "boolean") {
+        settings.hidePlaceholder = settings.mode !== "multi";
+      }
+      var filter = settings.createFilter;
+      if (typeof filter !== "function") {
+        if (typeof filter === "string") {
+          filter = new RegExp(filter);
+        }
+        if (filter instanceof RegExp) {
+          settings.createFilter = (input3) => filter.test(input3);
+        } else {
+          settings.createFilter = (value) => {
+            return this.settings.duplicates || !this.options[value];
+          };
+        }
+      }
+      this.initializePlugins(settings.plugins);
+      this.setupCallbacks();
+      this.setupTemplates();
+      const wrapper = getDom("<div>");
+      const control = getDom("<div>");
+      const dropdown = this._render("dropdown");
+      const dropdown_content = getDom(`<div role="listbox" tabindex="-1">`);
+      const classes = this.input.getAttribute("class") || "";
+      const inputMode = settings.mode;
+      var control_input;
+      addClasses(wrapper, settings.wrapperClass, classes, inputMode);
+      addClasses(control, settings.controlClass);
+      append(wrapper, control);
+      addClasses(dropdown, settings.dropdownClass, inputMode);
+      if (settings.copyClassesToDropdown) {
+        addClasses(dropdown, classes);
+      }
+      addClasses(dropdown_content, settings.dropdownContentClass);
+      append(dropdown, dropdown_content);
+      getDom(settings.dropdownParent || wrapper).appendChild(dropdown);
+      if (isHtmlString(settings.controlInput)) {
+        control_input = getDom(settings.controlInput);
+        var attrs = ["autocorrect", "autocapitalize", "autocomplete", "spellcheck", "aria-label"];
+        iterate2(attrs, (attr) => {
+          if (input2.getAttribute(attr)) {
+            setAttr(control_input, { [attr]: input2.getAttribute(attr) });
+          }
+        });
+        control_input.tabIndex = -1;
+        control.appendChild(control_input);
+        this.focus_node = control_input;
+      } else if (settings.controlInput) {
+        control_input = getDom(settings.controlInput);
+        this.focus_node = control_input;
+      } else {
+        control_input = getDom("<input/>");
+        this.focus_node = control;
+      }
+      this.wrapper = wrapper;
+      this.dropdown = dropdown;
+      this.dropdown_content = dropdown_content;
+      this.control = control;
+      this.control_input = control_input;
+      this.setup();
+    }
+    setup() {
+      const self2 = this;
+      const settings = self2.settings;
+      const control_input = self2.control_input;
+      const dropdown = self2.dropdown;
+      const dropdown_content = self2.dropdown_content;
+      const wrapper = self2.wrapper;
+      const control = self2.control;
+      const input2 = self2.input;
+      const focus_node = self2.focus_node;
+      const passive_event = { passive: true };
+      const listboxId = self2.inputId + "-ts-dropdown";
+      setAttr(dropdown_content, {
+        id: listboxId
+      });
+      setAttr(focus_node, {
+        role: "combobox",
+        "aria-haspopup": "listbox",
+        "aria-expanded": "false",
+        "aria-controls": listboxId
+      });
+      const control_id = getId(focus_node, self2.inputId + "-ts-control");
+      const query = "label[for='" + escapeQuery(self2.inputId) + "']";
+      const label = document.querySelector(query);
+      const label_click = self2.focus.bind(self2);
+      if (label) {
+        addEvent(label, "click", label_click);
+        setAttr(label, { for: control_id });
+        const label_id = getId(label, self2.inputId + "-ts-label");
+        setAttr(focus_node, { "aria-labelledby": label_id });
+        setAttr(dropdown_content, { "aria-labelledby": label_id });
+      }
+      wrapper.style.width = input2.style.width;
+      wrapper.style.minWidth = input2.style.minWidth;
+      wrapper.style.maxWidth = input2.style.maxWidth;
+      if (self2.plugins.names.length) {
+        const classes_plugins = "plugin-" + self2.plugins.names.join(" plugin-");
+        addClasses([wrapper, dropdown], classes_plugins);
+      }
+      if ((settings.maxItems === null || settings.maxItems > 1) && self2.is_select_tag) {
+        setAttr(input2, { multiple: "multiple" });
+      }
+      if (settings.placeholder) {
+        setAttr(control_input, { placeholder: settings.placeholder });
+      }
+      if (!settings.splitOn && settings.delimiter) {
+        settings.splitOn = new RegExp("\\s*" + escape_regex(settings.delimiter) + "+\\s*");
+      }
+      if (settings.load && settings.loadThrottle) {
+        settings.load = loadDebounce(settings.load, settings.loadThrottle);
+      }
+      addEvent(dropdown, "mousemove", () => {
+        self2.ignoreHover = false;
+      });
+      addEvent(dropdown, "mouseenter", (e) => {
+        var target_match = parentMatch(e.target, "[data-selectable]", dropdown);
+        if (target_match)
+          self2.onOptionHover(e, target_match);
+      }, { capture: true });
+      addEvent(dropdown, "click", (evt) => {
+        const option = parentMatch(evt.target, "[data-selectable]");
+        if (option) {
+          self2.onOptionSelect(evt, option);
+          preventDefault(evt, true);
+        }
+      });
+      addEvent(control, "click", (evt) => {
+        var target_match = parentMatch(evt.target, "[data-ts-item]", control);
+        if (target_match && self2.onItemSelect(evt, target_match)) {
+          preventDefault(evt, true);
+          return;
+        }
+        if (control_input.value != "") {
+          return;
+        }
+        self2.onClick();
+        preventDefault(evt, true);
+      });
+      addEvent(focus_node, "keydown", (e) => self2.onKeyDown(e));
+      addEvent(control_input, "keypress", (e) => self2.onKeyPress(e));
+      addEvent(control_input, "input", (e) => self2.onInput(e));
+      addEvent(focus_node, "blur", (e) => self2.onBlur(e));
+      addEvent(focus_node, "focus", (e) => self2.onFocus(e));
+      addEvent(control_input, "paste", (e) => self2.onPaste(e));
+      const doc_mousedown = (evt) => {
+        const target = evt.composedPath()[0];
+        if (!wrapper.contains(target) && !dropdown.contains(target)) {
+          if (self2.isFocused) {
+            self2.blur();
+          }
+          self2.inputState();
+          return;
+        }
+        if (target == control_input && self2.isOpen) {
+          evt.stopPropagation();
+        } else {
+          preventDefault(evt, true);
+        }
+      };
+      const win_scroll = () => {
+        if (self2.isOpen) {
+          self2.positionDropdown();
+        }
+      };
+      const input_invalid = () => {
+        if (self2.isValid) {
+          self2.isValid = false;
+          self2.isInvalid = true;
+          self2.refreshState();
+        }
+      };
+      addEvent(input2, "invalid", input_invalid);
+      addEvent(document, "mousedown", doc_mousedown);
+      addEvent(window, "scroll", win_scroll, passive_event);
+      addEvent(window, "resize", win_scroll, passive_event);
+      this._destroy = () => {
+        input2.removeEventListener("invalid", input_invalid);
+        document.removeEventListener("mousedown", doc_mousedown);
+        window.removeEventListener("scroll", win_scroll);
+        window.removeEventListener("resize", win_scroll);
+        if (label)
+          label.removeEventListener("click", label_click);
+      };
+      this.revertSettings = {
+        innerHTML: input2.innerHTML,
+        tabIndex: input2.tabIndex
+      };
+      input2.tabIndex = -1;
+      input2.insertAdjacentElement("afterend", self2.wrapper);
+      self2.sync(false);
+      settings.items = [];
+      delete settings.optgroups;
+      delete settings.options;
+      self2.refreshItems();
+      self2.close(false);
+      self2.inputState();
+      self2.isSetup = true;
+      self2.on("change", this.onChange);
+      addClasses(input2, "tomselected", "ts-hidden-accessible");
+      self2.trigger("initialize");
+      if (settings.preload === true) {
+        self2.preload();
+      }
+    }
+    setupOptions(options2 = [], optgroups = []) {
+      this.addOptions(options2);
+      iterate2(optgroups, (optgroup) => {
+        this.registerOptionGroup(optgroup);
+      });
+    }
+    setupTemplates() {
+      var self2 = this;
+      var field_label = self2.settings.labelField;
+      var field_optgroup = self2.settings.optgroupLabelField;
+      var templates = {
+        "optgroup": (data) => {
+          let optgroup = document.createElement("div");
+          optgroup.className = "optgroup";
+          optgroup.appendChild(data.options);
+          return optgroup;
+        },
+        "optgroup_header": (data, escape) => {
+          return '<div class="optgroup-header">' + escape(data[field_optgroup]) + "</div>";
+        },
+        "option": (data, escape) => {
+          return "<div>" + escape(data[field_label]) + "</div>";
+        },
+        "item": (data, escape) => {
+          return "<div>" + escape(data[field_label]) + "</div>";
+        },
+        "option_create": (data, escape) => {
+          return '<div class="create">Add <strong>' + escape(data.input) + "</strong>&hellip;</div>";
+        },
+        "no_results": () => {
+          return '<div class="no-results">No results found</div>';
+        },
+        "loading": () => {
+          return '<div class="spinner"></div>';
+        },
+        "not_loading": () => {
+        },
+        "dropdown": () => {
+          return "<div></div>";
+        }
+      };
+      self2.settings.render = Object.assign({}, templates, self2.settings.render);
+    }
+    setupCallbacks() {
+      var key, fn2;
+      var callbacks = {
+        "initialize": "onInitialize",
+        "change": "onChange",
+        "item_add": "onItemAdd",
+        "item_remove": "onItemRemove",
+        "item_select": "onItemSelect",
+        "clear": "onClear",
+        "option_add": "onOptionAdd",
+        "option_remove": "onOptionRemove",
+        "option_clear": "onOptionClear",
+        "optgroup_add": "onOptionGroupAdd",
+        "optgroup_remove": "onOptionGroupRemove",
+        "optgroup_clear": "onOptionGroupClear",
+        "dropdown_open": "onDropdownOpen",
+        "dropdown_close": "onDropdownClose",
+        "type": "onType",
+        "load": "onLoad",
+        "focus": "onFocus",
+        "blur": "onBlur"
+      };
+      for (key in callbacks) {
+        fn2 = this.settings[callbacks[key]];
+        if (fn2)
+          this.on(key, fn2);
+      }
+    }
+    sync(get_settings = true) {
+      const self2 = this;
+      const settings = get_settings ? getSettings(self2.input, { delimiter: self2.settings.delimiter, allowEmptyOption: self2.settings.allowEmptyOption }) : self2.settings;
+      self2.setupOptions(settings.options, settings.optgroups);
+      self2.setValue(settings.items || [], true);
+      if (self2.input.disabled) {
+        self2.disable();
+      } else if (self2.input.readOnly) {
+        self2.setReadOnly(true);
+      } else {
+        self2.enable();
+      }
+      self2.lastQuery = null;
+    }
+    onClick() {
+      var self2 = this;
+      if (self2.activeItems.length > 0) {
+        self2.clearActiveItems();
+        self2.focus();
+        return;
+      }
+      if (self2.isFocused && self2.isOpen) {
+        self2.blur();
+      } else {
+        self2.focus();
+      }
+    }
+    onMouseDown() {
+    }
+    onChange() {
+      triggerEvent2(this.input, "input");
+      triggerEvent2(this.input, "change");
+    }
+    onPaste(e) {
+      var self2 = this;
+      if (self2.isInputHidden || self2.isLocked) {
+        preventDefault(e);
+        return;
+      }
+      if (!self2.settings.splitOn) {
+        return;
+      }
+      setTimeout(() => {
+        var pastedText = self2.inputValue();
+        if (!pastedText.match(self2.settings.splitOn)) {
+          return;
+        }
+        var splitInput = pastedText.trim().split(self2.settings.splitOn);
+        iterate2(splitInput, (piece) => {
+          const hash3 = hash_key(piece);
+          if (hash3) {
+            if (this.options[piece]) {
+              self2.addItem(piece);
+            } else {
+              self2.createItem(piece);
+            }
+          }
+        });
+      }, 0);
+    }
+    onKeyPress(e) {
+      var self2 = this;
+      if (self2.isLocked) {
+        preventDefault(e);
+        return;
+      }
+      var character = String.fromCharCode(e.keyCode || e.which);
+      if (self2.settings.create && self2.settings.mode === "multi" && character === self2.settings.delimiter) {
+        self2.createItem();
+        preventDefault(e);
+        return;
+      }
+    }
+    onKeyDown(e) {
+      var self2 = this;
+      self2.ignoreHover = true;
+      if (self2.isLocked) {
+        if (e.keyCode !== KEY_TAB) {
+          preventDefault(e);
+        }
+        return;
+      }
+      switch (e.keyCode) {
+        case KEY_A:
+          if (isKeyDown(KEY_SHORTCUT, e)) {
+            if (self2.control_input.value == "") {
+              preventDefault(e);
+              self2.selectAll();
+              return;
+            }
+          }
+          break;
+        case KEY_ESC:
+          if (self2.isOpen) {
+            preventDefault(e, true);
+            self2.close();
+          }
+          self2.clearActiveItems();
+          return;
+        case KEY_DOWN:
+          if (!self2.isOpen && self2.hasOptions) {
+            self2.open();
+          } else if (self2.activeOption) {
+            let next = self2.getAdjacent(self2.activeOption, 1);
+            if (next)
+              self2.setActiveOption(next);
+          }
+          preventDefault(e);
+          return;
+        case KEY_UP:
+          if (self2.activeOption) {
+            let prev = self2.getAdjacent(self2.activeOption, -1);
+            if (prev)
+              self2.setActiveOption(prev);
+          }
+          preventDefault(e);
+          return;
+        case KEY_RETURN:
+          if (self2.canSelect(self2.activeOption)) {
+            self2.onOptionSelect(e, self2.activeOption);
+            preventDefault(e);
+          } else if (self2.settings.create && self2.createItem()) {
+            preventDefault(e);
+          } else if (document.activeElement == self2.control_input && self2.isOpen) {
+            preventDefault(e);
+          }
+          return;
+        case KEY_LEFT:
+          self2.advanceSelection(-1, e);
+          return;
+        case KEY_RIGHT:
+          self2.advanceSelection(1, e);
+          return;
+        case KEY_TAB:
+          if (self2.settings.selectOnTab) {
+            if (self2.canSelect(self2.activeOption)) {
+              self2.onOptionSelect(e, self2.activeOption);
+              preventDefault(e);
+            } else if (self2.settings.create && self2.createItem()) {
+              preventDefault(e);
+            }
+          }
+          return;
+        case KEY_BACKSPACE:
+        case KEY_DELETE:
+          self2.deleteSelection(e);
+          return;
+      }
+      if (self2.isInputHidden && !isKeyDown(KEY_SHORTCUT, e)) {
+        preventDefault(e);
+      }
+    }
+    onInput(e) {
+      if (this.isLocked) {
+        return;
+      }
+      const value = this.inputValue();
+      if (this.lastValue === value)
+        return;
+      this.lastValue = value;
+      if (value == "") {
+        this._onInput();
+        return;
+      }
+      if (this.refreshTimeout) {
+        window.clearTimeout(this.refreshTimeout);
+      }
+      this.refreshTimeout = timeout(() => {
+        this.refreshTimeout = null;
+        this._onInput();
+      }, this.settings.refreshThrottle);
+    }
+    _onInput() {
+      const value = this.lastValue;
+      if (this.settings.shouldLoad.call(this, value)) {
+        this.load(value);
+      }
+      this.refreshOptions();
+      this.trigger("type", value);
+    }
+    onOptionHover(evt, option) {
+      if (this.ignoreHover)
+        return;
+      this.setActiveOption(option, false);
+    }
+    onFocus(e) {
+      var self2 = this;
+      var wasFocused = self2.isFocused;
+      if (self2.isDisabled || self2.isReadOnly) {
+        self2.blur();
+        preventDefault(e);
+        return;
+      }
+      if (self2.ignoreFocus)
+        return;
+      self2.isFocused = true;
+      if (self2.settings.preload === "focus")
+        self2.preload();
+      if (!wasFocused)
+        self2.trigger("focus");
+      if (!self2.activeItems.length) {
+        self2.inputState();
+        self2.refreshOptions(!!self2.settings.openOnFocus);
+      }
+      self2.refreshState();
+    }
+    onBlur(e) {
+      if (document.hasFocus() === false)
+        return;
+      var self2 = this;
+      if (!self2.isFocused)
+        return;
+      self2.isFocused = false;
+      self2.ignoreFocus = false;
+      var deactivate = () => {
+        self2.close();
+        self2.setActiveItem();
+        self2.setCaret(self2.items.length);
+        self2.trigger("blur");
+      };
+      if (self2.settings.create && self2.settings.createOnBlur) {
+        self2.createItem(null, deactivate);
+      } else {
+        deactivate();
+      }
+    }
+    onOptionSelect(evt, option) {
+      var value, self2 = this;
+      if (option.parentElement && option.parentElement.matches("[data-disabled]")) {
+        return;
+      }
+      if (option.classList.contains("create")) {
+        self2.createItem(null, () => {
+          if (self2.settings.closeAfterSelect) {
+            self2.close();
+          } else if (self2.settings.clearAfterSelect) {
+            self2.setTextboxValue();
+          }
+        });
+      } else {
+        value = option.dataset.value;
+        if (typeof value !== "undefined") {
+          self2.isDropdownContentStale = self2.settings.hideSelected;
+          self2.addItem(value);
+          if (self2.settings.closeAfterSelect) {
+            self2.close();
+          } else if (self2.settings.clearAfterSelect) {
+            self2.setTextboxValue();
+          }
+          if (!self2.settings.hideSelected && evt.type && /click/.test(evt.type)) {
+            self2.setActiveOption(option);
+          }
+        }
+      }
+    }
+    canSelect(option) {
+      if (this.isOpen && option && this.dropdown_content.contains(option)) {
+        return true;
+      }
+      return false;
+    }
+    onItemSelect(evt, item) {
+      var self2 = this;
+      if (!self2.isLocked && self2.settings.mode === "multi") {
+        preventDefault(evt);
+        self2.setActiveItem(item, evt);
+        return true;
+      }
+      return false;
+    }
+    canLoad(value) {
+      if (!this.settings.load)
+        return false;
+      if (this.loadedSearches.hasOwnProperty(value))
+        return false;
+      return true;
+    }
+    load(value) {
+      const self2 = this;
+      if (!self2.canLoad(value))
+        return;
+      addClasses(self2.wrapper, self2.settings.loadingClass);
+      self2.loading++;
+      const callback = self2.loadCallback.bind(self2);
+      self2.settings.load.call(self2, value, callback);
+    }
+    loadCallback(options2, optgroups) {
+      const self2 = this;
+      self2.loading = Math.max(self2.loading - 1, 0);
+      self2.isDropdownContentStale = true;
+      self2.clearActiveOption();
+      self2.setupOptions(options2, optgroups);
+      self2.refreshOptions(self2.isFocused && !self2.isInputHidden);
+      if (!self2.loading) {
+        removeClasses(self2.wrapper, self2.settings.loadingClass);
+      }
+      self2.trigger("load", options2, optgroups);
+    }
+    preload() {
+      var classList = this.wrapper.classList;
+      if (classList.contains("preloaded"))
+        return;
+      classList.add("preloaded");
+      this.load("");
+    }
+    setTextboxValue(value = "") {
+      var input2 = this.control_input;
+      var changed = input2.value !== value;
+      if (changed) {
+        input2.value = value;
+        triggerEvent2(input2, "update");
+        this.lastValue = value;
+      }
+    }
+    getValue() {
+      if (this.is_select_tag && this.input.hasAttribute("multiple")) {
+        return this.items;
+      }
+      return this.items.join(this.settings.delimiter);
+    }
+    setValue(value, silent) {
+      var events = silent ? [] : ["change"];
+      debounce_events(this, events, () => {
+        this.clear(silent);
+        this.addItems(value, silent);
+      });
+    }
+    setMaxItems(value) {
+      if (value === 0)
+        value = null;
+      this.settings.maxItems = value;
+      this.refreshState();
+    }
+    setActiveItem(item, e) {
+      var self2 = this;
+      var eventName;
+      var i, begin, end2, swap;
+      var last;
+      if (self2.settings.mode === "single")
+        return;
+      if (!item) {
+        self2.clearActiveItems();
+        if (self2.isFocused) {
+          self2.inputState();
+        }
+        return;
+      }
+      eventName = e && e.type.toLowerCase();
+      if (eventName === "click" && isKeyDown("shiftKey", e) && self2.activeItems.length) {
+        last = self2.getLastActive();
+        begin = Array.prototype.indexOf.call(self2.control.children, last);
+        end2 = Array.prototype.indexOf.call(self2.control.children, item);
+        if (begin > end2) {
+          swap = begin;
+          begin = end2;
+          end2 = swap;
+        }
+        for (i = begin; i <= end2; i++) {
+          item = self2.control.children[i];
+          if (self2.activeItems.indexOf(item) === -1) {
+            self2.setActiveItemClass(item);
+          }
+        }
+        preventDefault(e);
+      } else if (eventName === "click" && isKeyDown(KEY_SHORTCUT, e) || eventName === "keydown" && isKeyDown("shiftKey", e)) {
+        if (item.classList.contains("active")) {
+          self2.removeActiveItem(item);
+        } else {
+          self2.setActiveItemClass(item);
+        }
+      } else {
+        self2.clearActiveItems();
+        self2.setActiveItemClass(item);
+      }
+      self2.inputState();
+      if (!self2.isFocused) {
+        self2.focus();
+      }
+    }
+    setActiveItemClass(item) {
+      const self2 = this;
+      const last_active = self2.control.querySelector(".last-active");
+      if (last_active)
+        removeClasses(last_active, "last-active");
+      addClasses(item, "active last-active");
+      self2.trigger("item_select", item);
+      if (self2.activeItems.indexOf(item) == -1) {
+        self2.activeItems.push(item);
+      }
+    }
+    removeActiveItem(item) {
+      var idx = this.activeItems.indexOf(item);
+      this.activeItems.splice(idx, 1);
+      removeClasses(item, "active");
+    }
+    clearActiveItems() {
+      removeClasses(this.activeItems, "active");
+      this.activeItems = [];
+    }
+    setActiveOption(option, scroll = true) {
+      if (option === this.activeOption) {
+        return;
+      }
+      this.clearActiveOption();
+      if (!option)
+        return;
+      this.activeOption = option;
+      setAttr(this.focus_node, { "aria-activedescendant": option.getAttribute("id") });
+      setAttr(option, { "aria-selected": "true" });
+      addClasses(option, "active");
+      if (scroll)
+        this.scrollToOption(option);
+    }
+    scrollToOption(option, behavior) {
+      if (!option)
+        return;
+      const content = this.dropdown_content;
+      const height_menu = content.clientHeight;
+      const scrollTop = content.scrollTop || 0;
+      const height_item = option.offsetHeight;
+      const y = option.getBoundingClientRect().top - content.getBoundingClientRect().top + scrollTop;
+      if (y + height_item > height_menu + scrollTop) {
+        this.scroll(y - height_menu + height_item, behavior);
+      } else if (y < scrollTop) {
+        this.scroll(y, behavior);
+      }
+    }
+    scroll(scrollTop, behavior) {
+      const content = this.dropdown_content;
+      if (behavior) {
+        content.style.scrollBehavior = behavior;
+      }
+      content.scrollTop = scrollTop;
+      content.style.scrollBehavior = "";
+    }
+    clearActiveOption() {
+      if (this.activeOption) {
+        removeClasses(this.activeOption, "active");
+        setAttr(this.activeOption, { "aria-selected": null });
+      }
+      this.activeOption = null;
+      setAttr(this.focus_node, { "aria-activedescendant": null });
+    }
+    selectAll() {
+      const self2 = this;
+      if (self2.settings.mode === "single")
+        return;
+      const activeItems = self2.controlChildren();
+      if (!activeItems.length)
+        return;
+      self2.inputState();
+      self2.close();
+      self2.activeItems = activeItems;
+      iterate2(activeItems, (item) => {
+        self2.setActiveItemClass(item);
+      });
+    }
+    inputState() {
+      var self2 = this;
+      if (!self2.control.contains(self2.control_input))
+        return;
+      setAttr(self2.control_input, { placeholder: self2.settings.placeholder });
+      if (self2.activeItems.length > 0 || !self2.isFocused && self2.settings.hidePlaceholder && self2.items.length > 0) {
+        self2.setTextboxValue();
+        self2.isInputHidden = true;
+      } else {
+        if (self2.settings.hidePlaceholder && self2.items.length > 0) {
+          setAttr(self2.control_input, { placeholder: "" });
+        }
+        self2.isInputHidden = false;
+      }
+      self2.wrapper.classList.toggle("input-hidden", self2.isInputHidden);
+    }
+    inputValue() {
+      return this.control_input.value.trim();
+    }
+    focus() {
+      var self2 = this;
+      if (self2.isDisabled || self2.isReadOnly)
+        return;
+      self2.ignoreFocus = true;
+      const focusTarget = this.control_input.offsetWidth ? this.control_input : this.focus_node;
+      focusTarget.focus();
+      setTimeout(() => {
+        self2.ignoreFocus = false;
+        const root = focusTarget.getRootNode();
+        if (root.activeElement !== focusTarget) {
+          return;
+        }
+        this.onFocus();
+      }, 0);
+    }
+    blur() {
+      this.focus_node.blur();
+      this.onBlur();
+    }
+    getScoreFunction(query) {
+      return this.sifter.getScoreFunction(query, this.getSearchOptions());
+    }
+    getSearchOptions() {
+      var settings = this.settings;
+      var sort = settings.sortField;
+      if (typeof settings.sortField === "string") {
+        sort = [{ field: settings.sortField }];
+      }
+      return {
+        fields: settings.searchField,
+        conjunction: settings.searchConjunction,
+        sort,
+        nesting: settings.nesting
+      };
+    }
+    search(query) {
+      var result, calculateScore;
+      var self2 = this;
+      var options2 = this.getSearchOptions();
+      if (self2.settings.score) {
+        calculateScore = self2.settings.score.call(self2, query);
+        if (typeof calculateScore !== "function") {
+          throw new Error('Tom Select "score" setting must be a function that returns a function');
+        }
+      }
+      if (self2.isDropdownContentStale || query !== self2.lastQuery) {
+        self2.lastQuery = query;
+        if (/(.)\1{15,}/.test(query)) {
+          query = "";
+        }
+        result = self2.sifter.search(query, Object.assign(options2, { score: calculateScore }));
+        self2.currentResults = result;
+      } else {
+        result = Object.assign({}, self2.currentResults);
+      }
+      if (self2.settings.hideSelected) {
+        result.items = result.items.filter((item) => {
+          let hashed = hash_key(item.id);
+          return !(hashed !== null && self2.items.indexOf(hashed) !== -1);
+        });
+      }
+      return result;
+    }
+    refreshOptions(triggerDropdown = true) {
+      var i, j, k, n, optgroup, optgroups, html2, has_create_option, active_group;
+      var create;
+      const groups = {};
+      const groups_order = [];
+      var self2 = this;
+      var query = self2.inputValue();
+      const same_query = query === self2.lastQuery || query == "" && self2.lastQuery == null;
+      var results = self2.search(query);
+      var active_option = null;
+      var show_dropdown = self2.settings.shouldOpen || false;
+      var dropdown_content = self2.dropdown_content;
+      if (same_query) {
+        active_option = self2.activeOption;
+        if (active_option) {
+          active_group = active_option.closest("[data-group]");
+        }
+      }
+      n = results.items.length;
+      if (typeof self2.settings.maxOptions === "number") {
+        n = Math.min(n, self2.settings.maxOptions);
+      }
+      if (n > 0) {
+        show_dropdown = true;
+      }
+      const getGroupFragment = (optgroup2, order2) => {
+        let group_order_i = groups[optgroup2];
+        if (group_order_i !== void 0) {
+          let order_group = groups_order[group_order_i];
+          if (order_group !== void 0) {
+            return [group_order_i, order_group.fragment];
+          }
+        }
+        let group_fragment = document.createDocumentFragment();
+        group_order_i = groups_order.length;
+        groups_order.push({ fragment: group_fragment, order: order2, optgroup: optgroup2 });
+        return [group_order_i, group_fragment];
+      };
+      for (i = 0; i < n; i++) {
+        let item = results.items[i];
+        if (!item)
+          continue;
+        let opt_value = item.id;
+        let option = self2.options[opt_value];
+        if (option === void 0)
+          continue;
+        let opt_hash = get_hash(opt_value);
+        let option_el = self2.getOption(opt_hash, true);
+        if (!self2.settings.hideSelected) {
+          option_el.classList.toggle("selected", self2.items.includes(opt_hash));
+        }
+        optgroup = option[self2.settings.optgroupField] || "";
+        optgroups = Array.isArray(optgroup) ? optgroup : [optgroup];
+        for (j = 0, k = optgroups && optgroups.length; j < k; j++) {
+          optgroup = optgroups[j];
+          let order2 = option.$order;
+          let self_optgroup = self2.optgroups[optgroup];
+          if (self_optgroup === void 0 && typeof self2.settings.optionGroupRegister === "function") {
+            var regGroup;
+            if (regGroup = self2.settings.optionGroupRegister.apply(self2, [optgroup])) {
+              self2.registerOptionGroup(regGroup);
+            }
+          }
+          self_optgroup = self2.optgroups[optgroup];
+          if (self_optgroup === void 0) {
+            optgroup = "";
+          } else {
+            order2 = self_optgroup.$order;
+          }
+          const [group_order_i, group_fragment] = getGroupFragment(optgroup, order2);
+          if (j > 0) {
+            option_el = option_el.cloneNode(true);
+            setAttr(option_el, { id: option.$id + "-clone-" + j, "aria-selected": null });
+            option_el.classList.add("ts-cloned");
+            removeClasses(option_el, "active");
+            if (self2.activeOption && self2.activeOption.dataset.value == opt_value) {
+              if (active_group && active_group.dataset.group === optgroup.toString()) {
+                active_option = option_el;
+              }
+            }
+          }
+          group_fragment.appendChild(option_el);
+          if (optgroup != "") {
+            groups[optgroup] = group_order_i;
+          }
+        }
+      }
+      if (self2.settings.lockOptgroupOrder) {
+        groups_order.sort((a, b) => {
+          return a.order - b.order;
+        });
+      }
+      html2 = document.createDocumentFragment();
+      iterate2(groups_order, (group_order) => {
+        let group_fragment = group_order.fragment;
+        let optgroup2 = group_order.optgroup;
+        if (!group_fragment || !group_fragment.children.length)
+          return;
+        let group_heading = self2.optgroups[optgroup2];
+        if (group_heading !== void 0) {
+          let group_options = document.createDocumentFragment();
+          let header = self2.render("optgroup_header", group_heading);
+          append(group_options, header);
+          append(group_options, group_fragment);
+          let group_html = self2.render("optgroup", { group: group_heading, options: group_options });
+          append(html2, group_html);
+        } else {
+          append(html2, group_fragment);
+        }
+      });
+      dropdown_content.innerHTML = "";
+      append(dropdown_content, html2);
+      self2.isDropdownContentStale = false;
+      if (self2.settings.highlight) {
+        removeHighlight(dropdown_content);
+        if (results.query.length && results.tokens.length) {
+          iterate2(results.tokens, (tok) => {
+            highlight(dropdown_content, tok.regex);
+          });
+        }
+      }
+      var add_template = (template) => {
+        let content = self2.render(template, { input: query });
+        if (content) {
+          show_dropdown = true;
+          dropdown_content.insertBefore(content, dropdown_content.firstChild);
+        }
+        return content;
+      };
+      if (self2.loading) {
+        add_template("loading");
+      } else if (!self2.settings.shouldLoad.call(self2, query)) {
+        add_template("not_loading");
+      } else if (results.items.length === 0) {
+        add_template("no_results");
+      }
+      has_create_option = self2.canCreate(query);
+      if (has_create_option) {
+        create = add_template("option_create");
+      }
+      self2.hasOptions = results.items.length > 0 || has_create_option;
+      if (show_dropdown) {
+        if (results.items.length > 0) {
+          if (!active_option && self2.settings.mode === "single" && self2.items[0] != void 0) {
+            active_option = self2.getOption(self2.items[0]);
+          }
+          if (!dropdown_content.contains(active_option)) {
+            let active_index = 0;
+            if (create && !self2.settings.addPrecedence) {
+              active_index = 1;
+            }
+            active_option = self2.selectable()[active_index];
+          }
+        } else if (create) {
+          active_option = create;
+        }
+        if (triggerDropdown && !self2.isOpen) {
+          self2.open();
+          self2.scrollToOption(active_option, "auto");
+        }
+        self2.setActiveOption(active_option);
+      } else {
+        self2.clearActiveOption();
+        if (triggerDropdown && self2.isOpen) {
+          self2.close(false);
+        }
+      }
+    }
+    selectable() {
+      return this.dropdown_content.querySelectorAll("[data-selectable]");
+    }
+    addOption(data, user_created = false) {
+      const self2 = this;
+      if (Array.isArray(data)) {
+        self2.addOptions(data, user_created);
+        return false;
+      }
+      const key = hash_key(data[self2.settings.valueField]);
+      if (key === null || self2.options.hasOwnProperty(key)) {
+        self2.updateOption(data[self2.settings.valueField], data);
+        return false;
+      }
+      data.$order = data.$order || ++self2.order;
+      data.$id = self2.inputId + "-opt-" + data.$order;
+      self2.options[key] = data;
+      self2.isDropdownContentStale = true;
+      if (user_created) {
+        self2.userOptions[key] = user_created;
+        self2.trigger("option_add", key, data);
+      }
+      return key;
+    }
+    addOptions(data, user_created = false) {
+      iterate2(data, (dat) => {
+        this.addOption(dat, user_created);
+      });
+    }
+    registerOption(data) {
+      return this.addOption(data);
+    }
+    registerOptionGroup(data) {
+      var key = hash_key(data[this.settings.optgroupValueField]);
+      if (key === null)
+        return false;
+      data.$order = data.$order || ++this.order;
+      this.optgroups[key] = data;
+      return key;
+    }
+    addOptionGroup(id3, data) {
+      var hashed_id;
+      data[this.settings.optgroupValueField] = id3;
+      if (hashed_id = this.registerOptionGroup(data)) {
+        this.trigger("optgroup_add", hashed_id, data);
+      }
+    }
+    removeOptionGroup(id3) {
+      if (this.optgroups.hasOwnProperty(id3)) {
+        delete this.optgroups[id3];
+        this.clearCache();
+        this.trigger("optgroup_remove", id3);
+      }
+    }
+    clearOptionGroups() {
+      this.optgroups = {};
+      this.clearCache();
+      this.trigger("optgroup_clear");
+    }
+    updateOption(value, data) {
+      const self2 = this;
+      var item_new;
+      var index_item;
+      const value_old = hash_key(value);
+      const value_new = hash_key(data[self2.settings.valueField]);
+      if (value_old === null)
+        return;
+      const data_old = self2.options[value_old];
+      if (data_old == void 0)
+        return;
+      if (typeof value_new !== "string")
+        throw new Error("Value must be set in option data");
+      const option = self2.getOption(value_old);
+      const item = self2.getItem(value_old);
+      data.$order = data.$order || data_old.$order;
+      delete self2.options[value_old];
+      self2.uncacheValue(value_new);
+      self2.options[value_new] = data;
+      if (option) {
+        if (self2.dropdown_content.contains(option)) {
+          const option_new = self2._render("option", data);
+          replaceNode(option, option_new);
+          if (self2.activeOption === option) {
+            self2.setActiveOption(option_new);
+          }
+        }
+        option.remove();
+      }
+      if (item) {
+        index_item = self2.items.indexOf(value_old);
+        if (index_item !== -1) {
+          self2.items.splice(index_item, 1, value_new);
+        }
+        item_new = self2._render("item", data);
+        if (item.classList.contains("active"))
+          addClasses(item_new, "active");
+        replaceNode(item, item_new);
+      }
+      self2.isDropdownContentStale = true;
+    }
+    removeOption(value, silent) {
+      const self2 = this;
+      value = get_hash(value);
+      self2.uncacheValue(value);
+      delete self2.userOptions[value];
+      delete self2.options[value];
+      self2.isDropdownContentStale = true;
+      self2.trigger("option_remove", value);
+      self2.removeItem(value, silent);
+    }
+    clearOptions(filter) {
+      const boundFilter = (filter || this.clearFilter).bind(this);
+      this.loadedSearches = {};
+      this.userOptions = {};
+      this.clearCache();
+      const selected = {};
+      iterate2(this.options, (option, key) => {
+        if (boundFilter(option, key)) {
+          selected[key] = option;
+        }
+      });
+      this.options = this.sifter.items = selected;
+      this.isDropdownContentStale = true;
+      this.trigger("option_clear");
+    }
+    clearFilter(option, value) {
+      if (this.items.indexOf(value) >= 0) {
+        return true;
+      }
+      return false;
+    }
+    getOption(value, create = false) {
+      const hashed = hash_key(value);
+      if (hashed === null)
+        return null;
+      const option = this.options[hashed];
+      if (option != void 0) {
+        if (option.$div) {
+          return option.$div;
+        }
+        if (create) {
+          return this._render("option", option);
+        }
+      }
+      return null;
+    }
+    getAdjacent(option, direction, type = "option") {
+      var self2 = this, all;
+      if (!option) {
+        return null;
+      }
+      if (type == "item") {
+        all = self2.controlChildren();
+      } else {
+        all = self2.dropdown_content.querySelectorAll("[data-selectable]");
+      }
+      for (let i = 0; i < all.length; i++) {
+        if (all[i] != option) {
+          continue;
+        }
+        if (direction > 0) {
+          return all[i + 1];
+        }
+        return all[i - 1];
+      }
+      return null;
+    }
+    getItem(item) {
+      if (typeof item == "object") {
+        return item;
+      }
+      var value = hash_key(item);
+      return value !== null ? this.control.querySelector(`[data-value="${addSlashes(value)}"]`) : null;
+    }
+    addItems(values, silent) {
+      var self2 = this;
+      var items = Array.isArray(values) ? values : [values];
+      items = items.filter((x) => self2.items.indexOf(x) === -1);
+      const last_item = items[items.length - 1];
+      items.forEach((item) => {
+        self2.isPending = item !== last_item;
+        self2.addItem(item, silent);
+      });
+    }
+    addItem(value, silent) {
+      var events = silent ? [] : ["change", "dropdown_close"];
+      debounce_events(this, events, () => {
+        var item, wasFull;
+        const self2 = this;
+        const inputMode = self2.settings.mode;
+        const hashed = hash_key(value);
+        if (hashed && self2.items.indexOf(hashed) !== -1) {
+          if (inputMode === "single") {
+            self2.close();
+          }
+          if (inputMode === "single" || !self2.settings.duplicates) {
+            return;
+          }
+        }
+        if (hashed === null || !self2.options.hasOwnProperty(hashed))
+          return;
+        if (inputMode === "single")
+          self2.clear(silent);
+        if (inputMode === "multi" && self2.isFull())
+          return;
+        item = self2._render("item", self2.options[hashed]);
+        if (self2.control.contains(item)) {
+          item = item.cloneNode(true);
+        }
+        wasFull = self2.isFull();
+        self2.items.splice(self2.caretPos, 0, hashed);
+        self2.insertAtCaret(item);
+        if (self2.isSetup) {
+          if (!self2.isPending && self2.settings.hideSelected) {
+            let option = self2.getOption(hashed);
+            let next = self2.getAdjacent(option, 1);
+            if (next) {
+              self2.setActiveOption(next);
+            }
+          }
+          if (self2.settings.clearAfterSelect) {
+            self2.setTextboxValue();
+          }
+          if (!self2.isPending && !self2.settings.closeAfterSelect) {
+            self2.refreshOptions(self2.isFocused && inputMode !== "single");
+          }
+          if (self2.settings.closeAfterSelect != false && self2.isFull()) {
+            self2.close();
+          } else if (!self2.isPending) {
+            self2.positionDropdown();
+          }
+          self2.trigger("item_add", hashed, item);
+          if (!self2.isPending) {
+            self2.updateOriginalInput({ silent });
+          }
+        }
+        if (!self2.isPending || !wasFull && self2.isFull()) {
+          self2.inputState();
+          self2.refreshState();
+        }
+      });
+    }
+    removeItem(item = null, silent) {
+      const self2 = this;
+      item = self2.getItem(item);
+      if (!item)
+        return;
+      var i, idx;
+      const value = item.dataset.value;
+      i = nodeIndex(item);
+      item.remove();
+      if (item.classList.contains("active")) {
+        idx = self2.activeItems.indexOf(item);
+        self2.activeItems.splice(idx, 1);
+        removeClasses(item, "active");
+      }
+      self2.items.splice(i, 1);
+      self2.isDropdownContentStale = true;
+      if (!self2.settings.persist && self2.userOptions.hasOwnProperty(value)) {
+        self2.removeOption(value, silent);
+      }
+      if (i < self2.caretPos) {
+        self2.setCaret(self2.caretPos - 1);
+      }
+      self2.updateOriginalInput({ silent });
+      self2.refreshState();
+      self2.positionDropdown();
+      self2.trigger("item_remove", value, item);
+    }
+    createItem(input2 = null, callback = () => {
+    }) {
+      if (arguments.length === 3) {
+        callback = arguments[2];
+      }
+      if (typeof callback != "function") {
+        callback = () => {
+        };
+      }
+      var self2 = this;
+      var caret = self2.caretPos;
+      var output;
+      input2 = input2 || self2.inputValue();
+      if (!self2.canCreate(input2)) {
+        const hash3 = hash_key(input2);
+        if (hash3) {
+          if (this.options[input2]) {
+            self2.addItem(input2);
+          }
+        }
+        callback();
+        return false;
+      }
+      self2.lock();
+      var created = false;
+      var create = (data) => {
+        self2.unlock();
+        if (!data || typeof data !== "object")
+          return callback();
+        var value = hash_key(data[self2.settings.valueField]);
+        if (typeof value !== "string") {
+          return callback();
+        }
+        self2.setTextboxValue();
+        self2.addOption(data, true);
+        self2.setCaret(caret);
+        self2.addItem(value);
+        callback(data);
+        created = true;
+      };
+      if (typeof self2.settings.create === "function") {
+        output = self2.settings.create.call(this, input2, create);
+      } else {
+        output = {
+          [self2.settings.labelField]: input2,
+          [self2.settings.valueField]: input2
+        };
+      }
+      if (!created) {
+        create(output);
+      }
+      return true;
+    }
+    refreshItems() {
+      var self2 = this;
+      self2.isDropdownContentStale = true;
+      if (self2.isSetup) {
+        self2.addItems(self2.items);
+      }
+      self2.updateOriginalInput();
+      self2.refreshState();
+    }
+    refreshState() {
+      const self2 = this;
+      self2.refreshValidityState();
+      const isFull = self2.isFull();
+      const isLocked = self2.isLocked;
+      self2.wrapper.classList.toggle("rtl", self2.rtl);
+      const wrap_classList = self2.wrapper.classList;
+      wrap_classList.toggle("focus", self2.isFocused);
+      wrap_classList.toggle("disabled", self2.isDisabled);
+      wrap_classList.toggle("readonly", self2.isReadOnly);
+      wrap_classList.toggle("required", self2.isRequired);
+      wrap_classList.toggle("invalid", !self2.isValid);
+      wrap_classList.toggle("locked", isLocked);
+      wrap_classList.toggle("full", isFull);
+      wrap_classList.toggle("input-active", self2.isFocused && !self2.isInputHidden);
+      wrap_classList.toggle("dropdown-active", self2.isOpen);
+      wrap_classList.toggle("has-options", isEmptyObject(self2.options));
+      wrap_classList.toggle("has-items", self2.items.length > 0);
+    }
+    refreshValidityState() {
+      var self2 = this;
+      if (!self2.input.validity) {
+        return;
+      }
+      self2.isValid = self2.input.validity.valid;
+      self2.isInvalid = !self2.isValid;
+    }
+    isFull() {
+      return this.settings.maxItems !== null && this.items.length >= this.settings.maxItems;
+    }
+    updateOriginalInput(opts = {}) {
+      const self2 = this;
+      var option, label;
+      const empty_option = self2.input.querySelector('option[value=""]');
+      if (self2.is_select_tag) {
+        let AddSelected = function(option_el, value, label2) {
+          if (!option_el) {
+            option_el = getDom('<option value="' + escape_html(value) + '">' + escape_html(label2) + "</option>");
+          }
+          if (option_el != empty_option) {
+            self2.input.append(option_el);
+          }
+          selected.push(option_el);
+          if (option_el != empty_option || has_selected > 0) {
+            option_el.selected = true;
+          }
+          return option_el;
+        };
+        const selected = [];
+        const has_selected = self2.input.querySelectorAll("option:checked").length;
+        self2.input.querySelectorAll("option:checked").forEach((option_el) => {
+          option_el.selected = false;
+        });
+        if (self2.items.length == 0 && self2.settings.mode == "single") {
+          AddSelected(empty_option, "", "");
+        } else {
+          self2.items.forEach((value) => {
+            option = self2.options[value];
+            label = option[self2.settings.labelField] || "";
+            if (selected.includes(option.$option)) {
+              const reuse_opt = self2.input.querySelector(`option[value="${addSlashes(value)}"]:not(:checked)`);
+              AddSelected(reuse_opt, value, label);
+            } else {
+              option.$option = AddSelected(option.$option, value, label);
+            }
+          });
+        }
+      } else {
+        self2.input.value = self2.getValue();
+      }
+      if (self2.isSetup) {
+        if (!opts.silent) {
+          self2.trigger("change", self2.getValue());
+        }
+      }
+    }
+    open() {
+      var self2 = this;
+      if (self2.isLocked || self2.isOpen || self2.settings.mode === "multi" && self2.isFull())
+        return;
+      self2.isOpen = true;
+      setAttr(self2.focus_node, { "aria-expanded": "true" });
+      self2.refreshState();
+      applyCSS(self2.dropdown, { visibility: "hidden", display: "block" });
+      self2.positionDropdown();
+      applyCSS(self2.dropdown, { visibility: "visible", display: "block" });
+      self2.focus();
+      self2.trigger("dropdown_open", self2.dropdown);
+    }
+    close(setTextboxValue = true) {
+      var self2 = this;
+      var trigger = self2.isOpen;
+      if (setTextboxValue) {
+        self2.setTextboxValue();
+        if (self2.settings.mode === "single" && self2.items.length) {
+          self2.inputState();
+        }
+      }
+      self2.isOpen = false;
+      setAttr(self2.focus_node, { "aria-expanded": "false" });
+      applyCSS(self2.dropdown, { display: "none" });
+      if (self2.settings.hideSelected) {
+        self2.clearActiveOption();
+      }
+      self2.refreshState();
+      if (trigger)
+        self2.trigger("dropdown_close", self2.dropdown);
+    }
+    positionDropdown() {
+      if (this.settings.dropdownParent !== "body") {
+        return;
+      }
+      var context = this.control;
+      var rect = context.getBoundingClientRect();
+      var top2 = context.offsetHeight + rect.top + window.scrollY;
+      var left2 = rect.left + window.scrollX;
+      applyCSS(this.dropdown, {
+        width: rect.width + "px",
+        top: top2 + "px",
+        left: left2 + "px"
+      });
+    }
+    clear(silent) {
+      var self2 = this;
+      if (!self2.items.length)
+        return;
+      var items = self2.controlChildren();
+      iterate2(items, (item) => {
+        self2.removeItem(item, true);
+      });
+      self2.inputState();
+      if (!silent)
+        self2.updateOriginalInput();
+      self2.trigger("clear");
+    }
+    insertAtCaret(el) {
+      const self2 = this;
+      const caret = self2.caretPos;
+      const target = self2.control;
+      target.insertBefore(el, target.children[caret] || null);
+      self2.setCaret(caret + 1);
+    }
+    deleteSelection(e) {
+      var direction, selection, caret, tail;
+      var self2 = this;
+      direction = e && e.keyCode === KEY_BACKSPACE ? -1 : 1;
+      selection = getSelection(self2.control_input);
+      const rm_items = [];
+      if (self2.activeItems.length) {
+        tail = getTail(self2.activeItems, direction);
+        caret = nodeIndex(tail);
+        if (direction > 0) {
+          caret++;
+        }
+        iterate2(self2.activeItems, (item) => rm_items.push(item));
+      } else if ((self2.isFocused || self2.settings.mode === "single") && self2.items.length) {
+        const items = self2.controlChildren();
+        let rm_item;
+        if (direction < 0 && selection.start === 0 && selection.length === 0) {
+          rm_item = items[self2.caretPos - 1];
+        } else if (direction > 0 && selection.start === self2.inputValue().length) {
+          rm_item = items[self2.caretPos];
+        }
+        if (rm_item !== void 0) {
+          rm_items.push(rm_item);
+        }
+      }
+      if (!self2.shouldDelete(rm_items, e)) {
+        return false;
+      }
+      preventDefault(e, true);
+      if (typeof caret !== "undefined") {
+        self2.setCaret(caret);
+      }
+      while (rm_items.length) {
+        self2.removeItem(rm_items.pop());
+      }
+      self2.inputState();
+      self2.positionDropdown();
+      self2.refreshOptions(false);
+      return true;
+    }
+    shouldDelete(items, evt) {
+      const values = items.map((item) => item.dataset.value);
+      if (!values.length || typeof this.settings.onDelete === "function" && this.settings.onDelete.call(this, values, evt) === false) {
+        return false;
+      }
+      return true;
+    }
+    advanceSelection(direction, e) {
+      var last_active, adjacent, self2 = this;
+      if (self2.rtl)
+        direction *= -1;
+      if (self2.inputValue().length)
+        return;
+      if (isKeyDown(KEY_SHORTCUT, e) || isKeyDown("shiftKey", e)) {
+        last_active = self2.getLastActive(direction);
+        if (last_active) {
+          if (!last_active.classList.contains("active")) {
+            adjacent = last_active;
+          } else {
+            adjacent = self2.getAdjacent(last_active, direction, "item");
+          }
+        } else if (direction > 0) {
+          adjacent = self2.control_input.nextElementSibling;
+        } else {
+          adjacent = self2.control_input.previousElementSibling;
+        }
+        if (adjacent) {
+          if (adjacent.classList.contains("active")) {
+            self2.removeActiveItem(last_active);
+          }
+          self2.setActiveItemClass(adjacent);
+        }
+      } else {
+        self2.moveCaret(direction);
+      }
+    }
+    moveCaret(direction) {
+    }
+    getLastActive(direction) {
+      let last_active = this.control.querySelector(".last-active");
+      if (last_active) {
+        return last_active;
+      }
+      var result = this.control.querySelectorAll(".active");
+      if (result) {
+        return getTail(result, direction);
+      }
+    }
+    setCaret(new_pos) {
+      this.caretPos = this.items.length;
+    }
+    controlChildren() {
+      return Array.from(this.control.querySelectorAll("[data-ts-item]"));
+    }
+    lock() {
+      this.setLocked(true);
+    }
+    unlock() {
+      this.setLocked(false);
+    }
+    setLocked(lock = this.isReadOnly || this.isDisabled) {
+      this.isLocked = lock;
+      this.refreshState();
+    }
+    disable() {
+      this.setDisabled(true);
+      this.close();
+    }
+    enable() {
+      this.setDisabled(false);
+    }
+    setDisabled(disabled) {
+      this.focus_node.tabIndex = disabled ? -1 : this.tabIndex;
+      this.isDisabled = disabled;
+      this.input.disabled = disabled;
+      this.control_input.disabled = disabled;
+      this.setLocked();
+    }
+    setReadOnly(isReadOnly) {
+      this.isReadOnly = isReadOnly;
+      this.input.readOnly = isReadOnly;
+      this.control_input.readOnly = isReadOnly;
+      this.setLocked();
+    }
+    destroy() {
+      var self2 = this;
+      var revertSettings = self2.revertSettings;
+      self2.trigger("destroy");
+      self2.off();
+      self2.wrapper.remove();
+      self2.dropdown.remove();
+      self2.input.innerHTML = revertSettings.innerHTML;
+      self2.input.tabIndex = revertSettings.tabIndex;
+      removeClasses(self2.input, "tomselected", "ts-hidden-accessible");
+      self2._destroy();
+      delete self2.input.tomselect;
+    }
+    render(templateName, data) {
+      var id3, html2;
+      const self2 = this;
+      if (typeof this.settings.render[templateName] !== "function") {
+        return null;
+      }
+      html2 = self2.settings.render[templateName].call(this, data, escape_html);
+      if (!html2) {
+        return null;
+      }
+      html2 = getDom(html2);
+      if (templateName === "option" || templateName === "option_create") {
+        if (data[self2.settings.disabledField]) {
+          setAttr(html2, { "aria-disabled": "true" });
+        } else {
+          setAttr(html2, { "data-selectable": "" });
+        }
+      } else if (templateName === "optgroup") {
+        id3 = data.group[self2.settings.optgroupValueField];
+        setAttr(html2, { "data-group": id3 });
+        if (data.group[self2.settings.disabledField]) {
+          setAttr(html2, { "data-disabled": "" });
+        }
+      }
+      if (templateName === "option" || templateName === "item") {
+        const value = get_hash(data[self2.settings.valueField]);
+        setAttr(html2, { "data-value": value });
+        if (templateName === "item") {
+          addClasses(html2, self2.settings.itemClass);
+          setAttr(html2, { "data-ts-item": "" });
+        } else {
+          addClasses(html2, self2.settings.optionClass);
+          setAttr(html2, {
+            role: "option",
+            id: data.$id
+          });
+          data.$div = html2;
+          self2.options[value] = data;
+        }
+      }
+      return html2;
+    }
+    _render(templateName, data) {
+      const html2 = this.render(templateName, data);
+      if (html2 == null) {
+        throw "HTMLElement expected";
+      }
+      return html2;
+    }
+    clearCache() {
+      iterate2(this.options, (option) => {
+        if (option.$div) {
+          option.$div.remove();
+          delete option.$div;
+        }
+      });
+    }
+    uncacheValue(value) {
+      const option_el = this.getOption(value);
+      if (option_el)
+        option_el.remove();
+    }
+    canCreate(input2) {
+      return this.settings.create && input2.length > 0 && this.settings.createFilter.call(this, input2);
+    }
+    hook(when, method, new_fn) {
+      var self2 = this;
+      var orig_method = self2[method];
+      self2[method] = function() {
+        var result, result_new;
+        if (when === "after") {
+          result = orig_method.apply(self2, arguments);
+        }
+        result_new = new_fn.apply(self2, arguments);
+        if (when === "instead") {
+          return result_new;
+        }
+        if (when === "before") {
+          result = orig_method.apply(self2, arguments);
+        }
+        return result;
+      };
+    }
+  };
+
+  // ../../node_modules/tom-select/dist/esm/plugins/change_listener/plugin.js
+  var addEvent2 = (target, type, callback, options2) => {
+    target.addEventListener(type, callback, options2);
+  };
+  function plugin() {
+    addEvent2(this.input, "change", () => {
+      this.sync();
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/checkbox_options/plugin.js
+  var hash_key2 = (value) => {
+    if (typeof value === "undefined" || value === null)
+      return null;
+    return get_hash2(value);
+  };
+  var get_hash2 = (value) => {
+    if (typeof value === "boolean")
+      return value ? "1" : "0";
+    return value + "";
+  };
+  var preventDefault2 = (evt, stop = false) => {
+    if (evt) {
+      evt.preventDefault();
+      if (stop) {
+        evt.stopPropagation();
+      }
+    }
+  };
+  var getDom2 = (query) => {
+    if (query.jquery) {
+      return query[0];
+    }
+    if (query instanceof HTMLElement) {
+      return query;
+    }
+    if (isHtmlString2(query)) {
+      var tpl = document.createElement("template");
+      tpl.innerHTML = query.trim();
+      return tpl.content.firstChild;
+    }
+    return document.querySelector(query);
+  };
+  var isHtmlString2 = (arg) => {
+    if (typeof arg === "string" && arg.indexOf("<") > -1) {
+      return true;
+    }
+    return false;
+  };
+  function plugin2(userOptions) {
+    var self2 = this;
+    var orig_onOptionSelect = self2.onOptionSelect;
+    self2.settings.hideSelected = false;
+    const cbOptions = Object.assign({
+      className: "tomselect-checkbox",
+      checkedClassNames: void 0,
+      uncheckedClassNames: void 0
+    }, userOptions);
+    var UpdateChecked = function UpdateChecked2(checkbox, toCheck) {
+      if (toCheck) {
+        checkbox.checked = true;
+        if (cbOptions.uncheckedClassNames) {
+          checkbox.classList.remove(...cbOptions.uncheckedClassNames);
+        }
+        if (cbOptions.checkedClassNames) {
+          checkbox.classList.add(...cbOptions.checkedClassNames);
+        }
+      } else {
+        checkbox.checked = false;
+        if (cbOptions.checkedClassNames) {
+          checkbox.classList.remove(...cbOptions.checkedClassNames);
+        }
+        if (cbOptions.uncheckedClassNames) {
+          checkbox.classList.add(...cbOptions.uncheckedClassNames);
+        }
+      }
+    };
+    var UpdateCheckbox = function UpdateCheckbox2(option) {
+      setTimeout(() => {
+        var checkbox = option.querySelector("input." + cbOptions.className);
+        if (checkbox instanceof HTMLInputElement) {
+          UpdateChecked(checkbox, option.classList.contains("selected"));
+        }
+      }, 1);
+    };
+    self2.hook("after", "setupTemplates", () => {
+      var orig_render_option = self2.settings.render.option;
+      self2.settings.render.option = (data, escape_html3) => {
+        var rendered = getDom2(orig_render_option.call(self2, data, escape_html3));
+        var checkbox = document.createElement("input");
+        if (cbOptions.className) {
+          checkbox.classList.add(cbOptions.className);
+        }
+        checkbox.addEventListener("click", function(evt) {
+          preventDefault2(evt);
+        });
+        checkbox.type = "checkbox";
+        const hashed = hash_key2(data[self2.settings.valueField]);
+        UpdateChecked(checkbox, !!(hashed && self2.items.indexOf(hashed) > -1));
+        rendered.prepend(checkbox);
+        return rendered;
+      };
+    });
+    self2.on("item_remove", (value) => {
+      var option = self2.getOption(value);
+      if (option) {
+        option.classList.remove("selected");
+        UpdateCheckbox(option);
+      }
+    });
+    self2.on("item_add", (value) => {
+      var option = self2.getOption(value);
+      if (option) {
+        UpdateCheckbox(option);
+      }
+    });
+    self2.hook("instead", "onOptionSelect", (evt, option) => {
+      if (option.classList.contains("selected")) {
+        option.classList.remove("selected");
+        self2.removeItem(option.dataset.value);
+        self2.refreshOptions();
+        preventDefault2(evt, true);
+        return;
+      }
+      orig_onOptionSelect.call(self2, evt, option);
+      UpdateCheckbox(option);
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/clear_button/plugin.js
+  var getDom3 = (query) => {
+    if (query.jquery) {
+      return query[0];
+    }
+    if (query instanceof HTMLElement) {
+      return query;
+    }
+    if (isHtmlString3(query)) {
+      var tpl = document.createElement("template");
+      tpl.innerHTML = query.trim();
+      return tpl.content.firstChild;
+    }
+    return document.querySelector(query);
+  };
+  var isHtmlString3 = (arg) => {
+    if (typeof arg === "string" && arg.indexOf("<") > -1) {
+      return true;
+    }
+    return false;
+  };
+  function plugin3(userOptions) {
+    const self2 = this;
+    const options2 = Object.assign({
+      className: "clear-button",
+      title: "Clear All",
+      role: "button",
+      tabindex: 0,
+      html: (data) => {
+        return `<div class="${data.className}" title="${data.title}" role="${data.role}" tabindex="${data.tabindex}">&times;</div>`;
+      }
+    }, userOptions);
+    self2.on("initialize", () => {
+      var button = getDom3(options2.html(options2));
+      button.addEventListener("click", (evt) => {
+        if (self2.isLocked)
+          return;
+        self2.clear();
+        if (self2.settings.mode === "single" && self2.settings.allowEmptyOption) {
+          self2.addItem("");
+        }
+        self2.refreshOptions(false);
+        evt.preventDefault();
+        evt.stopPropagation();
+      });
+      self2.control.appendChild(button);
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/drag_drop/plugin.js
+  var preventDefault3 = (evt, stop = false) => {
+    if (evt) {
+      evt.preventDefault();
+      if (stop) {
+        evt.stopPropagation();
+      }
+    }
+  };
+  var addEvent3 = (target, type, callback, options2) => {
+    target.addEventListener(type, callback, options2);
+  };
+  var iterate3 = (object2, callback) => {
+    if (Array.isArray(object2)) {
+      object2.forEach(callback);
+    } else {
+      for (var key in object2) {
+        if (object2.hasOwnProperty(key)) {
+          callback(object2[key], key);
+        }
+      }
+    }
+  };
+  var getDom4 = (query) => {
+    if (query.jquery) {
+      return query[0];
+    }
+    if (query instanceof HTMLElement) {
+      return query;
+    }
+    if (isHtmlString4(query)) {
+      var tpl = document.createElement("template");
+      tpl.innerHTML = query.trim();
+      return tpl.content.firstChild;
+    }
+    return document.querySelector(query);
+  };
+  var isHtmlString4 = (arg) => {
+    if (typeof arg === "string" && arg.indexOf("<") > -1) {
+      return true;
+    }
+    return false;
+  };
+  var setAttr2 = (el, attrs) => {
+    iterate3(attrs, (val, attr) => {
+      if (val == null) {
+        el.removeAttribute(attr);
+      } else {
+        el.setAttribute(attr, "" + val);
+      }
+    });
+  };
+  var insertAfter = (referenceNode, newNode) => {
+    var _referenceNode$parent;
+    (_referenceNode$parent = referenceNode.parentNode) == null || _referenceNode$parent.insertBefore(newNode, referenceNode.nextSibling);
+  };
+  var insertBefore = (referenceNode, newNode) => {
+    var _referenceNode$parent2;
+    (_referenceNode$parent2 = referenceNode.parentNode) == null || _referenceNode$parent2.insertBefore(newNode, referenceNode);
+  };
+  var isBefore = (referenceNode, newNode) => {
+    do {
+      var _newNode;
+      newNode = (_newNode = newNode) == null ? void 0 : _newNode.previousElementSibling;
+      if (referenceNode == newNode) {
+        return true;
+      }
+    } while (newNode && newNode.previousElementSibling);
+    return false;
+  };
+  function plugin4() {
+    var self2 = this;
+    if (self2.settings.mode !== "multi")
+      return;
+    var orig_lock = self2.lock;
+    var orig_unlock = self2.unlock;
+    let sortable = true;
+    let drag_item;
+    self2.hook("after", "setupTemplates", () => {
+      var orig_render_item = self2.settings.render.item;
+      self2.settings.render.item = (data, escape) => {
+        const item = getDom4(orig_render_item.call(self2, data, escape));
+        setAttr2(item, {
+          "draggable": "true"
+        });
+        const mousedown = (evt) => {
+          if (!sortable)
+            preventDefault3(evt);
+          evt.stopPropagation();
+        };
+        const dragStart = (evt) => {
+          drag_item = item;
+          setTimeout(() => {
+            item.classList.add("ts-dragging");
+          }, 0);
+        };
+        const dragOver = (evt) => {
+          evt.preventDefault();
+          item.classList.add("ts-drag-over");
+          moveitem(item, drag_item);
+        };
+        const dragLeave = () => {
+          item.classList.remove("ts-drag-over");
+        };
+        const moveitem = (targetitem, dragitem) => {
+          if (dragitem === void 0)
+            return;
+          if (isBefore(dragitem, item)) {
+            insertAfter(targetitem, dragitem);
+          } else {
+            insertBefore(targetitem, dragitem);
+          }
+        };
+        const dragend = () => {
+          var _drag_item;
+          document.querySelectorAll(".ts-drag-over").forEach((el) => el.classList.remove("ts-drag-over"));
+          (_drag_item = drag_item) == null || _drag_item.classList.remove("ts-dragging");
+          drag_item = void 0;
+          var values = [];
+          self2.control.querySelectorAll(`[data-value]`).forEach((el) => {
+            if (el.dataset.value) {
+              let value = el.dataset.value;
+              if (value) {
+                values.push(value);
+              }
+            }
+          });
+          self2.setValue(values);
+        };
+        addEvent3(item, "mousedown", mousedown);
+        addEvent3(item, "dragstart", dragStart);
+        addEvent3(item, "dragenter", dragOver);
+        addEvent3(item, "dragover", dragOver);
+        addEvent3(item, "dragleave", dragLeave);
+        addEvent3(item, "dragend", dragend);
+        return item;
+      };
+    });
+    self2.hook("instead", "lock", () => {
+      sortable = false;
+      return orig_lock.call(self2);
+    });
+    self2.hook("instead", "unlock", () => {
+      sortable = true;
+      return orig_unlock.call(self2);
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/dropdown_header/plugin.js
+  var preventDefault4 = (evt, stop = false) => {
+    if (evt) {
+      evt.preventDefault();
+      if (stop) {
+        evt.stopPropagation();
+      }
+    }
+  };
+  var getDom5 = (query) => {
+    if (query.jquery) {
+      return query[0];
+    }
+    if (query instanceof HTMLElement) {
+      return query;
+    }
+    if (isHtmlString5(query)) {
+      var tpl = document.createElement("template");
+      tpl.innerHTML = query.trim();
+      return tpl.content.firstChild;
+    }
+    return document.querySelector(query);
+  };
+  var isHtmlString5 = (arg) => {
+    if (typeof arg === "string" && arg.indexOf("<") > -1) {
+      return true;
+    }
+    return false;
+  };
+  function plugin5(userOptions) {
+    const self2 = this;
+    const options2 = Object.assign({
+      title: "Untitled",
+      headerClass: "dropdown-header",
+      titleRowClass: "dropdown-header-title",
+      labelClass: "dropdown-header-label",
+      closeClass: "dropdown-header-close",
+      html: (data) => {
+        return '<div class="' + data.headerClass + '"><div class="' + data.titleRowClass + '"><span class="' + data.labelClass + '">' + data.title + '</span><a class="' + data.closeClass + '">&times;</a></div></div>';
+      }
+    }, userOptions);
+    self2.on("initialize", () => {
+      var header = getDom5(options2.html(options2));
+      var close_link = header.querySelector("." + options2.closeClass);
+      if (close_link) {
+        close_link.addEventListener("click", (evt) => {
+          preventDefault4(evt, true);
+          self2.close();
+        });
+      }
+      self2.dropdown.insertBefore(header, self2.dropdown.firstChild);
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/caret_position/plugin.js
+  var iterate4 = (object2, callback) => {
+    if (Array.isArray(object2)) {
+      object2.forEach(callback);
+    } else {
+      for (var key in object2) {
+        if (object2.hasOwnProperty(key)) {
+          callback(object2[key], key);
+        }
+      }
+    }
+  };
+  var removeClasses2 = (elmts, ...classes) => {
+    var norm_classes = classesArray2(classes);
+    elmts = castAsArray2(elmts);
+    elmts.map((el) => {
+      norm_classes.map((cls) => {
+        el.classList.remove(cls);
+      });
+    });
+  };
+  var classesArray2 = (args) => {
+    var classes = [];
+    iterate4(args, (_classes) => {
+      if (typeof _classes === "string") {
+        _classes = _classes.trim().split(/[\t\n\f\r\s]/);
+      }
+      if (Array.isArray(_classes)) {
+        classes = classes.concat(_classes);
+      }
+    });
+    return classes.filter(Boolean);
+  };
+  var castAsArray2 = (arg) => {
+    if (!Array.isArray(arg)) {
+      arg = [arg];
+    }
+    return arg;
+  };
+  var nodeIndex2 = (el, amongst) => {
+    if (!el)
+      return -1;
+    amongst = amongst || el.nodeName;
+    var i = 0;
+    while (el = el.previousElementSibling) {
+      if (el.matches(amongst)) {
+        i++;
+      }
+    }
+    return i;
+  };
+  function plugin6() {
+    var self2 = this;
+    self2.hook("instead", "setCaret", (new_pos) => {
+      if (self2.settings.mode === "single" || !self2.control.contains(self2.control_input)) {
+        new_pos = self2.items.length;
+      } else {
+        new_pos = Math.max(0, Math.min(self2.items.length, new_pos));
+        if (new_pos != self2.caretPos && !self2.isPending) {
+          self2.controlChildren().forEach((child, j) => {
+            if (j < new_pos) {
+              self2.control_input.insertAdjacentElement("beforebegin", child);
+            } else {
+              self2.control.appendChild(child);
+            }
+          });
+        }
+      }
+      self2.caretPos = new_pos;
+    });
+    self2.hook("instead", "moveCaret", (direction) => {
+      if (!self2.isFocused)
+        return;
+      const last_active = self2.getLastActive(direction);
+      if (last_active) {
+        const idx = nodeIndex2(last_active);
+        self2.setCaret(direction > 0 ? idx + 1 : idx);
+        self2.setActiveItem();
+        removeClasses2(last_active, "last-active");
+      } else {
+        self2.setCaret(self2.caretPos + direction);
+      }
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/dropdown_input/plugin.js
+  var KEY_ESC2 = 27;
+  var KEY_TAB2 = 9;
+  var preventDefault5 = (evt, stop = false) => {
+    if (evt) {
+      evt.preventDefault();
+      if (stop) {
+        evt.stopPropagation();
+      }
+    }
+  };
+  var addEvent4 = (target, type, callback, options2) => {
+    target.addEventListener(type, callback, options2);
+  };
+  var iterate5 = (object2, callback) => {
+    if (Array.isArray(object2)) {
+      object2.forEach(callback);
+    } else {
+      for (var key in object2) {
+        if (object2.hasOwnProperty(key)) {
+          callback(object2[key], key);
+        }
+      }
+    }
+  };
+  var getDom6 = (query) => {
+    if (query.jquery) {
+      return query[0];
+    }
+    if (query instanceof HTMLElement) {
+      return query;
+    }
+    if (isHtmlString6(query)) {
+      var tpl = document.createElement("template");
+      tpl.innerHTML = query.trim();
+      return tpl.content.firstChild;
+    }
+    return document.querySelector(query);
+  };
+  var isHtmlString6 = (arg) => {
+    if (typeof arg === "string" && arg.indexOf("<") > -1) {
+      return true;
+    }
+    return false;
+  };
+  var addClasses2 = (elmts, ...classes) => {
+    var norm_classes = classesArray3(classes);
+    elmts = castAsArray3(elmts);
+    elmts.map((el) => {
+      norm_classes.map((cls) => {
+        el.classList.add(cls);
+      });
+    });
+  };
+  var classesArray3 = (args) => {
+    var classes = [];
+    iterate5(args, (_classes) => {
+      if (typeof _classes === "string") {
+        _classes = _classes.trim().split(/[\t\n\f\r\s]/);
+      }
+      if (Array.isArray(_classes)) {
+        classes = classes.concat(_classes);
+      }
+    });
+    return classes.filter(Boolean);
+  };
+  var castAsArray3 = (arg) => {
+    if (!Array.isArray(arg)) {
+      arg = [arg];
+    }
+    return arg;
+  };
+  function plugin7() {
+    const self2 = this;
+    self2.settings.shouldOpen = true;
+    self2.hook("before", "setup", () => {
+      var _self$input;
+      self2.focus_node = self2.control;
+      addClasses2(self2.control_input, "dropdown-input");
+      const div = getDom6('<div class="dropdown-input-wrap">');
+      div.append(self2.control_input);
+      self2.dropdown.insertBefore(div, self2.dropdown.firstChild);
+      const placeholder = getDom6('<input class="items-placeholder" tabindex="-1" />');
+      placeholder.placeholder = self2.settings.placeholder || "";
+      self2.control.append(placeholder);
+      const label = (_self$input = self2.input) == null ? void 0 : _self$input.getAttribute("aria-label");
+      if (!label)
+        return;
+      placeholder.setAttribute("aria-label", label);
+    });
+    self2.on("initialize", () => {
+      self2.control_input.addEventListener("keydown", (evt) => {
+        switch (evt.keyCode) {
+          case KEY_ESC2:
+            if (self2.isOpen) {
+              preventDefault5(evt, true);
+              self2.close();
+            }
+            self2.clearActiveItems();
+            return;
+          case KEY_TAB2:
+            self2.focus_node.tabIndex = -1;
+            break;
+        }
+        return self2.onKeyDown.call(self2, evt);
+      });
+      self2.on("blur", () => {
+        self2.focus_node.tabIndex = self2.isDisabled ? -1 : self2.tabIndex;
+      });
+      self2.on("dropdown_open", () => {
+        self2.control_input.focus();
+      });
+      const orig_onBlur = self2.onBlur;
+      self2.hook("instead", "onBlur", (evt) => {
+        if (evt && evt.relatedTarget == self2.control_input)
+          return;
+        return orig_onBlur.call(self2);
+      });
+      addEvent4(self2.control_input, "blur", () => self2.onBlur());
+      self2.hook("before", "close", () => {
+        if (!self2.isOpen)
+          return;
+        self2.focus_node.focus({
+          preventScroll: true
+        });
+      });
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/input_autogrow/plugin.js
+  var addEvent5 = (target, type, callback, options2) => {
+    target.addEventListener(type, callback, options2);
+  };
+  function plugin8() {
+    var self2 = this;
+    self2.on("initialize", () => {
+      var test_input = document.createElement("span");
+      var control = self2.control_input;
+      test_input.style.cssText = "position:absolute; top:-99999px; left:-99999px; width:auto; padding:0; white-space:pre; ";
+      self2.wrapper.appendChild(test_input);
+      var transfer_styles = ["letterSpacing", "fontSize", "fontFamily", "fontWeight", "textTransform"];
+      for (const style_name of transfer_styles) {
+        test_input.style[style_name] = control.style[style_name];
+      }
+      var resize = () => {
+        test_input.textContent = control.value;
+        control.style.width = test_input.clientWidth + "px";
+      };
+      resize();
+      self2.on("update item_add item_remove", resize);
+      addEvent5(control, "input", resize);
+      addEvent5(control, "keyup", resize);
+      addEvent5(control, "blur", resize);
+      addEvent5(control, "update", resize);
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/no_backspace_delete/plugin.js
+  function plugin9() {
+    var self2 = this;
+    var orig_deleteSelection = self2.deleteSelection;
+    this.hook("instead", "deleteSelection", (evt) => {
+      if (self2.activeItems.length) {
+        return orig_deleteSelection.call(self2, evt);
+      }
+      return false;
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/no_active_items/plugin.js
+  function plugin10() {
+    this.hook("instead", "setActiveItem", () => {
+    });
+    this.hook("instead", "selectAll", () => {
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/optgroup_columns/plugin.js
+  var KEY_LEFT2 = 37;
+  var KEY_RIGHT2 = 39;
+  var parentMatch2 = (target, selector, wrapper) => {
+    while (target && target.matches) {
+      if (target.matches(selector)) {
+        return target;
+      }
+      target = target.parentNode;
+    }
+  };
+  var nodeIndex3 = (el, amongst) => {
+    if (!el)
+      return -1;
+    amongst = amongst || el.nodeName;
+    var i = 0;
+    while (el = el.previousElementSibling) {
+      if (el.matches(amongst)) {
+        i++;
+      }
+    }
+    return i;
+  };
+  function plugin11() {
+    var self2 = this;
+    var orig_keydown = self2.onKeyDown;
+    self2.hook("instead", "onKeyDown", (evt) => {
+      var index, option, options2, optgroup;
+      if (!self2.isOpen || !(evt.keyCode === KEY_LEFT2 || evt.keyCode === KEY_RIGHT2)) {
+        return orig_keydown.call(self2, evt);
+      }
+      self2.ignoreHover = true;
+      optgroup = parentMatch2(self2.activeOption, "[data-group]");
+      index = nodeIndex3(self2.activeOption, "[data-selectable]");
+      if (!optgroup) {
+        return;
+      }
+      if (evt.keyCode === KEY_LEFT2) {
+        optgroup = optgroup.previousSibling;
+      } else {
+        optgroup = optgroup.nextSibling;
+      }
+      if (!optgroup) {
+        return;
+      }
+      options2 = optgroup.querySelectorAll("[data-selectable]");
+      option = options2[Math.min(options2.length - 1, index)];
+      if (option) {
+        self2.setActiveOption(option);
+      }
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/remove_button/plugin.js
+  var escape_html2 = (str) => {
+    return (str + "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  };
+  var preventDefault6 = (evt, stop = false) => {
+    if (evt) {
+      evt.preventDefault();
+      if (stop) {
+        evt.stopPropagation();
+      }
+    }
+  };
+  var addEvent6 = (target, type, callback, options2) => {
+    target.addEventListener(type, callback, options2);
+  };
+  var getDom7 = (query) => {
+    if (query.jquery) {
+      return query[0];
+    }
+    if (query instanceof HTMLElement) {
+      return query;
+    }
+    if (isHtmlString7(query)) {
+      var tpl = document.createElement("template");
+      tpl.innerHTML = query.trim();
+      return tpl.content.firstChild;
+    }
+    return document.querySelector(query);
+  };
+  var isHtmlString7 = (arg) => {
+    if (typeof arg === "string" && arg.indexOf("<") > -1) {
+      return true;
+    }
+    return false;
+  };
+  function plugin12(userOptions) {
+    const options2 = Object.assign({
+      label: "&times;",
+      title: "Remove",
+      className: "remove",
+      append: true
+    }, userOptions);
+    var self2 = this;
+    if (!options2.append) {
+      return;
+    }
+    var html2 = '<a href="javascript:void(0)" class="' + options2.className + '" tabindex="-1" title="' + escape_html2(options2.title) + '">' + options2.label + "</a>";
+    self2.hook("after", "setupTemplates", () => {
+      var orig_render_item = self2.settings.render.item;
+      self2.settings.render.item = (data, escape) => {
+        var item = getDom7(orig_render_item.call(self2, data, escape));
+        var close_button = getDom7(html2);
+        item.appendChild(close_button);
+        addEvent6(close_button, "mousedown", (evt) => {
+          preventDefault6(evt, true);
+        });
+        addEvent6(close_button, "click", (evt) => {
+          if (self2.isLocked)
+            return;
+          preventDefault6(evt, true);
+          if (self2.isLocked)
+            return;
+          if (!self2.shouldDelete([item], evt))
+            return;
+          self2.removeItem(item);
+          self2.refreshOptions(false);
+          self2.inputState();
+        });
+        return item;
+      };
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/restore_on_backspace/plugin.js
+  function plugin13(userOptions) {
+    const self2 = this;
+    const options2 = Object.assign({
+      text: (option) => {
+        return option[self2.settings.labelField];
+      }
+    }, userOptions);
+    self2.on("item_remove", function(value) {
+      if (!self2.isFocused) {
+        return;
+      }
+      if (self2.control_input.value.trim() === "") {
+        var option = self2.options[value];
+        if (option) {
+          self2.setTextboxValue(options2.text.call(self2, option));
+        }
+      }
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/plugins/virtual_scroll/plugin.js
+  var iterate6 = (object2, callback) => {
+    if (Array.isArray(object2)) {
+      object2.forEach(callback);
+    } else {
+      for (var key in object2) {
+        if (object2.hasOwnProperty(key)) {
+          callback(object2[key], key);
+        }
+      }
+    }
+  };
+  var addClasses3 = (elmts, ...classes) => {
+    var norm_classes = classesArray4(classes);
+    elmts = castAsArray4(elmts);
+    elmts.map((el) => {
+      norm_classes.map((cls) => {
+        el.classList.add(cls);
+      });
+    });
+  };
+  var classesArray4 = (args) => {
+    var classes = [];
+    iterate6(args, (_classes) => {
+      if (typeof _classes === "string") {
+        _classes = _classes.trim().split(/[\t\n\f\r\s]/);
+      }
+      if (Array.isArray(_classes)) {
+        classes = classes.concat(_classes);
+      }
+    });
+    return classes.filter(Boolean);
+  };
+  var castAsArray4 = (arg) => {
+    if (!Array.isArray(arg)) {
+      arg = [arg];
+    }
+    return arg;
+  };
+  function plugin14() {
+    const self2 = this;
+    const orig_canLoad = self2.canLoad;
+    const orig_clearActiveOption = self2.clearActiveOption;
+    const orig_loadCallback = self2.loadCallback;
+    var pagination = {};
+    var dropdown_content;
+    var loading_more = false;
+    var load_more_opt;
+    var default_values = [];
+    var default_values_loaded = false;
+    var default_pagination;
+    if (!self2.settings.shouldLoadMore) {
+      self2.settings.shouldLoadMore = () => {
+        const scroll_percent = dropdown_content.clientHeight / (dropdown_content.scrollHeight - dropdown_content.scrollTop);
+        if (scroll_percent > 0.9) {
+          return true;
+        }
+        if (self2.activeOption) {
+          var selectable = self2.selectable();
+          var index = Array.from(selectable).indexOf(self2.activeOption);
+          if (index >= selectable.length - 2) {
+            return true;
+          }
+        }
+        return false;
+      };
+    }
+    if (!self2.settings.firstUrl) {
+      throw "virtual_scroll plugin requires a firstUrl() method";
+    }
+    self2.settings.sortField = [{
+      field: "$order"
+    }, {
+      field: "$score"
+    }];
+    const canLoadMore = (query) => {
+      if (typeof self2.settings.maxOptions === "number" && dropdown_content.children.length >= self2.settings.maxOptions) {
+        return false;
+      }
+      if (query in pagination && pagination[query]) {
+        return true;
+      }
+      return false;
+    };
+    const clearFilter = (option, value) => {
+      if (self2.items.indexOf(value) >= 0 || default_values.indexOf(value) >= 0) {
+        return true;
+      }
+      return false;
+    };
+    self2.setNextUrl = (value, next_url) => {
+      pagination[value] = next_url;
+    };
+    self2.getUrl = (query) => {
+      if (query in pagination) {
+        const next_url = pagination[query];
+        pagination[query] = false;
+        return next_url;
+      }
+      self2.clearPagination();
+      return self2.settings.firstUrl.call(self2, query);
+    };
+    self2.clearPagination = () => {
+      pagination = {};
+    };
+    self2.hook("instead", "clearActiveOption", () => {
+      if (loading_more) {
+        return;
+      }
+      return orig_clearActiveOption.call(self2);
+    });
+    self2.hook("instead", "canLoad", (query) => {
+      if (!(query in pagination)) {
+        return orig_canLoad.call(self2, query);
+      }
+      return canLoadMore(query);
+    });
+    self2.hook("instead", "loadCallback", (options2, optgroups) => {
+      if (!loading_more) {
+        self2.clearOptions(clearFilter);
+      } else if (load_more_opt) {
+        const first_option = options2[0];
+        if (first_option !== void 0) {
+          load_more_opt.dataset.value = first_option[self2.settings.valueField];
+        }
+      }
+      orig_loadCallback.call(self2, options2, optgroups);
+      if (!loading_more && !default_values_loaded) {
+        default_values_loaded = true;
+        if (self2.lastValue === "") {
+          default_values = Object.keys(self2.options);
+          default_pagination = pagination[""];
+        }
+      }
+      loading_more = false;
+    });
+    self2.hook("before", "refreshOptions", () => {
+      if (self2.activeOption && self2.activeOption.getAttribute("role") !== "option") {
+        self2.setActiveOption(self2.activeOption.previousElementSibling);
+      }
+    });
+    self2.hook("after", "refreshOptions", () => {
+      const query = self2.lastValue;
+      var option;
+      if (canLoadMore(query)) {
+        option = self2.render("loading_more", {
+          query
+        });
+        if (option) {
+          option.setAttribute("data-selectable", "");
+          load_more_opt = option;
+        }
+      } else if (query in pagination && !dropdown_content.querySelector(".no-results")) {
+        option = self2.render("no_more_results", {
+          query
+        });
+      }
+      if (option) {
+        addClasses3(option, self2.settings.optionClass);
+        dropdown_content.append(option);
+      }
+    });
+    const restoreDefaults = () => {
+      if (!default_values_loaded) {
+        return;
+      }
+      self2.clearOptions(clearFilter);
+      if (default_pagination) {
+        pagination[""] = default_pagination;
+      }
+    };
+    self2.on("type", (query) => {
+      if (query === "") {
+        restoreDefaults();
+        self2.refreshOptions(false);
+      }
+    });
+    self2.on("dropdown_close", restoreDefaults);
+    self2.on("initialize", () => {
+      default_values = Object.keys(self2.options);
+      dropdown_content = self2.dropdown_content;
+      self2.settings.render = Object.assign({}, {
+        loading_more: () => {
+          return `<div class="loading-more-results">Loading more results ... </div>`;
+        },
+        no_more_results: () => {
+          return `<div class="no-more-results">No more results</div>`;
+        }
+      }, self2.settings.render);
+      dropdown_content.addEventListener("scroll", () => {
+        if (!self2.settings.shouldLoadMore.call(self2)) {
+          return;
+        }
+        if (!canLoadMore(self2.lastValue)) {
+          return;
+        }
+        if (loading_more)
+          return;
+        loading_more = true;
+        self2.load.call(self2, self2.lastValue);
+      });
+    });
+  }
+
+  // ../../node_modules/tom-select/dist/esm/tom-select.complete.js
+  TomSelect.define("change_listener", plugin);
+  TomSelect.define("checkbox_options", plugin2);
+  TomSelect.define("clear_button", plugin3);
+  TomSelect.define("drag_drop", plugin4);
+  TomSelect.define("dropdown_header", plugin5);
+  TomSelect.define("caret_position", plugin6);
+  TomSelect.define("dropdown_input", plugin7);
+  TomSelect.define("input_autogrow", plugin8);
+  TomSelect.define("no_backspace_delete", plugin9);
+  TomSelect.define("no_active_items", plugin10);
+  TomSelect.define("optgroup_columns", plugin11);
+  TomSelect.define("remove_button", plugin12);
+  TomSelect.define("restore_on_backspace", plugin13);
+  TomSelect.define("virtual_scroll", plugin14);
+  var tom_select_complete_default = TomSelect;
+
+  // src/tom-select-init.js
+  function initTomSelects() {
+    document.querySelectorAll("select.tom-select-single:not(.tomselected)").forEach((el) => {
+      new tom_select_complete_default(el, { allowEmptyOption: true });
+    });
+    document.querySelectorAll("select.tom-select-multi:not(.tomselected)").forEach((el) => {
+      new tom_select_complete_default(el, { plugins: ["remove_button"] });
+    });
+  }
+  document.addEventListener("turbo:load", initTomSelects);
+  document.addEventListener("DOMContentLoaded", initTomSelects);
+
+  // application.js
+  var application2 = Application.start();
 })();
 /*!
-  * Bootstrap v5.1.3 (https://getbootstrap.com/)
-  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Bootstrap v5.3.3 (https://getbootstrap.com/)
+  * Copyright 2011-2024 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 /*!

@@ -1,6 +1,5 @@
 <%= link_to '+', new_location_path, :class => "btn btn-primary" %>
-<input id="gfg" type="text"
-                 placeholder="Search here">
+<input type="text" class="table_search form-control mb-2" placeholder="Search locations...">
 <div class="table-responsive">
 <table class="table table-striped">
    <thead>
@@ -13,7 +12,7 @@
   </tr>
   <thead>
 
-  <tbody id="geeks">
+  <tbody class="searchable">
   <% @locations.each do |location| %>
     <tr scope="row">
       <td><%= link_to location.name, location_path(location) %></td>
@@ -30,14 +29,3 @@
 </div>
 
 
-<script>
-            $(document).ready(function() {
-                $("#gfg").on("keyup", function() {
-                    var value = $(this).val().toLowerCase();
-                    $("#geeks tr").filter(function() {
-                        $(this).toggle($(this).text()
-                        .toLowerCase().indexOf(value) > -1)
-                    });
-                });
-            });
-</script>
