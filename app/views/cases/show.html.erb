@@ -93,6 +93,15 @@
   <%= @case.severity.severity unless @case.status.blank? %>
 </p>
 
+<h2>Attachments</h2>
+
+<%= form_with url: case_path(@case), method: :patch, multipart: true, class: "mb-3" do |f| %>
+  <div class="input-group">
+    <%= f.file_field :files, name: "case[files][]", multiple: true, class: "form-control" %>
+    <%= f.submit "Upload", class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>
+
 <div class="row">
   <% @case.files.each do |file| %>
     <% if file.content_type.start_with?('image/') %>
@@ -103,7 +112,8 @@
           </a>
           <div class="card-body">
             <p class="card-text"><%= file.filename %></p>
-            <%= button_to "Send to AP", send_to_ap_case_path(@case, file_id: file.id), method: :post, class: "btn btn-primary" %>
+            <%= button_to "Send to AP", send_to_ap_case_path(@case, file_id: file.id), method: :post, class: "btn btn-primary btn-sm" %>
+            <%= button_to "Delete", purge_attachment_path(file), method: :delete, data: { turbo_confirm: "Delete this attachment?" }, class: "btn btn-outline-danger btn-sm" %>
           </div>
         </div>
       </div>
@@ -111,7 +121,8 @@
       <div class="col-md-4 mb-3">
         <div class="card">
           <div class="card-body">
-            <p><%= link_to file.filename, url_for(file), download: file.filename %></p>
+            <p class="mb-1"><%= link_to file.filename, url_for(file), download: file.filename %></p>
+            <%= button_to "Delete", purge_attachment_path(file), method: :delete, data: { turbo_confirm: "Delete this attachment?" }, class: "btn btn-outline-danger btn-sm" %>
           </div>
         </div>
       </div>
