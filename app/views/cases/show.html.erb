@@ -112,7 +112,6 @@
           </a>
           <div class="card-body">
             <p class="card-text"><%= file.filename %></p>
-            <%= button_to "Send to AP", send_to_ap_case_path(@case, file_id: file.id), method: :post, class: "btn btn-primary btn-sm" %>
             <%= button_to "Delete", purge_attachment_path(file), method: :delete, data: { turbo_confirm: "Delete this attachment?" }, class: "btn btn-outline-danger btn-sm" %>
           </div>
         </div>
