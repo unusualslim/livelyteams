@@ -96,12 +96,14 @@
   function setupCustomLocations() {
     const container = document.getElementById("custom-locations-container");
     const addBtn = document.getElementById("add-custom-location");
-    if (!container || !addBtn || addBtn.dataset.initialized) return;
-    addBtn.dataset.initialized = "true";
+    if (!container || !addBtn) return;
 
     let index = container.querySelectorAll(".custom-location-entry").length + Date.now();
 
-    addBtn.addEventListener("click", function() {
+    const newAddBtn = addBtn.cloneNode(true);
+    addBtn.parentNode.replaceChild(newAddBtn, addBtn);
+
+    newAddBtn.addEventListener("click", function() {
       const tmpl = document.getElementById("custom-location-template");
       const html = tmpl.innerHTML
         .replace(/REPLACE_NAME/g, "case")
@@ -111,7 +113,10 @@
       container.appendChild(wrapper.firstElementChild);
     });
 
-    container.addEventListener("click", function(e) {
+    const newContainer = container.cloneNode(true);
+    container.parentNode.replaceChild(newContainer, container);
+
+    newContainer.addEventListener("click", function(e) {
       const btn = e.target.closest(".remove-custom-location");
       if (!btn) return;
       const entry = btn.closest(".custom-location-entry");

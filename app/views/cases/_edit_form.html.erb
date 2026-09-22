@@ -1,3 +1,33 @@
+<template id="custom-location-template">
+  <div class="custom-location-entry border rounded p-2 mb-2">
+    <input type="hidden" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][id]" value="">
+    <input type="hidden" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][_destroy]" value="false" class="destroy-flag">
+    <div class="row g-2">
+      <div class="col-md-6">
+        <input type="text" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][name]" placeholder="Location name" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-6">
+        <input type="text" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][address1]" placeholder="Address line 1" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-6">
+        <input type="text" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][address2]" placeholder="Address line 2" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-4">
+        <input type="text" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][city]" placeholder="City" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-2">
+        <input type="text" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][state]" placeholder="State" class="form-control form-control-sm">
+      </div>
+      <div class="col-md-2">
+        <input type="text" name="REPLACE_NAME[case_custom_locations_attributes][REPLACE_INDEX][zip]" placeholder="Zip" class="form-control form-control-sm">
+      </div>
+      <div class="col-auto d-flex align-items-start">
+        <button type="button" class="btn btn-outline-danger btn-sm remove-custom-location">Remove</button>
+      </div>
+    </div>
+  </div>
+</template>
+
 <%= form_for @case do |form| %>
   <% if @case.errors.any? %>
     <div id="error_explanation">
@@ -22,7 +52,16 @@
    </div>
    <div class="form-group">
      <%= form.label "Locations" %>
-     <%= form.collection_select :location_ids, Location.order(:name), :id, :name,{:prompt => false}, {:multiple => true, :size => 10, :required => true, class: "form-control" } %>
+     <%= form.collection_select :location_ids, Location.order(:name), :id, :name,{:prompt => false}, {:multiple => true, :size => 10, class: "form-control tom-select-multi" } %>
+   </div>
+   <div class="form-group">
+     <label>One-time Locations</label>
+     <div id="custom-locations-container">
+       <%= form.fields_for :case_custom_locations do |cl_form| %>
+         <%= render 'cases/custom_location_fields', f: cl_form %>
+       <% end %>
+     </div>
+     <button type="button" class="btn btn-outline-secondary btn-sm mt-1" id="add-custom-location">+ Add one-time location</button>
    </div>
    <div class="form-group">
      <%= form.label :severity %>
@@ -53,5 +92,49 @@
      <%= form.collection_select :user_ids, User.order(:email), :id, :full_name,{:prompt => false}, {:multiple => true, :size => 10, :required => false, class: "form-control" } %>
   </div>
 
-
 <% end %>
+
+<script>
+(function() {
+  function setupCustomLocations() {
+    const container = document.getElementById("custom-locations-container");
+    const addBtn = document.getElementById("add-custom-location");
+    if (!container || !addBtn) return;
+
+    let index = container.querySelectorAll(".custom-location-entry").length + Date.now();
+
+    const newAddBtn = addBtn.cloneNode(true);
+    addBtn.parentNode.replaceChild(newAddBtn, addBtn);
+
+    newAddBtn.addEventListener("click", function() {
+      const tmpl = document.getElementById("custom-location-template");
+      const html = tmpl.innerHTML
+        .replace(/REPLACE_NAME/g, "case")
+        .replace(/REPLACE_INDEX/g, index++);
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = html;
+      document.getElementById("custom-locations-container").appendChild(wrapper.firstElementChild);
+    });
+
+    const newContainer = container.cloneNode(true);
+    container.parentNode.replaceChild(newContainer, container);
+
+    newContainer.addEventListener("click", function(e) {
+      const btn = e.target.closest(".remove-custom-location");
+      if (!btn) return;
+      const entry = btn.closest(".custom-location-entry");
+      const idField = entry.querySelector('input[name*="[id]"]');
+      const destroyFlag = entry.querySelector(".destroy-flag");
+      if (idField && idField.value) {
+        destroyFlag.value = "1";
+        entry.style.display = "none";
+      } else {
+        entry.remove();
+      }
+    });
+  }
+
+  document.addEventListener("turbo:load", setupCustomLocations);
+  document.addEventListener("DOMContentLoaded", setupCustomLocations);
+})();
+</script>
