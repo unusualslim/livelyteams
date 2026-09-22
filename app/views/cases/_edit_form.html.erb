@@ -95,46 +95,35 @@
 <% end %>
 
 <script>
-(function() {
-  function setupCustomLocations() {
-    const container = document.getElementById("custom-locations-container");
-    const addBtn = document.getElementById("add-custom-location");
-    if (!container || !addBtn) return;
+document.addEventListener("turbo:load", function() {
+  const container = document.getElementById("custom-locations-container");
+  const addBtn = document.getElementById("add-custom-location");
+  if (!container || !addBtn) return;
 
-    let index = container.querySelectorAll(".custom-location-entry").length + Date.now();
+  let index = Date.now();
 
-    const newAddBtn = addBtn.cloneNode(true);
-    addBtn.parentNode.replaceChild(newAddBtn, addBtn);
+  addBtn.addEventListener("click", function() {
+    const tmpl = document.getElementById("custom-location-template");
+    const html = tmpl.innerHTML
+      .replace(/REPLACE_NAME/g, "case")
+      .replace(/REPLACE_INDEX/g, index++);
+    const wrapper = document.createElement("div");
+    wrapper.innerHTML = html;
+    container.appendChild(wrapper.firstElementChild);
+  });
 
-    newAddBtn.addEventListener("click", function() {
-      const tmpl = document.getElementById("custom-location-template");
-      const html = tmpl.innerHTML
-        .replace(/REPLACE_NAME/g, "case")
-        .replace(/REPLACE_INDEX/g, index++);
-      const wrapper = document.createElement("div");
-      wrapper.innerHTML = html;
-      document.getElementById("custom-locations-container").appendChild(wrapper.firstElementChild);
-    });
-
-    const newContainer = container.cloneNode(true);
-    container.parentNode.replaceChild(newContainer, container);
-
-    newContainer.addEventListener("click", function(e) {
-      const btn = e.target.closest(".remove-custom-location");
-      if (!btn) return;
-      const entry = btn.closest(".custom-location-entry");
-      const idField = entry.querySelector('input[name*="[id]"]');
-      const destroyFlag = entry.querySelector(".destroy-flag");
-      if (idField && idField.value) {
-        destroyFlag.value = "1";
-        entry.style.display = "none";
-      } else {
-        entry.remove();
-      }
-    });
-  }
-
-  document.addEventListener("turbo:load", setupCustomLocations);
-  document.addEventListener("DOMContentLoaded", setupCustomLocations);
-})();
+  container.addEventListener("click", function(e) {
+    const btn = e.target.closest(".remove-custom-location");
+    if (!btn) return;
+    const entry = btn.closest(".custom-location-entry");
+    const idField = entry.querySelector('input[name*="[id]"]');
+    const destroyFlag = entry.querySelector(".destroy-flag");
+    if (idField && idField.value) {
+      destroyFlag.value = "1";
+      entry.style.display = "none";
+    } else {
+      entry.remove();
+    }
+  });
+});
 </script>
