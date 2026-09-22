@@ -65,6 +65,24 @@
   <% end %>
 </p>
 
+<% if @case.case_custom_locations.any? %>
+<p>
+  <strong>One-time Locations:</strong><br>
+  <% @case.case_custom_locations.each do |cl| %>
+    <div style="margin-bottom: 12px;">
+      <div><%= cl.name %></div>
+      <% if cl.address1.present? %>
+        <div style="font-size: 0.95em;">
+          <div><%= cl.address1 %></div>
+          <% if cl.address2.present? %><div><%= cl.address2 %></div><% end %>
+          <div><%= [cl.city, cl.state].compact.join(", ") %> <%= cl.zip %></div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</p>
+<% end %>
+
 <p>
   <strong>Requested By</strong>
   <%= @case.requested_by.full_name unless @case.requested_by.full_name.blank? %>

@@ -59,7 +59,7 @@
         <%# Action buttons %>
         <div class="d-flex flex-wrap gap-2">
           <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#cardLocations<%= c.id %>">
-            <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
+            <%= c.case_locations.first&.location&.name || c.case_custom_locations.first&.name || "No location" %> (<%= c.case_locations.count + c.case_custom_locations.count %>)
           </button>
           <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#cardComments<%= c.id %>">
             Comments (<%= c.case_comments.count %>)
@@ -143,7 +143,7 @@
     </td>
     <td><small class="text-muted"><%= c.created_at.strftime("%b %d, %Y") %></small></td>
     <td><button class="btn btn-outline-primary btn-truncate" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocations<%= c.id %>" aria-expanded="false" aria-controls="collapseLocations<%= c.id %>">
-          <%= c.case_locations.first.location.name %> (<%= c.case_locations.count %>)
+          <%= c.case_locations.first&.location&.name || c.case_custom_locations.first&.name || "No location" %> (<%= c.case_locations.count + c.case_custom_locations.count %>)
         </button>
     </td>
     <td><button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseComments<%= c.id %>" aria-expanded="false" aria-controls="collapseComments<%= c.id %>">

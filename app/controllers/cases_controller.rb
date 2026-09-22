@@ -16,7 +16,7 @@ class CasesController < ApplicationController
 
     @open_cases = base
       .where.not(status_id: [3, 4])
-      .includes(:status, :severity, :assigned_to, :requested_by, :case_comments, case_locations: :location)
+      .includes(:status, :severity, :assigned_to, :requested_by, :case_comments, :case_custom_locations, case_locations: :location)
       .order(created_at: :desc)
 
     @open_cases_counts = base
@@ -125,6 +125,7 @@ class CasesController < ApplicationController
   def set_case
     @case = Case.includes(
       :status, :severity, :assigned_to, :requested_by,
+      :case_custom_locations,
       case_locations: :location,
       case_comments: :user,
       case_users: :user
@@ -159,7 +160,8 @@ class CasesController < ApplicationController
   def case_params
     params.require(:case).permit(
       :subject, :status_id, :requested_by_id, :assigned_to_id, :description, :severity_id,
-      location_ids: [], user_ids: [], files: []
+      location_ids: [], user_ids: [], files: [],
+      case_custom_locations_attributes: [:id, :name, :address1, :address2, :city, :state, :zip, :_destroy]
     )
   end
 end

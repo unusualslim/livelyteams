@@ -10,6 +10,7 @@ function initTomSelects() {
   document.querySelectorAll("select.tom-select-multi:not(.tomselected)").forEach(el => {
     new TomSelect(el, { plugins: ["remove_button"] });
   });
+
 }
 
 document.addEventListener("turbo:load", initTomSelects);

@@ -1,0 +1,27 @@
+<div class="custom-location-entry border rounded p-2 mb-2">
+  <%= f.hidden_field :id %>
+  <%= f.hidden_field :_destroy, class: "destroy-flag" %>
+  <div class="row g-2">
+    <div class="col-md-6">
+      <%= f.text_field :name, placeholder: "Location name", class: "form-control form-control-sm" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.text_field :address1, placeholder: "Address line 1", class: "form-control form-control-sm" %>
+    </div>
+    <div class="col-md-6">
+      <%= f.text_field :address2, placeholder: "Address line 2", class: "form-control form-control-sm" %>
+    </div>
+    <div class="col-md-4">
+      <%= f.text_field :city, placeholder: "City", class: "form-control form-control-sm" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.text_field :state, placeholder: "State", class: "form-control form-control-sm" %>
+    </div>
+    <div class="col-md-2">
+      <%= f.text_field :zip, placeholder: "Zip", class: "form-control form-control-sm" %>
+    </div>
+    <div class="col-auto d-flex align-items-start">
+      <button type="button" class="btn btn-outline-danger btn-sm remove-custom-location">Remove</button>
+    </div>
+  </div>
+</div>

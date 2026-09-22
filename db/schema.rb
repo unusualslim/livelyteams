@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_06_17_133734) do
+ActiveRecord::Schema[7.0].define(version: 2026_09_22_173705) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -70,6 +70,19 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_17_133734) do
     t.float "labor_hours"
     t.index ["case_id"], name: "index_case_comments_on_case_id"
     t.index ["user_id"], name: "index_case_comments_on_user_id"
+  end
+
+  create_table "case_custom_locations", force: :cascade do |t|
+    t.bigint "case_id", null: false
+    t.string "name"
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["case_id"], name: "index_case_custom_locations_on_case_id"
   end
 
   create_table "case_locations", force: :cascade do |t|
@@ -340,6 +353,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_06_17_133734) do
   add_foreign_key "assets", "locations"
   add_foreign_key "case_comments", "cases"
   add_foreign_key "case_comments", "users"
+  add_foreign_key "case_custom_locations", "cases"
   add_foreign_key "case_locations", "cases"
   add_foreign_key "case_locations", "locations"
   add_foreign_key "case_users", "cases"

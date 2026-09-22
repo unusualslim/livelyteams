@@ -10,6 +10,9 @@ class Case < ApplicationRecord
   has_many :case_locations
   has_many :locations, through: :case_locations, dependent: :destroy
 
+  has_many :case_custom_locations, dependent: :destroy
+  accepts_nested_attributes_for :case_custom_locations, allow_destroy: true, reject_if: :all_blank
+
   has_many :case_comments, :dependent => :destroy
 
   has_many_attached :files, :dependent => :destroy
