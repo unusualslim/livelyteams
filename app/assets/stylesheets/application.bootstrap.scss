@@ -346,3 +346,84 @@ $sidebar-section-color: #555e6e;
   color: #fff;
   font-size: 1rem;
 }
+
+// ── Print styles ─────────────────────────────────────────────────────────────
+@media print {
+  // Hide sidebar and mobile topbar entirely
+  .app-sidebar,
+  .app-sidebar-offcanvas,
+  .sidebar-topbar {
+    display: none !important;
+  }
+
+  // Let the main content fill the full page
+  .app-layout {
+    display: block;
+    background-color: #fff;
+  }
+
+  .app-main {
+    padding: 0;
+    overflow: visible;
+  }
+
+  // Clean up page chrome
+  body {
+    background-color: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+
+  // Make links readable — show URL only for external links; plain text for internal
+  a[href] {
+    color: #000;
+    text-decoration: none;
+  }
+
+  // Status badges: print with border instead of colored background
+  .badge {
+    border: 1px solid #000;
+    color: #000 !important;
+    background-color: #fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  // Labor hours: print in black instead of blue
+  .print-labor-hours {
+    color: #000 !important;
+  }
+
+  // Comments: remove alert background
+  .alert-primary {
+    background-color: #fff !important;
+    border: 1px solid #ccc !important;
+    color: #000 !important;
+  }
+
+  // Images: don't let them overflow columns; fit to page width
+  .card-img-top {
+    max-width: 100%;
+    max-height: 4in;
+    object-fit: contain;
+    page-break-inside: avoid;
+  }
+
+  .card {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  // Keep comment blocks together
+  .alert {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+    margin-top: 1rem;
+  }
+}

@@ -76,6 +76,7 @@ Rails.application.routes.draw do
       get 'inspectable'
     end
 
+    get :print, on: :member
     put :change_status_to_inspectable, on: :member
     put :change_status_to_closed, on: :member
     put :change_status_to_complete_billable, on: :member

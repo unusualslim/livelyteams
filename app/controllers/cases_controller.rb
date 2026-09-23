@@ -1,12 +1,12 @@
 class CasesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_case, only: %i[
-    show edit update destroy
+    show edit update destroy print
     change_status_to_closed change_status_to_complete_billable change_status_to_inspectable
     send_to_ap
   ]
   before_action :authorize_case_access!, only: %i[
-    show edit update destroy
+    show edit update destroy print
     change_status_to_closed change_status_to_complete_billable change_status_to_inspectable
     send_to_ap
   ]
@@ -48,6 +48,10 @@ class CasesController < ApplicationController
 
   def show
     # @case is set by set_case
+  end
+
+  def print
+    render layout: 'print'
   end
 
   def new

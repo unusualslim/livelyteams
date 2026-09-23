@@ -1,12 +1,14 @@
 <div class="container-fluid ps-4">
 
-<%= link_to 'Back', cases_path, :class => "link-secondary" %> |
-<%= link_to 'Edit', edit_case_path(@case.id), :class => "link-success" %> |
-<%= link_to 'Delete', case_path(@case), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "link-danger" %> |
-<%= link_to 'Mark Inspectable', change_status_to_inspectable_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
-<%= link_to 'Mark Billable', change_status_to_complete_billable_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
-<%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
-<%= link_to 'Print', case_path, :onclick => 'window.print();return false;'%>
+<div class="d-print-none mb-2">
+  <%= link_to 'Back', cases_path, :class => "link-secondary" %> |
+  <%= link_to 'Edit', edit_case_path(@case.id), :class => "link-success" %> |
+  <%= link_to 'Delete', case_path(@case), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, :class => "link-danger" %> |
+  <%= link_to 'Mark Inspectable', change_status_to_inspectable_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
+  <%= link_to 'Mark Billable', change_status_to_complete_billable_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
+  <%= link_to 'Mark Closed', change_status_to_closed_case_path(@case.id), data: {turbo_method: :put}, :class => "link-primary" %> |
+  <%= link_to 'Print', '#', onclick: 'window.print(); return false;' %>
+</div>
 
 <p>
   <strong>Case No.</strong>
@@ -52,14 +54,14 @@
 
         <button
           type="button"
-          class="copy-address-btn"
+          class="copy-address-btn d-print-none"
           data-copy-text="<%= full_address %>"
           style="margin-top: 6px;"
         >
           Copy address
         </button>
 
-        <span class="copy-address-status" style="margin-left: 8px; font-size: 0.9em;"></span>
+        <span class="copy-address-status d-print-none" style="margin-left: 8px; font-size: 0.9em;"></span>
       </div>
     </div>
   <% end %>
@@ -113,7 +115,7 @@
 
 <h2>Attachments</h2>
 
-<%= form_with url: case_path(@case), method: :patch, multipart: true, class: "mb-3" do |f| %>
+<%= form_with url: case_path(@case), method: :patch, multipart: true, class: "mb-3 d-print-none" do |f| %>
   <div class="input-group">
     <%= f.file_field :files, name: "case[files][]", multiple: true, class: "form-control" %>
     <%= f.submit "Upload", class: "btn btn-outline-secondary" %>
@@ -130,7 +132,7 @@
           </a>
           <div class="card-body">
             <p class="card-text"><%= file.filename %></p>
-            <%= button_to "Delete", purge_attachment_path(file), method: :delete, data: { turbo_confirm: "Delete this attachment?" }, class: "btn btn-outline-danger btn-sm" %>
+            <%= button_to "Delete", purge_attachment_path(file), method: :delete, data: { turbo_confirm: "Delete this attachment?" }, class: "btn btn-outline-danger btn-sm d-print-none" %>
           </div>
         </div>
       </div>
@@ -139,7 +141,7 @@
         <div class="card">
           <div class="card-body">
             <p class="mb-1"><%= link_to file.filename, url_for(file), download: file.filename %></p>
-            <%= button_to "Delete", purge_attachment_path(file), method: :delete, data: { turbo_confirm: "Delete this attachment?" }, class: "btn btn-outline-danger btn-sm" %>
+            <%= button_to "Delete", purge_attachment_path(file), method: :delete, data: { turbo_confirm: "Delete this attachment?" }, class: "btn btn-outline-danger btn-sm d-print-none" %>
           </div>
         </div>
       </div>
@@ -167,9 +169,11 @@
 <% end %>
 
 <h2>Comments</h2>
-<p style="color:blue;">Total Labor Hours: <%= @case.total_labor %> hrs</p>
+<p class="print-labor-hours" style="color:blue;">Total Labor Hours: <%= @case.total_labor %> hrs</p>
 <%= render @case.case_comments %>
-<%= render 'case_comments/form' %>
+<div class="d-print-none">
+  <%= render 'case_comments/form' %>
+</div>
 
 </div>
 

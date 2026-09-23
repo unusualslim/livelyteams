@@ -1,0 +1,116 @@
+<style>
+  body { font-size: 11pt; }
+  h1 { font-size: 16pt; margin: 0 0 4px; }
+  h2 { font-size: 12pt; margin: 1.2rem 0 0.3rem; border-bottom: 1px solid #ccc; padding-bottom: 2px; }
+  p, div { margin: 0 0 4px; }
+  .meta { color: #555; font-size: 10pt; }
+  .label { font-weight: bold; }
+  .badge { border: 1px solid #555; padding: 1px 6px; border-radius: 3px; font-size: 9pt; vertical-align: middle; }
+  .comment-block { border: 1px solid #ccc; border-radius: 4px; padding: 8px 10px; margin-bottom: 10px; }
+  .comment-meta { font-size: 9.5pt; color: #555; margin-top: 4px; }
+  .image-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+  .image-item { max-width: 200px; }
+  .image-item img { max-width: 100%; border: 1px solid #ccc; }
+  .image-item p { font-size: 9pt; margin: 2px 0 0; }
+  .file-list { margin: 6px 0; }
+  .file-list li { font-size: 10pt; }
+  @media print {
+    a { color: #000; text-decoration: none; }
+  }
+</style>
+
+<h1>Case #<%= @case.id %> <span class="badge"><%= @case.status.status unless @case.status.blank? %></span></h1>
+<p style="font-size:13pt; font-weight:bold; margin-bottom:6px;"><%= @case.subject %></p>
+<p class="meta">
+  Created: <%= Time.use_zone('Eastern Time (US & Canada)') { @case.created_at.strftime("%B %d, %Y") } %> &nbsp;·&nbsp;
+  Updated: <%= Time.use_zone('Eastern Time (US & Canada)') { @case.updated_at.strftime("%b %d, %Y %-l:%M %p") } %>
+</p>
+
+<h2>Details</h2>
+<p><span class="label">Requested By:</span> <%= @case.requested_by.full_name unless @case.requested_by.full_name.blank? %></p>
+<p><span class="label">Assigned To:</span> <%= @case.assigned_to.full_name unless @case.assigned_to.full_name.blank? %></p>
+<% if @case.case_users.any? %>
+  <p><span class="label">Followed By:</span> <%= @case.case_users.map { |cu| cu.user.full_name }.join(", ") %></p>
+<% end %>
+<p><span class="label">Severity:</span> <%= @case.severity.severity unless @case.severity.blank? %></p>
+<% if @case.description.present? %>
+  <p><span class="label">Description:</span> <%= @case.description %></p>
+<% end %>
+
+<h2>Locations</h2>
+<% @case.case_locations.includes(:location).each do |cl| %>
+  <% loc = cl.location %>
+  <div style="margin-bottom: 8px;">
+    <div class="label"><%= loc.name %></div>
+    <div><%= loc.address1 %></div>
+    <% if loc.address2.present? %><div><%= loc.address2 %></div><% end %>
+    <div><%= [loc.city, loc.state].compact.join(", ") %> <%= loc.zip %></div>
+  </div>
+<% end %>
+
+<% if @case.case_custom_locations.any? %>
+  <h2>One-time Locations</h2>
+  <% @case.case_custom_locations.each do |cl| %>
+    <div style="margin-bottom: 8px;">
+      <div class="label"><%= cl.name %></div>
+      <% if cl.address1.present? %>
+        <div><%= cl.address1 %></div>
+        <% if cl.address2.present? %><div><%= cl.address2 %></div><% end %>
+        <div><%= [cl.city, cl.state].compact.join(", ") %> <%= cl.zip %></div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<% bill_to_locations = @case.case_locations.select { |cl| cl.location.bill_to_address1.present? } %>
+<% if bill_to_locations.any? %>
+  <h2>Bill To</h2>
+  <% bill_to_locations.each do |cl| %>
+    <% loc = cl.location %>
+    <div style="margin-bottom: 8px;">
+      <div class="label"><%= loc.name %></div>
+      <% if loc.bill_to_name.present? %><div><%= loc.bill_to_name %></div><% end %>
+      <div><%= loc.bill_to_address1 %></div>
+      <% if loc.bill_to_address2.present? %><div><%= loc.bill_to_address2 %></div><% end %>
+      <div><%= [loc.bill_to_city, loc.bill_to_state].compact.join(", ") %> <%= loc.bill_to_zip %></div>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @case.files.any? %>
+  <h2>Attachments</h2>
+  <div class="image-grid">
+    <% @case.files.each do |file| %>
+      <% if file.content_type.start_with?('image/') %>
+        <div class="image-item">
+          <img src="<%= url_for(file.variant(resize_to_limit: [300, 300])) %>" alt="<%= file.filename %>">
+          <p><%= file.filename %></p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <% non_images = @case.files.reject { |f| f.content_type.start_with?('image/') } %>
+  <% if non_images.any? %>
+    <ul class="file-list">
+      <% non_images.each do |file| %>
+        <li><%= file.filename %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>
+
+<h2>Comments <span style="font-size:10pt; font-weight:normal;">(Total Labor: <%= @case.total_labor %> hrs)</span></h2>
+<% if @case.case_comments.any? %>
+  <% @case.case_comments.each do |comment| %>
+    <div class="comment-block">
+      <div><%= comment.body %></div>
+      <div class="comment-meta">
+        — <%= comment.user.full_name unless comment.user.blank? %>
+        on <%= comment.created_at&.strftime("%b %d, %Y %-l:%M %p") %>
+        <% if comment.labor_hours %>· Labor: <%= comment.labor_hours %> hrs<% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p class="meta">No comments.</p>
+<% end %>

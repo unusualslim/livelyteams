@@ -14,6 +14,53 @@
     <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.bubble.css" rel="stylesheet" media="print" onload="this.media='all'">
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= javascript_include_tag 'tinymce_init', "data-turbo-track": "reload", defer: true %>
+    <style media="print">
+      /* Hide all navigation chrome */
+      .app-sidebar,
+      .app-sidebar-offcanvas,
+      .sidebar-topbar,
+      .d-print-none {
+        display: none !important;
+      }
+
+      /* Full-width content, white background */
+      body.app-layout {
+        display: block !important;
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .app-main {
+        padding: 0.5rem !important;
+        width: 100% !important;
+      }
+
+      /* Clean up colors */
+      body { color: #000 !important; font-size: 11pt !important; }
+      a { color: #000 !important; text-decoration: none !important; }
+
+      /* Badges: border instead of colored background */
+      .badge {
+        border: 1px solid #555 !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+
+      /* Comment boxes */
+      .alert-primary {
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        color: #000 !important;
+      }
+
+      /* Keep images from overflowing */
+      img { max-width: 100% !important; }
+
+      /* Avoid breaking cards/comments across pages */
+      .card, .alert { break-inside: avoid !important; }
+      h2 { break-after: avoid !important; }
+    </style>
   </head>
 
   <body class="app-layout">

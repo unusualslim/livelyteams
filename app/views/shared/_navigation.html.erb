@@ -5,7 +5,7 @@
 %>
 
 <!-- Mobile top bar -->
-<div class="sidebar-topbar d-lg-none">
+<div class="sidebar-topbar d-lg-none d-print-none">
   <button class="sidebar-toggle-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
     <i class="bi bi-list"></i>
   </button>
@@ -13,12 +13,12 @@
 </div>
 
 <!-- Desktop sidebar -->
-<aside class="app-sidebar d-none d-lg-flex flex-column">
+<aside class="app-sidebar d-none d-lg-flex d-print-none flex-column">
   <%= render 'shared/sidebar_content' %>
 </aside>
 
 <!-- Mobile offcanvas sidebar -->
-<div class="offcanvas offcanvas-start app-sidebar-offcanvas" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
+<div class="offcanvas offcanvas-start app-sidebar-offcanvas d-print-none" tabindex="-1" id="sidebarOffcanvas" aria-labelledby="sidebarOffcanvasLabel">
   <div class="offcanvas-header border-bottom border-secondary pb-3">
     <span class="sidebar-brand" id="sidebarOffcanvasLabel">Lively Teams</span>
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>

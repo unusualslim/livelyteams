@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Lively Teams — Print</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  </head>
+  <body style="background:#fff; color:#000; font-family: sans-serif; padding: 1.5rem;">
+    <%= yield %>
+    <script>window.onload = function() { window.print(); }</script>
+  </body>
+</html>
