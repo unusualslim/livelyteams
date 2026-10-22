@@ -7,7 +7,7 @@
     "@popperjs/core": "^2.11.5",
     "@rails/actiontext": "^7.0.3-1",
     "bootstrap": "^5.3.3",
-    "bootstrap-icons": "^1.8.1",
+    "bootstrap-icons": "^1.13.2",
     "esbuild": "^0.14.27",
     "esbuild-rails": "^1.0.3",
     "jquery": "^3.6.0",
