@@ -9,7 +9,7 @@ ruby '3.1.1'
 
 #gem 'rails', '~> 6.0.3.1'
 #gem 'rails', '~> 6.1', '>= 6.1.6'
-gem 'rails', '~> 7.0', '>= 7.0.3'
+gem 'rails', '~> 7.0', '>= 7.0.10'
 gem 'pg', '~> 1.3', '>= 1.3.5'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'twilio-ruby', '~> 5.58'
