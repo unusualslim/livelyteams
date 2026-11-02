@@ -326,6 +326,7 @@ DEPENDENCIES
   bootsnap
   byebug
   capybara (~> 2.13)
+  cgi (>= 0.3.3)
   cssbundling-rails
   devise
   dotenv-rails
