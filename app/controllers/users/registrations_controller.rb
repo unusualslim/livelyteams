@@ -58,6 +58,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     return if !recaptcha_enabled || verify_recaptcha
 
+    Rails.logger.error "reCAPTCHA verification failed. Errors: #{resource_class.new.errors.full_messages}"
+    Rails.logger.error "reCAPTCHA response token present: #{params['g-recaptcha-response'].present?}"
+
     flash.now[:alert] = "reCAPTCHA verification failed. Please try again."
 
     self.resource = resource_class.new sign_up_params
