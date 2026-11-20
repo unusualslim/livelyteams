@@ -56,10 +56,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def check_captcha
     recaptcha_enabled = !Rails.env.development?
 
-    return if !recaptcha_enabled || verify_recaptcha
+    return unless recaptcha_enabled
+
+    # If the reCAPTCHA widget never loaded (e.g. ad blocker, corporate firewall),
+    # the token will be blank. Allow signup but log it for monitoring.
+    unless params['g-recaptcha-response'].present?
+      Rails.logger.warn "reCAPTCHA widget did not load for signup: #{params.dig('user', 'email')}"
+      return
+    end
+
+    return if verify_recaptcha
 
     Rails.logger.error "reCAPTCHA verification failed. Errors: #{resource_class.new.errors.full_messages}"
-    Rails.logger.error "reCAPTCHA response token present: #{params['g-recaptcha-response'].present?}"
 
     flash.now[:alert] = "reCAPTCHA verification failed. Please try again."
 
