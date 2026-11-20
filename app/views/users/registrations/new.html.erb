@@ -36,13 +36,24 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
 
+  <%= recaptcha_tags site_key: ENV['RECAPTCHA_SITE_KEY'], callback: 'onRecaptchaVerified', id: 'recaptcha-widget' %>
+
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", id: 'signup-submit', disabled: true %>
   </div>
 
-  <%# START add reCAPTCHA %>
-    <%= recaptcha_tags site_key: ENV['RECAPTCHA_SITE_KEY'] %>
-  <%# END add reCAPTCHA %>
+  <script>
+    function onRecaptchaVerified(token) {
+      document.getElementById('signup-submit').disabled = false;
+    }
+    // Also enable after a timeout in case reCAPTCHA fails to load
+    setTimeout(function() {
+      var btn = document.getElementById('signup-submit');
+      if (btn.disabled) {
+        btn.disabled = false;
+      }
+    }, 5000);
+  </script>
 
 <% end %>
 
